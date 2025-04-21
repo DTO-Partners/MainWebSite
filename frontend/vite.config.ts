@@ -8,9 +8,11 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
+      '@': path.resolve(__dirname, "./src"),
       '@components': path.resolve(__dirname, './src/components'),
       '@locals': path.resolve(__dirname, './src/locals'),
       '@theme': path.resolve(__dirname, './src/theme'),
+      '@sections': path.resolve(__dirname, "./src/sections")
     },
   },
 })

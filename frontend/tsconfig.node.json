@@ -23,9 +23,11 @@
     /* Path aliases */
     "baseUrl": "./src",
     "paths": {
+      "@/*": ["./*"],
       "@components/*": ["components/*"],
       "@locals/*": ["locals/*"],
-      "@theme/*": ["theme/*"]
+      "@theme/*": ["theme/*"],
+      "@sections/*": ["sections/*"]
     }
   },
   "include": ["vite.config.ts"]

@@ -1,11 +1,19 @@
+// components
+import Navbar from "@components/NavBar"
+
+// sections
+import Hero from "@sections/Hero"
+
+//i18next
+import "@/lib/i18n";
+
 function App() {
 
   return (
-    <>
-      <div className="bg-red-600">
-        Initial Commit
-      </div>
-    </>
+    <div className="scroll-smooth">
+      <Navbar/>
+      <Hero/>
+    </div>
   )
 }
 
