@@ -10,8 +10,8 @@ const cardVariants = {
 export default function About() {
   return (
     <section
-      id="About"
-      className="min-h-screen flex flex-col justify-center bg-white text-black px-6 py-20"
+      id="AboutUs"
+      className="min-h-screen flex flex-col justify-center bg-[#f5f5f5] text-[#1a1a2e] px-6 py-20"
     >
       {/* Main Content */}
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center mb-20">
@@ -21,9 +21,14 @@ export default function About() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl font-bold mb-6 text-primary">
+          <h2 className="text-4xl font-bold mb-6 text-[#1a1a2e]">
             About DTO Partners
           </h2>
+
+          <span className="text-[#daa520] font-semibold">
+            international recruitment company
+          </span>
+
           <p className="text-lg leading-relaxed mb-4">
             DTO Partners is an international recruitment company headquartered
             in Poland since 2025. Our foundations were built by managers with
@@ -38,6 +43,22 @@ export default function About() {
             commitment to provide trustworthy and high-quality services tailored
             to your needs.
           </p>
+
+          <div className="flex gap-4 flex-wrap mt-6">
+            {[
+              "Founded in 2025",
+              "Registered in Poland",
+              "Multinational Team",
+              "Government Approved",
+            ].map((item) => (
+              <div
+                key={item}
+                className="bg-[#d3d3d3]/30 text-[#1a1a2e] border border-[#d3d3d3] px-4 py-2 rounded-full text-sm font-medium hover:bg-[#d3d3d3]/50 transition"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Image */}
@@ -64,62 +85,82 @@ export default function About() {
             variants={cardVariants}
             initial="hidden"
             whileInView="visible"
-            className="w-full bg-gradient-to-br from-[#f4f4f4] to-[#ffffff] border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-md transition-all"
+            whileHover={{
+              scale: 1.02,
+              boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+            }}
+            transition={{ type: "spring", stiffness: 100 }}
+            className="bg-white border border-[#ddd] rounded-xl p-8 shadow-sm transition-transform duration-300"
           >
-            <h3 className="text-2xl font-bold text-primary mb-4">
+            <h3 className="text-2xl font-bold text-[#1a1a2e] mb-4">
               Industries We Operate In
             </h3>
-            <p className="text-gray-700 mb-6">
+            <p className="text-[#708090] mb-6">
               We work across diverse sectors to help organizations access top
               talent that matches the unique dynamics of each industry.
             </p>
             <div className="space-y-3">
               {[
-                "Finance",
-                "Healthcare",
-                "IT & Cybersecurity",
-                "Hospitality",
-                "Food Engineering",
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="border-l-4 border-accent pl-4 py-2 text-lg font-medium hover:text-primary transition-colors"
+                { label: "Finance", icon: "💼" },
+                { label: "Healthcare", icon: "🩺" },
+                { label: "IT & Cybersecurity", icon: "🖥️" },
+                { label: "Hospitality", icon: "🏨" },
+                { label: "Food Engineering", icon: "🍽️" },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex items-center gap-3 border-l-4 border-[#daa520] pl-4 py-2 text-lg font-medium hover:text-[#008080] transition-colors"
                 >
-                  {item}
-                </div>
+                  <span className="text-xl">{item.icon}</span>
+                  {item.label}
+                </motion.div>
               ))}
             </div>
           </motion.div>
 
           {/* Languages Card */}
-          {/* Languages Section - Vertical, Underlined Style */}
           <motion.div
             variants={cardVariants}
             initial="hidden"
             whileInView="visible"
-            className="w-full bg-gradient-to-br from-[#f4f4f4] to-[#ffffff] border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-md transition-all"
+            whileHover={{
+              scale: 1.02,
+              boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+            }}
+            transition={{ type: "spring", stiffness: 100 }}
+            className="bg-white border border-[#ddd] rounded-xl p-8 shadow-sm transition-transform duration-300"
           >
-            <h3 className="text-2xl font-bold text-primary mb-4">
+            <h3 className="text-2xl font-bold text-[#1a1a2e] mb-4">
               Languages We Speak
             </h3>
-            <p className="text-gray-700 mb-6">
+            <p className="text-[#708090] mb-6">
               Our multicultural team ensures communication is clear and
               effective — whether you're local or global. We speak your
               language.
             </p>
-
             <ul className="space-y-4 text-lg font-medium">
-              {["English", "Polish", "Italian", "German", "Russian"].map(
-                (lang) => (
-                  <li
-                    key={lang}
-                    className="relative group w-fit text-gray-800 hover:text-primary cursor-default"
-                  >
-                    {lang}
-                    <span className="block h-[2px] w-0 group-hover:w-full bg-primary transition-all duration-300 ease-in-out"></span>
-                  </li>
-                )
-              )}
+              {[
+                { label: "English", icon: "🇬🇧" },
+                { label: "Polish", icon: "🇵🇱" },
+                { label: "Italian", icon: "🇮🇹" },
+                { label: "German", icon: "🇩🇪" },
+                { label: "Russian", icon: "🇷🇺" },
+              ].map((lang, i) => (
+                <motion.li
+                  key={lang.label}
+                  initial={{ opacity: 0, x: 10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex items-center gap-3 group w-fit text-[#333] hover:text-[#008080] cursor-default"
+                >
+                  <span className="text-xl">{lang.icon}</span>
+                  {lang.label}
+                  <span className="block h-[2px] w-0 group-hover:w-full bg-[#008080] transition-all duration-300 ease-in-out"></span>
+                </motion.li>
+              ))}
             </ul>
           </motion.div>
         </div>
