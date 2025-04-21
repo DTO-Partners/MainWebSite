@@ -18,7 +18,7 @@ export default function Hero() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 6000);
     return () => clearInterval(interval);
   }, []);
 
@@ -34,7 +34,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
             className="absolute w-full h-full object-cover"
           />
         </AnimatePresence>
@@ -62,7 +62,7 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
           >
-            Strategic Advisory for Business Transformation
+            A trusted Recruitment Firm, bridging Talents and Countries{" "}
           </motion.p>
 
           <motion.button
