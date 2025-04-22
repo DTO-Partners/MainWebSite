@@ -107,7 +107,7 @@ export default function InternationalReach() {
       </div>
 
       {/* Map & Industries Side-by-Side */}
-      <div className="flex flex-col lg:flex-row items-start justify-between max-w-7xl mx-auto gap-12">
+      <div className="flex flex-col lg:flex-row items-start justify-between max-w-7xl mx-auto h-full gap-12">
         {/* Map Card */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -123,13 +123,13 @@ export default function InternationalReach() {
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="w-full lg:w-1/3 space-y-6"
+          className="w-full h-full lg:w-1/3 space-y-6"
         >
-          <h4 className="text-2xl font-bold mb-6 text-left">
+          <h4 className="text-2xl font-bold mb-6 text-center">
             Industries by Country
           </h4>
 
-          <div className="grid gap-6">
+          <div className="flex flex-col justify-between h-full gap-6">
             {industries.map((industry) => (
               <motion.div
                 key={industry.title}
