@@ -3,17 +3,33 @@ import flagEN from "@/assets/flag-en.svg";
 import flagPL from "@/assets/flag-pl.png";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-scroll";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 750);
+    }
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [])
 
   const toggleLanguage = () => {
     i18n.changeLanguage(currentLang === "en" ? "pl" : "en");
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-md border-b border-white/20 text-white">
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-[#1a1a2e]/95 border-[#3e5c76] text-white"
+          : "bg-transparent text-white border-transparent"
+      } backdrop-blur-md border-b`}
+    >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <a href="#Hero" className="flex items-center gap-3">

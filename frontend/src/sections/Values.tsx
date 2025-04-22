@@ -47,7 +47,7 @@ const Values = () => {
   return (
     <section
       id="Values"
-      className="relative w-full bg-primary py-28 px-6 text-white overflow-hidden"
+      className="flex justify-center items-center relative w-full bg-primary py-28 px-6 text-white"
     >
       <div className="relative z-10 max-w-8xl mx-auto text-center">
         <motion.h3
@@ -66,7 +66,7 @@ const Values = () => {
           with our partners, candidates, and team.
         </p>
 
-        <div className="flex w-full gap-8 overflow-x-auto pb-4">
+        <div className="flex w-full gap-8 pb-4">
           {values.map((value, index) => (
             <InView triggerOnce threshold={0.2} key={value.title}>
               {({ inView, ref }) => (

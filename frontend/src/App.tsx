@@ -8,6 +8,7 @@ import Values from "./sections/Values";
 
 //i18next
 import "@/lib/i18n";
+import Markets from "./sections/Markets";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
       <Hero/>
       <About/>
       <Values/>
+      <Markets/>
     </div>
   )
 }
