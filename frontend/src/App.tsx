@@ -9,6 +9,7 @@ import Values from "./sections/Values";
 //i18next
 import "@/lib/i18n";
 import Markets from "./sections/Markets";
+import GDPRModal from "./components/GDPRModal";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
       <About/>
       <Values/>
       <Markets/>
+      <GDPRModal/>
     </div>
   )
 }

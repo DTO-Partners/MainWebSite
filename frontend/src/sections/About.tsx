@@ -105,7 +105,7 @@ export default function About() {
                 { label: "Healthcare", icon: "🩺" },
                 { label: "IT & Cybersecurity", icon: "🖥️" },
                 { label: "Hospitality", icon: "🏨" },
-                { label: "Food Engineering", icon: "🍽️" },
+                { label: "Food Engineering", icon: "" },
               ].map((item, i) => (
                 <motion.div
                   key={item.label}

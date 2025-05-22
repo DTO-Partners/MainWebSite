@@ -13,10 +13,10 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 750);
-    }
+    };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [])
+  }, []);
 
   const toggleLanguage = () => {
     i18n.changeLanguage(currentLang === "en" ? "pl" : "en");
@@ -31,14 +31,16 @@ export default function Navbar() {
       } backdrop-blur-md border-b`}
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <a href="#Hero" className="flex items-center gap-3">
+        {/* Logo and Company Name */}
+        <a href="#Hero" className="flex items-center gap-4">
           <img
             src={logo}
             alt="DTO Partners Logo"
-            className="w-10 h-10 object-contain"
+            className="w-16 h-16 object-contain" 
           />
-          <span className="text-xl font-bold tracking-tight">DTO Partners</span>
+          <span className="text-2xl font-extrabold tracking-tight text-accent">
+            DTO Partners
+          </span>
         </a>
 
         {/* Navigation */}
@@ -47,7 +49,7 @@ export default function Navbar() {
             { label: t("nav.aboutus"), id: "AboutUs" },
             { label: t("nav.markets"), id: "Markets" },
             { label: t("nav.candidates"), id: "Candidates" },
-            { label: t("nav.employees"), id: "Employees" },
+            { label: t("nav.employers"), id: "Employers" },
             { label: t("nav.contact"), id: "Contact" },
           ].map((link) => (
             <li key={link.id}>
@@ -66,7 +68,7 @@ export default function Navbar() {
         {/* Language Toggle */}
         <button
           onClick={toggleLanguage}
-          className="ml-6 w-8 h-8 rounded-full overflow-hidden border border-white/20 hover:ring-2 ring-accent transition"
+          className="ml-6 w-10 h-10 rounded-full overflow-hidden border border-white/20 hover:ring-2 ring-accent transition"
           title="Toggle Language"
         >
           <img

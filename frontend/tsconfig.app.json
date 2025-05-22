@@ -7,6 +7,11 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -29,7 +34,8 @@
       "@components/*": ["components/*"],
       "@locals/*": ["locals/*"],
       "@theme/*": ["theme/*"],
-      "@sections/*": ["sections/*"]
+      "@sections/*": ["sections/*"],
+      "@public/*": ["../public/*"]
     }
   },
   "include": ["src"]

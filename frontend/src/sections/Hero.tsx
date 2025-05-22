@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 // Import your images
 import img1 from "@/assets/pic_one.png";
@@ -24,20 +24,19 @@ export default function Hero() {
 
   return (
     <section id="Hero" className="relative min-h-screen overflow-hidden">
-      {/* Background Image with smooth fade */}
+      {/* Background Images */}
       <div className="absolute inset-0 z-0">
-        <AnimatePresence mode="wait">
+        {slides.map((slide, index) => (
           <motion.img
-            key={slides[current]}
-            src={slides[current]}
-            alt="Hero background"
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            key={index}
+            src={slide}
+            alt={`Slide ${index + 1}`}
             className="absolute w-full h-full object-cover"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: current === index ? 1 : 0 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
           />
-        </AnimatePresence>
+        ))}
       </div>
 
       {/* Overlay Content */}
