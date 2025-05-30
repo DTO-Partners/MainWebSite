@@ -14,19 +14,22 @@ export default function WorldMapComponent() {
     <div className="w-full">
       <div className="bg-white/60 backdrop-blur-lg border border-[#ddd] rounded-2xl shadow-xl px-8 py-10 transition-all hover:shadow-2xl duration-300">
         <div className="text-left mb-6">
-          <h3 className="text-xl font-semibold text-[#1a1a2e] mb-1">Partner Countries</h3>
+          <h3 className="text-xl font-semibold text-[#1a1a2e] mb-1">
+            Partner Countries
+          </h3>
           <p className="text-sm text-[#708090]">
             Click on a country to learn more about our partnerships there.
           </p>
         </div>
 
-        <div className="overflow-hidden rounded-xl">
+        <div className="flex items-center max-h-[36rem] max-w-[36rem] justify-center overflow-hidden rounded-xl">
           <WorldMap
             title=""
             valueSuffix=""
             color="#daa520"
-            size="responsive"
+            size={2000}
             data={data}
+            frame
             richInteraction
             tooltipTextFunction={() => `Partnership Available`}
             onClickFunction={({ countryName }) =>
@@ -36,12 +39,49 @@ export default function WorldMapComponent() {
               const country = data.find(
                 (d) => d.country.toLowerCase() === geo.countryCode.toLowerCase()
               );
+              // List of visible country codes (selected + all EU codes)
+              const visible = [
+                ...data.map((d) => d.country),
+                "at",
+                "be",
+                "bg",
+                "hr",
+                "cy",
+                "cz",
+                "dk",
+                "ee",
+                "es",
+                "fi",
+                "fr",
+                "gr",
+                "hu",
+                "it",
+                "lt",
+                "lv",
+                "mt",
+                "nl",
+                "pt",
+                "ro",
+                "se",
+                "si",
+                "sk",
+                "lu",
+                // add others as needed
+              ];
+              // Make others transparent
+              if (!visible.includes(geo.countryCode.toLowerCase())) {
+                return {
+                  display: "none",
+                  cursor: "default",
+                  pointerEvents: "none",
+                };
+              }
               return {
-                fill: country ? country.color : "#f5f5f5",
+                fill: country ? country.color : "#e2e2e2",
                 stroke: country ? "#1a1a2e" : "#ccc",
                 strokeWidth: country ? 1.2 : 0.5,
                 cursor: country ? "pointer" : "default",
-                transition: "all 0.3s ease-in-out",
+                transition: "all 0.3s",
               };
             }}
           />

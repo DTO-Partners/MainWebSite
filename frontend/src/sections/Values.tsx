@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { InView } from "react-intersection-observer";
 import { FaLock, FaGlobe, FaBolt, FaSearch, FaLanguage } from "react-icons/fa";
 
+// Data
 const values = [
   {
     title: "Confidentiality",
@@ -43,59 +45,145 @@ const iconMap = {
   Internationalization: <FaGlobe />,
 };
 
+const cardVariants = {
+  initial: { opacity: 0, y: 30, scale: 0.98 },
+  inView: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 80 },
+  },
+  hover: { scale: 1.05, boxShadow: "0 8px 36px 0 #fff7d440" },
+  tap: { scale: 0.97 },
+};
+
 const Values = () => {
+  // Track active/expanded card (for more details or just highlight)
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
+
   return (
     <section
       id="Values"
-      className="flex justify-center items-center relative w-full bg-primary py-28 px-6 text-white"
+      className="flex justify-center items-center relative w-full bg-gradient-to-br from-[#1a1a2e] via-[#15162c] to-[#243046] py-28 px-6 text-white"
     >
       <div className="relative z-10 max-w-8xl mx-auto text-center">
         <motion.h3
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl font-bold mb-2"
+          className="text-4xl font-extrabold mb-2 tracking-tight"
         >
           Our Values
         </motion.h3>
-
-        <div className="h-[2px] w-16 bg-accent mx-auto mb-6" />
-
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          transition={{ duration: 0.5 }}
+          className="origin-left h-[3px] w-24 bg-gradient-to-r from-[#daa520] to-[#fff7d4] mx-auto rounded mb-6"
+        />
         <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto mb-16">
           These five values define who we are, how we work, and how we grow —
           with our partners, candidates, and team.
         </p>
 
-        <div className="flex w-full gap-8 pb-4">
+        {/* Responsive: Scrollable slider on mobile */}
+        <div
+          className="flex w-full gap-6 pb-4 min-h-fit md:overflow-x-visible md:scrollbar-none overflow-x-auto scrollbar-thin scrollbar-thumb-[#daa520]/40 scrollbar-track-[#222235] snap-x md:justify-center"
+        >
           {values.map((value, index) => (
-            <InView triggerOnce threshold={0.2} key={value.title}>
+            <InView triggerOnce threshold={0.25} key={value.title}>
               {({ inView, ref }) => (
                 <motion.div
                   ref={ref}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className="min-w-[280px] max-w-[300px] flex-shrink-0 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-lg hover:shadow-2xl transition duration-300"
+                  variants={cardVariants}
+                  initial="initial"
+                  animate={inView ? "inView" : "initial"}
+                  whileHover="hover"
+                  whileTap="tap"
+                  tabIndex={0}
+                  onClick={() =>
+                    setActiveIdx(activeIdx === index ? null : index)
+                  }
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ")
+                      setActiveIdx(activeIdx === index ? null : index);
+                  }}
+                  aria-expanded={activeIdx === index}
+                  className={`
+                    min-w-[280px] max-w-[300px] flex-shrink-0 
+                    bg-white/10 backdrop-blur-md border border-[#fff7d4]/10
+                    rounded-2xl p-4 shadow-lg hover:shadow-2xl transition-all duration-300 
+                    cursor-pointer group outline-none
+                    ${
+                      activeIdx === index
+                        ? "ring-2 ring-[#daa520] scale-105 z-20"
+                        : ""
+                    }
+                    snap-center
+                  `}
+                  style={{
+                    boxShadow:
+                      activeIdx === index
+                        ? "0 8px 44px 0 #daa52050"
+                        : undefined,
+                  }}
                 >
-                  <div className="mb-4">
-                    <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center text-2xl text-accent mb-3">
-                      {iconMap[value.title as keyof typeof iconMap]}
-                    </div>
-                    <h4 className="text-xl font-semibold text-white mb-1">
-                      {value.title}
-                    </h4>
-                    <p className="text-gray-400 text-sm italic mb-2">
-                      {value.subtitle}
-                    </p>
-                  </div>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    {value.description}
+                  <motion.div
+                    className={`w-14 h-14 bg-[#fff7d4]/30 rounded-full flex items-center justify-center text-3xl mb-4 mx-auto group-hover:bg-[#daa520]/30 transition-all duration-200`}
+                    animate={
+                      activeIdx === index ? { rotate: 20 } : { rotate: 0 }
+                    }
+                  >
+                    {iconMap[value.title as keyof typeof iconMap]}
+                  </motion.div>
+                  <h4 className="text-xl font-semibold text-white mb-1">
+                    {value.title}
+                  </h4>
+                  <p className="text-[#daa520] text-sm italic mb-3">
+                    {value.subtitle}
                   </p>
+                  <motion.p
+                    className={`text-gray-200 text-sm leading-relaxed transition-all duration-300
+                      ${
+                        activeIdx === index
+                          ? "line-clamp-none mt-2"
+                          : "line-clamp-3"
+                      }
+                    `}
+                    animate={
+                      activeIdx === index ? { opacity: 1 } : { opacity: 0.92 }
+                    }
+                  >
+                    {value.description}
+                  </motion.p>
+                  {activeIdx === index && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="mt-4 text-xs text-[#fff7d4] font-semibold"
+                    >
+                      Click/tap or press <kbd>Enter</kbd> to close
+                    </motion.div>
+                  )}
                 </motion.div>
               )}
             </InView>
           ))}
         </div>
+        {/* (Optional) Custom scrollbar style */}
+        {/* <style>{`
+          .scrollbar-thin::-webkit-scrollbar {
+            height: 6px;
+          }
+          .scrollbar-thin::-webkit-scrollbar-thumb {
+            background: #daa52044;
+            border-radius: 8px;
+          }
+          .scrollbar-thin::-webkit-scrollbar-track {
+            background: #222235;
+          }
+        `}</style> */}
       </div>
     </section>
   );
