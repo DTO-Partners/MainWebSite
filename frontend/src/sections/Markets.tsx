@@ -46,11 +46,12 @@ export default function InternationalReach() {
 
   // For demo: track hovered country for interactive map (expand as needed)
   const [hoveredCountry, setHoveredCountry] = useState<null | string>(null);
+  const [selectedCountry, setSelectedCountry] = useState<null | string>(null);
 
   return (
     <section
       id="Markets"
-      className="bg-gradient-to-br from-[#fdf6e3] to-[#f5f7fa] text-[#1a1a2e] py-24 px-4 sm:px-10 space-y-24"
+      className="bg-gradient-to-br from-[#fdf6e3] to-[#f5f7fa] text-[#1a1a2e] py-24 px-4 sm:px-10 space-y-24 animate-fadeIn"
     >
       {/* Section Heading */}
       <div className="max-w-5xl mx-auto text-center">
@@ -108,16 +109,19 @@ export default function InternationalReach() {
                     <motion.div
                       whileHover={{
                         scale: 1.08,
-                        boxShadow: "0 6px 32px #daa52022",
+                        boxShadow: "0 6px 32px #daa52044",
+                        borderColor: "#daa520",
                       }}
                       whileTap={{ scale: 0.96 }}
                       onMouseLeave={() => setHoveredCountry(null)}
-                      className="bg-[#f5f5f5] border border-[#eee] rounded-2xl p-4 shadow-sm flex flex-col items-center transition-all hover:shadow-xl hover:ring-2 hover:ring-[#daa520] cursor-pointer"
+                      onClick={() => setSelectedCountry(country.name)}
+                      className="bg-[#f5f5f5] border border-[#eee] rounded-2xl p-4 shadow-sm flex flex-col items-center transition-all hover:shadow-xl hover:ring-2 hover:ring-[#daa520] cursor-pointer group"
+                      style={{ transition: 'box-shadow 0.3s, border-color 0.3s' }}
                     >
                       <img
                         src={`/flags/${country.code}.${country.type}`}
                         alt={country.name}
-                        className="w-10 h-7 object-cover rounded mb-2"
+                        className="w-10 h-7 object-cover rounded mb-2 group-hover:scale-110 transition-transform duration-200"
                       />
                       <span className="text-sm font-medium text-[#1a1a2e]">
                         {country.name}
@@ -137,6 +141,46 @@ export default function InternationalReach() {
         </motion.div>
       </div>
 
+      {/* Country Modal */}
+      {selectedCountry && (
+        <div className="fixed inset-0 h-full z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white rounded-2xl shadow-2xl border-2 border-[#daa520] max-w-md w-full mx-4 p-8 relative">
+            <button
+              className="absolute top-4 right-4 text-[#daa520] bg-[#fff7d4] rounded-full p-2 hover:bg-[#daa520] hover:text-[#fff7d4] transition border border-[#daa520]"
+              onClick={() => setSelectedCountry(null)}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            <div className="flex flex-col items-center mb-4">
+              <img
+                src={`/flags/${countries.find(c => c.name === selectedCountry)?.code}.${countries.find(c => c.name === selectedCountry)?.type}`}
+                alt={selectedCountry}
+                className="w-14 h-10 object-cover rounded mb-2 border border-[#daa520]"
+              />
+              <h3 className="text-2xl font-bold text-[#1a1a2e] mb-1">{selectedCountry}</h3>
+              <div className="text-[#daa520] text-sm font-medium mb-2">Industries</div>
+            </div>
+            <div className="grid grid-cols-1 gap-2">
+              {industries.filter(i => i.countries.includes(selectedCountry)).map(i => (
+                <div key={i.title} className="flex items-center gap-2 bg-[#f5f5f5] rounded-lg px-3 py-2 border border-[#eee]">
+                  <span className="text-lg">{{
+                    Finance: "💰",
+                    "IT & Cybersecurity": "🖥️",
+                    Healthcare: "🩺",
+                    Hospitality: "🏨",
+                  }[i.title] || "🌍"}</span>
+                  <span className="text-[#1a1a2e] font-semibold">{i.title}</span>
+                </div>
+              ))}
+              {industries.filter(i => i.countries.includes(selectedCountry)).length === 0 && (
+                <div className="text-[#708090] text-center">No industries listed for this country.</div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Map & Industries Side-by-Side */}
       <div className="flex flex-col lg:flex-row items-start justify-between max-w-7xl mx-auto h-full gap-12">
         {/* Map Card */}
@@ -144,10 +188,10 @@ export default function InternationalReach() {
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
+          whileHover={{ boxShadow: "0 0 0 4px #daa52055" }}
           className="w-full lg:w-2/3 bg-white/80 backdrop-blur-lg border border-[#ddd] rounded-2xl shadow-2xl p-8 transition-all"
         >
-          {/* Pass hoveredCountry as prop for interactive highlight (optional) */}
-          <WorldMapComponent highlightCountry={hoveredCountry} />
+          <WorldMapComponent />
         </motion.div>
 
         {/* Industries Accordion */}
@@ -163,7 +207,7 @@ export default function InternationalReach() {
           <Accordion type="multiple" className="space-y-3">
             {industries.map((industry) => (
               <AccordionItem key={industry.title} value={industry.title}>
-                <AccordionTrigger className="text-lg font-semibold flex items-center gap-2">
+                <AccordionTrigger value={industry.title} className="text-lg font-semibold flex items-center gap-2">
                   <span>
                     {{
                       Finance: "💰",
