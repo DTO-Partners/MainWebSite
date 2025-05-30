@@ -45,7 +45,7 @@ export default function InternationalReach() {
   ];
 
   // For demo: track hovered country for interactive map (expand as needed)
-  const [hoveredCountry, setHoveredCountry] = useState<null | string>(null);
+  const [_, setHoveredCountry] = useState<null | string>(null);
   const [selectedCountry, setSelectedCountry] = useState<null | string>(null);
 
   return (
