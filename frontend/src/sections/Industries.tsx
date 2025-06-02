@@ -98,14 +98,100 @@ export default function Component() {
       }} />
 
       <section className="relative py-24 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto">
-        {/* Overlay for expanded card */}
+        {/* Backdrop overlay for expanded card */}
         {expandedCard !== null && (
           <div
-            className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm flex items-center justify-center"
+            className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
             onClick={() => setExpandedCard(null)}
-          />
+          >
+            <div 
+              className="w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Expanded card content */}
+              {(() => {
+                const industry = industries[expandedCard];
+                const IconComponent = industry.icon;
+                return (
+                  <div className="relative bg-gradient-to-br from-[#15162c]/95 via-[#1a1a2e]/95 to-[#243046]/95 backdrop-blur-xl border-2 border-[#daa520]/50 rounded-3xl shadow-2xl shadow-[#daa520]/30 overflow-hidden">
+                    {/* Close button */}
+                    <motion.button
+                      initial={{ opacity: 0, scale: 0.8, rotate: -90 }}
+                      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                      whileHover={{ scale: 1.1, rotate: 90 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      className="absolute top-6 right-6 text-[#daa520] bg-gradient-to-br from-[#15162c]/95 to-[#1a1a2e]/95 backdrop-blur-md rounded-full p-3 hover:bg-gradient-to-br hover:from-[#daa520] hover:to-[#fff7d4] hover:text-[#15162c] transition-all duration-300 z-50 border-2 border-[#daa520]/60 hover:border-[#fff7d4] shadow-xl hover:shadow-2xl hover:shadow-[#daa520]/40 group/close"
+                      onClick={() => setExpandedCard(null)}
+                      aria-label="Close"
+                    >
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover/close:rotate-90">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </motion.button>
+
+                    {/* Enhanced gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#daa520]/5 via-[#daa520]/3 to-[#fff7d4]/8" />
+                    
+                    {/* Decorative elements */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#daa520]/15 to-transparent rounded-bl-[3rem]" />
+                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#fff7d4]/10 to-transparent rounded-tr-[2rem]" />
+                    
+                    <div className="relative p-8 md:p-10 z-10">
+                      <div className="space-y-8">
+                        {/* Header */}
+                        <div className="flex items-start space-x-6">
+                          <div className="flex-shrink-0">
+                            <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-[#fff7d4]/20 to-[#daa520]/15 border-2 border-[#daa520]/40 flex items-center justify-center shadow-xl shadow-[#daa520]/20 backdrop-blur-sm">
+                              <IconComponent className="w-10 h-10 text-[#daa520]" />
+                            </div>
+                          </div>
+                          <div className="flex-1 min-w-0 space-y-4">
+                            <h3 className="text-3xl md:text-4xl font-light text-white leading-tight tracking-wide">
+                              {industry.title}
+                            </h3>
+                            <div className="text-[#daa520] text-lg font-medium tracking-wide">
+                              {industry.subtitle}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Description */}
+                        <div className="text-[#fff7d4]/90 text-base md:text-lg leading-relaxed font-light">
+                          {industry.description}
+                        </div>
+                        
+                        {/* Detailed Services */}
+                        <div className="space-y-4">
+                          <h4 className="text-xl font-medium text-[#daa520] mb-4">Detailed Services</h4>
+                          <div className="space-y-3">
+                            {industry.services.map((service, serviceIndex) => (
+                              <motion.div
+                                key={serviceIndex}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.3, delay: serviceIndex * 0.05 }}
+                                className="flex items-start space-x-3 p-4 rounded-xl bg-gradient-to-r from-[#fff7d4]/8 to-[#daa520]/8 border border-[#daa520]/25 hover:border-[#daa520]/40 transition-all duration-300"
+                              >
+                                <span className="inline-block w-2.5 h-2.5 bg-[#daa520] rounded-full mt-2 flex-shrink-0" />
+                                <span className="text-sm md:text-base text-[#fff7d4]/95 leading-relaxed">
+                                  {service}
+                                </span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+          </div>
         )}
-        <div className="text-center mb-20 relative z-50">
+
+        {/* Header Section */}
+        <div className="text-center mb-20 relative z-10">
           <div className="inline-block mb-6">
             <Badge
               variant="outline"
@@ -141,31 +227,23 @@ export default function Component() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 relative z-0">
+        {/* First 4 Industries Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 relative z-10">
           {industries.slice(0, 4).map((industry, index) => {
             const IconComponent = industry.icon;
-            const isExpanded = expandedCard === index;
             return (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
-                className={`transition-all duration-700 ${
-                  isExpanded
-                    ? "fixed z-50 left-1/2 top-1/2 w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 scale-105"
-                    : "relative"
-                }`}
-                style={isExpanded ? { pointerEvents: "auto" } : {}}
+                className="relative"
               >
                 <Card
-                  className={`group relative bg-gradient-to-br from-[#15162c]/90 via-[#1a1a2e]/95 to-[#243046]/90 backdrop-blur-xl border border-[#daa520]/15 hover:border-[#daa520]/40 transition-all duration-700 hover:shadow-2xl hover:shadow-[#daa520]/20 cursor-pointer overflow-hidden ${
-                    isExpanded ? "ring-2 ring-[#daa520]/50 shadow-2xl shadow-[#daa520]/30" : ""
-                  } h-full min-h-[420px] flex flex-col transform hover:scale-[1.02] hover:-translate-y-1`}
+                  className="group relative bg-gradient-to-br from-[#15162c]/90 via-[#1a1a2e]/95 to-[#243046]/90 backdrop-blur-xl border border-[#daa520]/15 hover:border-[#daa520]/40 transition-all duration-700 hover:shadow-2xl hover:shadow-[#daa520]/20 cursor-pointer overflow-hidden h-full min-h-[420px] flex flex-col transform hover:scale-[1.02] hover:-translate-y-1"
                   onMouseEnter={() => setHoveredCard(index)}
                   onMouseLeave={() => setHoveredCard(null)}
                   onClick={() => setExpandedCard(index)}
-                  style={isExpanded ? { pointerEvents: "auto" } : {}}
                 >
                   {/* Enhanced gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-[#daa520]/0 via-[#daa520]/3 to-[#fff7d4]/8 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -234,26 +312,6 @@ export default function Component() {
                         </motion.div>
                       </div>
                     </div>
-
-                    {isExpanded && (
-                      <motion.button
-                        initial={{ opacity: 0, scale: 0.8, rotate: -90 }}
-                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                        whileHover={{ scale: 1.1, rotate: 90 }}
-                        whileTap={{ scale: 0.95 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                        className="absolute top-6 right-6 text-[#daa520] bg-gradient-to-br from-[#15162c]/95 to-[#1a1a2e]/95 backdrop-blur-md rounded-full p-3 hover:bg-gradient-to-br hover:from-[#daa520] hover:to-[#fff7d4] hover:text-[#15162c] transition-all duration-300 z-50 border-2 border-[#daa520]/60 hover:border-[#fff7d4] shadow-xl hover:shadow-2xl hover:shadow-[#daa520]/40 group/close"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setExpandedCard(null);
-                        }}
-                        aria-label="Close"
-                      >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover/close:rotate-90">
-                          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </motion.button>
-                    )}
                   </CardContent>
                 </Card>
               </motion.div>
@@ -271,6 +329,7 @@ export default function Component() {
             className="group relative bg-gradient-to-br from-[#15162c] via-[#1a1a2e] to-[#243046] backdrop-blur-sm border border-[#daa520]/20 hover:border-[#daa520]/60 transition-all duration-700 hover:shadow-2xl hover:shadow-[#daa520]/25 cursor-pointer overflow-hidden transform hover:scale-[1.01]"
             onMouseEnter={() => setHoveredCard(4)}
             onMouseLeave={() => setHoveredCard(null)}
+            onClick={() => setExpandedCard(4)}
           >
             {/* Animated background layers */}
             <div className="absolute inset-0 bg-gradient-to-br from-[#daa520]/0 via-[#daa520]/8 to-[#fff7d4]/12 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />

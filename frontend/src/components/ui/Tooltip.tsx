@@ -1,4 +1,3 @@
-// src/components/ui/Tooltip.tsx
 import { ReactNode } from "react";
 
 interface TooltipProviderProps {

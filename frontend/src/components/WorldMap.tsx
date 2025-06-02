@@ -62,6 +62,10 @@ const data = [
 export default function WorldMapComponent() {
   const [selectedCountry, setSelectedCountry] = useState<typeof data[0] | null>(null);
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [panPosition, setPanPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 
   const handleCountryClick = (countryCode: string) => {
     const country = data.find(d => d.country.toLowerCase() === countryCode.toLowerCase());
@@ -72,6 +76,49 @@ export default function WorldMapComponent() {
 
   const handleCountryHover = (countryCode: string | null) => {
     setHoveredCountry(countryCode);
+  };
+
+  // Zoom and pan handlers
+  const handleZoomIn = () => {
+    setZoomLevel(prev => Math.min(prev + 0.2, 3));
+  };
+
+  const handleZoomOut = () => {
+    setZoomLevel(prev => Math.max(prev - 0.2, 0.5));
+  };
+
+  const handleResetView = () => {
+    setZoomLevel(1);
+    setPanPosition({ x: 0, y: 0 });
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (e.button === 0) { // Left mouse button
+      setIsDragging(true);
+      setDragStart({
+        x: e.clientX - panPosition.x,
+        y: e.clientY - panPosition.y
+      });
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isDragging) {
+      setPanPosition({
+        x: e.clientX - dragStart.x,
+        y: e.clientY - dragStart.y
+      });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleWheel = (e: React.WheelEvent) => {
+    e.preventDefault();
+    const delta = e.deltaY * -0.001;
+    setZoomLevel(prev => Math.max(0.5, Math.min(3, prev + delta)));
   };
 
   return (
@@ -106,14 +153,57 @@ export default function WorldMapComponent() {
 
         {/* World Map Container */}
         <div 
-          className="relative flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-[#f8fafc] to-[#fdf6e3]/50 border border-[#daa520]/20 p-6"
+          className="relative flex items-center justify-center max-h-64 overflow-hidden rounded-2xl bg-gradient-to-br from-[#f8fafc] to-[#fdf6e3]/50 border border-[#daa520]/20 p-6"
         >
-          <div className="max-h-[28rem] max-w-[28rem] w-full">
+          {/* Zoom Controls */}
+          <div className="absolute top-4 left-4 flex flex-col gap-2 z-20">
+            <button
+              onClick={handleZoomIn}
+              className="w-8 h-8 bg-white/90 hover:bg-white border border-[#daa520]/30 hover:border-[#daa520] rounded-lg flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md"
+              title="Zoom In"
+            >
+              <svg className="w-4 h-4 text-[#1a1a2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+            </button>
+            <button
+              onClick={handleZoomOut}
+              className="w-8 h-8 bg-white/90 hover:bg-white border border-[#daa520]/30 hover:border-[#daa520] rounded-lg flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md"
+              title="Zoom Out"
+            >
+              <svg className="w-4 h-4 text-[#1a1a2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 12H6" />
+              </svg>
+            </button>
+            <button
+              onClick={handleResetView}
+              className="w-8 h-8 bg-white/90 hover:bg-white border border-[#daa520]/30 hover:border-[#daa520] rounded-lg flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md"
+              title="Reset View"
+            >
+              <svg className="w-4 h-4 text-[#1a1a2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Map Container with zoom and pan */}
+          <div 
+            className="w-full h-full cursor-grab active:cursor-grabbing select-none"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            onWheel={handleWheel}
+            style={{
+              transform: `scale(${zoomLevel}) translate(${panPosition.x / zoomLevel}px, ${panPosition.y / zoomLevel}px)`,
+              transition: isDragging ? 'none' : 'transform 0.2s ease-out'
+            }}
+          >
             <WorldMap
               title=""
               valueSuffix=""
               color="#daa520"
-              size={1800}
+              size={600}
               data={data}
               frame={false}
               richInteraction
@@ -167,10 +257,17 @@ export default function WorldMapComponent() {
           </div>
           
           {/* Floating stats */}
-          <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm border border-[#daa520]/20 rounded-2xl px-4 py-3 shadow-lg">
+          <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm border border-[#daa520]/20 rounded-2xl px-4 py-3 shadow-lg z-10">
             <div className="text-center">
               <div className="text-2xl font-bold text-[#daa520]">{data.length}</div>
               <div className="text-xs text-[#708090] font-medium">Partner Countries</div>
+            </div>
+          </div>
+
+          {/* Zoom level indicator */}
+          <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm border border-[#daa520]/20 rounded-xl px-3 py-2 shadow-lg z-10">
+            <div className="text-xs text-[#708090] font-medium">
+              Zoom: {Math.round(zoomLevel * 100)}%
             </div>
           </div>
         </div>

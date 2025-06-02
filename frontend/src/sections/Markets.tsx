@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/Accordion";
 import {
   Tooltip,
-  TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/Tooltip";
@@ -154,12 +153,6 @@ export default function InternationalReach() {
                       </motion.div>
                     </motion.div>
                   </TooltipTrigger>
-                  <TooltipContent className="bg-gradient-to-r from-[#1a1a2e] to-[#243046] text-white rounded-2xl px-6 py-3 text-sm shadow-xl border border-[#daa520]/30" show>
-                    <div className="flex flex-col items-center space-y-1">
-                      <strong className="text-[#fff7d4] text-base">{country.name}</strong>
-                      <span className="text-[#daa520] text-xs">Click to explore</span>
-                    </div>
-                  </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             ))}
