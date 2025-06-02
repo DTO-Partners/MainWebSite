@@ -1,9 +1,62 @@
 {
-    "nav": {
-      "aboutus": "About Us",
-      "markets": "Markets & Industries",
-      "Candidates&Employers": "Candidates & Employers",
-      "contact": "Contact"
+  "nav": {
+    "aboutus": "About Us",
+    "markets": "Markets & Industries",
+    "Candidates&Employers": "Candidates & Employers",
+    "contact": "Contact"
+  },
+  "apply": {
+    "title": "Apply",
+    "subtitle": "If you have any questions or require further assistance, please contact us.",
+    "forEmployers": {
+      "badge": "For Employers",
+      "title": "Partner with DTO PARTNERS",
+      "description": "For clients interested in our specialized recruitment services, we invite you to reach out to us directly at",
+      "email": "business@dtopartners.com",
+      "details": "Our dedicated team is committed to understanding your unique hiring needs and delivering tailored solutions with efficiency and discretion. We look forward to partnering with you to secure top-tier talent that drives your organization's success."
+    },
+    "forCandidates": {
+      "badge": "For Candidates",
+      "title": "Your Career, Our Priority",
+      "description": "Job openings are by policy not publicly disclosed. We proactively connect with candidates through our established network and direct outreach, ensuring a personalized service depending on client needs.",
+      "gdprInfo": "At DTO Partners we prioritize data protection and confidentiality. When contacting a candidate about a client mandate, we require your explicit consent to share your CV, in full compliance with GDPR and all applicable data protection legislation.",
+      "formNote": "Candidates must also complete the form below with additional details for best profiling."
+    },
+    "contact": {
+      "candidates": "For candidates",
+      "business": "For customers and commercial inquiries",
+      "general": "For general questions"
+    },
+    "form": {
+      "title": "Application Form",
+      "fields": {
+        "name": "Name and surname*",
+        "namePlaceholder": "Enter your full name",
+        "email": "E-mail*",
+        "emailPlaceholder": "your.email@example.com",
+        "nationality": "Nationality",
+        "nationalityPlaceholder": "Your nationality",
+        "phone": "Phone*",
+        "phonePlaceholder": "+00 000 000 000",
+        "workAuth": "Are you currently legally authorized to work in the country where the job is located?",
+        "assistance": "If not, would you require assistance from the hiring company to obtain the necessary legal documentation/visa for employment?",
+        "additionalInfo": "Additional Information",
+        "additionalPlaceholder": "Tell us more about yourself and your experience...",
+        "uploadCV": "Upload CV/Resume",
+        "fileUpload": "Choose file (PDF, DOC, DOCX)",
+        "browse": "Browse"
+      },
+      "options": {
+        "yes": "Yes",
+        "no": "No",
+        "notApplicable": "Not applicable",
+        "selectOption": "Select an option"
+      },
+      "consent": "I consent to the processing of my personal data by DTO Partners Sp. z o.o. for the purpose of responding to and handling the submitted inquiry. I acknowledge that I have the right to access my data, the possibility of correcting it and requesting that it no longer be processed. The data administrator is DTO Partners Sp. z o.o. ul. Jana Heweliusza 11 lok. 811 80-890 Gdańsk, NIP 5833531476. Information on the processing of your personal data can be found in our",
+      "privacyPolicy": "privacy policy",
+      "submit": "SEND APPLICATION",
+      "sending": "Sending..."
     }
   }
+}
   

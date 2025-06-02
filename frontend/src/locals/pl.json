@@ -1,10 +1,62 @@
 {
-    "nav": {
-      "aboutus": "O nas",
-      "markets": "Rynki i Branże",
-      "candidates": "Kandydaci",
-      "employers": "Pracownicy",
-      "contact": "Kontakt"
+  "nav": {
+    "aboutus": "O nas",
+    "markets": "Rynki i Branże",
+    "Candidates&Employers": "Kandydaci i Pracodawcy",
+    "contact": "Kontakt"
+  },
+  "apply": {
+    "title": "Aplikuj",
+    "subtitle": "Jeśli masz jakiekolwiek pytania lub potrzebujesz dalszej pomocy, skontaktuj się z nami.",
+    "forEmployers": {
+      "badge": "Dla Pracodawców",
+      "title": "Partnerstwo z DTO PARTNERS",
+      "description": "Klientów zainteresowanych naszymi specjalistycznymi usługami rekrutacyjnymi zapraszamy do bezpośredniego kontaktu pod adresem",
+      "email": "business@dtopartners.com",
+      "details": "Nasz zespół jest zaangażowany w zrozumienie Twoich unikalnych potrzeb rekrutacyjnych i dostarczanie dostosowanych rozwiązań z wydajnością i dyskrecją. Oczekujemy współpracy z Tobą w celu pozyskania najlepszych talentów, które będą napędzać sukces Twojej organizacji."
+    },
+    "forCandidates": {
+      "badge": "Dla Kandydatów",
+      "title": "Twoja Kariera, Nasz Priorytet",
+      "description": "Oferty pracy z zasady nie są publicznie ujawniane. Proaktywnie łączymy się z kandydatami poprzez naszą ustaloną sieć i bezpośredni kontakt, zapewniając spersonalizowaną obsługę w zależności od potrzeb klienta.",
+      "gdprInfo": "W DTO Partners priorytetem jest ochrona danych i poufność. Kontaktując się z kandydatem w sprawie mandatu klienta, wymagamy Twojej wyraźnej zgody na udostępnienie CV, w pełnej zgodności z RODO i wszystkimi obowiązującymi przepisami o ochronie danych.",
+      "formNote": "Kandydaci muszą również wypełnić poniższy formularz z dodatkowymi szczegółami w celu najlepszego profilowania."
+    },
+    "contact": {
+      "candidates": "Dla kandydatów",
+      "business": "Dla klientów i zapytań handlowych",
+      "general": "Dla pytań ogólnych"
+    },
+    "form": {
+      "title": "Formularz Aplikacyjny",
+      "fields": {
+        "name": "Imię i nazwisko*",
+        "namePlaceholder": "Wprowadź swoje pełne imię i nazwisko",
+        "email": "E-mail*",
+        "emailPlaceholder": "twoj.email@przyklad.com",
+        "nationality": "Narodowość",
+        "nationalityPlaceholder": "Twoja narodowość",
+        "phone": "Telefon*",
+        "phonePlaceholder": "+48 000 000 000",
+        "workAuth": "Czy jesteś obecnie prawnie upoważniony do pracy w kraju, w którym znajduje się stanowisko?",
+        "assistance": "Jeśli nie, czy potrzebujesz pomocy od firmy zatrudniającej w uzyskaniu niezbędnej dokumentacji prawnej/wizy do zatrudnienia?",
+        "additionalInfo": "Dodatkowe Informacje",
+        "additionalPlaceholder": "Opowiedz nam więcej o sobie i swoim doświadczeniu...",
+        "uploadCV": "Prześlij CV/Resume",
+        "fileUpload": "Wybierz plik (PDF, DOC, DOCX)",
+        "browse": "Przeglądaj"
+      },
+      "options": {
+        "yes": "Tak",
+        "no": "Nie",
+        "notApplicable": "Nie dotyczy",
+        "selectOption": "Wybierz opcję"
+      },
+      "consent": "Wyrażam zgodę na przetwarzanie moich danych osobowych przez DTO Partners Sp. z o.o. w celu udzielenia odpowiedzi i rozpatrzenia złożonego zapytania. Potwierdzam, że mam prawo dostępu do moich danych, możliwość ich poprawienia i żądania zaprzestania ich przetwarzania. Administratorem danych jest DTO Partners Sp. z o.o. ul. Jana Heweliusza 11 lok. 811 80-890 Gdańsk, NIP 5833531476. Informacje o przetwarzaniu Twoich danych osobowych znajdziesz w naszej",
+      "privacyPolicy": "polityce prywatności",
+      "submit": "WYŚLIJ APLIKACJĘ",
+      "sending": "Wysyłanie..."
     }
   }
+}
   
