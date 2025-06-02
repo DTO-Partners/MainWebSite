@@ -1,5 +1,6 @@
 // src/components/ui/accordion.tsx
 import React, { useState, ReactNode, ReactElement, cloneElement, isValidElement } from "react";
+import { motion } from "framer-motion";
 
 interface AccordionProps {
   type?: "single" | "multiple";
@@ -32,6 +33,7 @@ export function Accordion({ type = "single", children, className }: AccordionPro
   const [openItems, setOpenItems] = useState<string[]>([]);
 
   const handleToggle = (value: string) => {
+    console.log("Toggling accordion item:", value, "Current open items:", openItems);
     if (type === "multiple") {
       setOpenItems((prev) =>
         prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
@@ -43,53 +45,181 @@ export function Accordion({ type = "single", children, className }: AccordionPro
 
   // Pass state and handlers to children
   return (
-    <div className={`w-full ${className ?? ""}`}>
-      {React.Children.map(children, (child) =>
+    <motion.div 
+      className={`w-full space-y-4 ${className ?? ""}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, staggerChildren: 0.1 }}
+    >
+      {React.Children.map(children, (child, index) =>
         isValidElement(child)
-          ? cloneElement(child as ReactElement<any>, { openItems, handleToggle })
+          ? cloneElement(child as ReactElement<any>, { 
+              openItems, 
+              handleToggle,
+              key: `accordion-item-${index}`
+            })
           : child
       )}
-    </div>
+    </motion.div>
   );
 }
 
 export function AccordionItem({ value, children, openItems, handleToggle }: AccordionItemProps) {
+  const isOpen = openItems?.includes(value);
+  
   return (
-    <div className="border rounded-xl bg-white shadow transition-all">
+    <motion.div 
+      className="bg-gradient-to-r from-white to-[#fdf6e3] border-2 border-[#e5e5e5] hover:border-[#daa520]/60 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group relative"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      whileHover={{ 
+        scale: 1.02,
+        boxShadow: "0 20px 40px -10px rgba(218, 165, 32, 0.1)"
+      }}
+    >
+      {/* Decorative corner elements */}
+      <div className="absolute top-3 right-3 w-8 h-8 bg-gradient-to-br from-[#daa520]/10 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute bottom-3 left-3 w-6 h-6 bg-gradient-to-tl from-[#daa520]/10 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      
+      {/* Animated border glow */}
+      <motion.div
+        className="absolute inset-0 rounded-2xl opacity-0"
+        animate={{
+          opacity: isOpen ? 1 : 0,
+          background: isOpen 
+            ? "linear-gradient(90deg, transparent, rgba(218, 165, 32, 0.1), transparent)"
+            : "transparent"
+        }}
+        transition={{ duration: 0.3 }}
+      />
+      
       {React.Children.map(children, (child) =>
         isValidElement(child)
           ? cloneElement(child as ReactElement<any>, { value, openItems, handleToggle })
           : child
       )}
-    </div>
+    </motion.div>
   );
 }
 
 export function AccordionTrigger({ value, openItems, handleToggle, children, className }: AccordionTriggerProps) {
   const isOpen = openItems?.includes(value);
+  
   return (
-    <button
-      className={`w-full text-left flex items-center justify-between gap-2 p-4 font-semibold rounded-xl transition hover:bg-[#f5f5f5] focus:outline-none ${className ?? ""}`}
+    <motion.button
+      className={`w-full text-left flex items-center justify-between gap-2 p-6 font-semibold transition focus:outline-none focus:ring-2 focus:ring-[#daa520]/20 focus:ring-offset-2 rounded-t-2xl group/trigger relative overflow-hidden ${className ?? ""}`}
       aria-expanded={isOpen}
       type="button"
-      onClick={() => handleToggle?.(value)}
+      onClick={() => {
+        console.log("AccordionTrigger clicked:", value, handleToggle);
+        handleToggle?.(value);
+      }}
+      whileHover={{
+        backgroundColor: "rgba(255, 247, 212, 0.3)"
+      }}
+      animate={{
+        backgroundColor: isOpen 
+          ? "rgba(255, 247, 212, 0.4)" 
+          : "transparent"
+      }}
+      transition={{ duration: 0.3 }}
     >
-      {children}
-      <span className={`ml-2 transition-transform ${isOpen ? "rotate-90" : ""}`}>▶</span>
-    </button>
+      {/* Animated background highlight */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-[#fff7d4]/0 via-[#daa520]/5 to-[#fff7d4]/0"
+        initial={{ x: "-100%" }}
+        whileHover={{ x: "100%" }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+      />
+      
+      <div className="relative z-10 flex items-center justify-between w-full">
+        {children}
+        
+        {/* Enhanced arrow with background */}
+        <motion.div
+          className="ml-4 w-10 h-10 rounded-full bg-gradient-to-br from-[#daa520]/10 to-[#daa520]/20 border border-[#daa520]/20 flex items-center justify-center group-hover/trigger:border-[#daa520]/40 group-hover/trigger:shadow-lg transition-all duration-300"
+          animate={{ 
+            rotate: isOpen ? 90 : 0,
+            scale: isOpen ? 1.1 : 1,
+            backgroundColor: isOpen ? "rgba(218, 165, 32, 0.15)" : "rgba(218, 165, 32, 0.1)"
+          }}
+          whileHover={{ scale: 1.15 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          <motion.span 
+            className="text-[#daa520] text-sm font-bold"
+            animate={{ 
+              color: isOpen ? "#b8860b" : "#daa520"
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            ▶
+          </motion.span>
+        </motion.div>
+      </div>
+    </motion.button>
   );
 }
 
 export function AccordionContent({ value, openItems, children }: AccordionContentProps) {
   const isOpen = openItems?.includes(value);
+  
   return (
-    <div
-      className={`px-4 pb-4 transition-all overflow-hidden ${
-        isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
-      }`}
-      style={{ transition: "all 0.3s cubic-bezier(.4,0,.2,1)" }}
+    <motion.div
+      initial={false}
+      animate={{ 
+        height: isOpen ? "auto" : 0,
+        opacity: isOpen ? 1 : 0
+      }}
+      transition={{ 
+        duration: 0.4, 
+        ease: [0.04, 0.62, 0.23, 0.98],
+        opacity: { duration: 0.25, delay: isOpen ? 0.1 : 0 }
+      }}
+      className="overflow-hidden"
     >
-      {isOpen && children}
-    </div>
+      <motion.div 
+        className="relative"
+        initial={false}
+        animate={{
+          y: isOpen ? 0 : -20
+        }}
+        transition={{ 
+          duration: 0.3, 
+          delay: isOpen ? 0.2 : 0,
+          ease: "easeOut"
+        }}
+      >
+        {/* Decorative top border */}
+        <motion.div
+          className="h-px bg-gradient-to-r from-transparent via-[#daa520]/30 to-transparent mx-6"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: isOpen ? 1 : 0 }}
+          transition={{ duration: 0.4, delay: isOpen ? 0.1 : 0 }}
+        />
+        
+        <div className="px-6 pb-6 pt-4 relative">
+          {/* Background decoration */}
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#fff7d4]/10 to-transparent opacity-50 rounded-b-2xl" />
+          
+          <motion.div
+            className="relative z-10"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ 
+              opacity: isOpen ? 1 : 0,
+              scale: isOpen ? 1 : 0.95
+            }}
+            transition={{ 
+              duration: 0.3, 
+              delay: isOpen ? 0.25 : 0,
+              ease: "easeOut"
+            }}
+          >
+            {isOpen && children}
+          </motion.div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
