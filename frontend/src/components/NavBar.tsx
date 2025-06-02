@@ -48,8 +48,7 @@ export default function Navbar() {
           {[
             { label: t("nav.aboutus"), id: "AboutUs" },
             { label: t("nav.markets"), id: "Markets" },
-            { label: t("nav.candidates"), id: "Candidates" },
-            { label: t("nav.employers"), id: "Employers" },
+            {label: t("nav.Candidates&Employers"), id: "Candidates & Employers"},
             { label: t("nav.contact"), id: "Contact" },
           ].map((link) => (
             <li key={link.id}>

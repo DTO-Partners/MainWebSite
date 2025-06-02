@@ -11,6 +11,7 @@ import "@/lib/i18n";
 import Markets from "./sections/Markets";
 import GDPRModal from "./components/GDPRModal";
 import IndustriesSection from "./sections/Industries";
+import ApplyForm from "./sections/Apply";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
       <Markets/>
       <GDPRModal/>
       <IndustriesSection/>
+      <ApplyForm/>
     </div>
   )
 }
