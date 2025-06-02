@@ -85,11 +85,19 @@ export default function Component() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#15162c] via-[#1a1a2e] to-[#243046]">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(218,165,32,0.08),transparent_60%)]" />
+    <div className="min-h-screen bg-gradient-to-br from-[#15162c] via-[#1a1a2e] to-[#243046] relative overflow-hidden">
+      {/* Enhanced Background Pattern */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(218,165,32,0.12),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,247,212,0.06),transparent_40%)]" />
+      
+      {/* Subtle grid overlay */}
+      <div className="absolute inset-0 opacity-[0.02]" style={{
+        backgroundImage: `linear-gradient(rgba(218,165,32,0.3) 1px, transparent 1px),
+                         linear-gradient(90deg, rgba(218,165,32,0.3) 1px, transparent 1px)`,
+        backgroundSize: '60px 60px'
+      }} />
 
-      <section className="relative py-20 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="relative py-24 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Overlay for expanded card */}
         {expandedCard !== null && (
           <div
@@ -97,91 +105,103 @@ export default function Component() {
             onClick={() => setExpandedCard(null)}
           />
         )}
-        <div className="text-center mb-16 relative z-50">
-          <div className="inline-block">
+        <div className="text-center mb-20 relative z-50">
+          <div className="inline-block mb-6">
             <Badge
               variant="outline"
-              className="border-[#daa520] text-[#daa520] mb-4 px-4 py-1 text-sm font-medium tracking-wider"
+              className="border-[#daa520]/40 text-[#daa520] bg-[#daa520]/5 backdrop-blur-sm px-6 py-2 text-sm font-semibold tracking-widest uppercase rounded-full shadow-lg"
             >
-              DTO PARTNERS
+              DTO Partners
             </Badge>
           </div>
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-6xl text-white font-extrabold mb-2 tracking-tight"
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-5xl md:text-7xl text-white font-light mb-6 tracking-tight leading-none"
           >
             Industries
+            <span className="block text-2xl md:text-3xl text-[#daa520] font-normal mt-2 tracking-wide">
+              We Serve
+            </span>
           </motion.h1>
           <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            transition={{ duration: 0.5 }}
-            className="origin-left h-[3px] w-24 bg-gradient-to-r from-[#daa520] to-[#fff7d4] mx-auto rounded mb-6"
+            initial={{ scaleX: 0, opacity: 0 }}
+            whileInView={{ scaleX: 1, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="origin-center h-[2px] w-32 bg-gradient-to-r from-transparent via-[#daa520] to-transparent mx-auto rounded mb-8"
           />
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-[#fff7d4]/80 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-light"
+          >
+            Delivering exceptional talent across diverse sectors with precision, expertise, and unwavering commitment to excellence.
+          </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8 relative z-0">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 relative z-0">
           {industries.slice(0, 4).map((industry, index) => {
             const IconComponent = industry.icon;
             const isExpanded = expandedCard === index;
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
-                className={`transition-all duration-500 ${
+                transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
+                className={`transition-all duration-700 ${
                   isExpanded
-                    ? "fixed z-50 left-1/2 top-1/2 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 scale-105"
+                    ? "fixed z-50 left-1/2 top-1/2 w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 scale-105"
                     : "relative"
                 }`}
                 style={isExpanded ? { pointerEvents: "auto" } : {}}
               >
                 <Card
-                  className={`group relative bg-gradient-to-br from-[#15162c] via-[#1a1a2e] to-[#243046] backdrop-blur-sm border border-[#daa520]/20 hover:border-[#daa520]/60 transition-all duration-700 hover:shadow-2xl hover:shadow-[#daa520]/25 cursor-pointer overflow-hidden ${
-                    isExpanded ? "ring-4 ring-[#daa520] scale-105" : ""
-                  } h-full min-h-[380px] flex flex-col transform hover:scale-[1.02]`}
+                  className={`group relative bg-gradient-to-br from-[#15162c]/90 via-[#1a1a2e]/95 to-[#243046]/90 backdrop-blur-xl border border-[#daa520]/15 hover:border-[#daa520]/40 transition-all duration-700 hover:shadow-2xl hover:shadow-[#daa520]/20 cursor-pointer overflow-hidden ${
+                    isExpanded ? "ring-2 ring-[#daa520]/50 shadow-2xl shadow-[#daa520]/30" : ""
+                  } h-full min-h-[420px] flex flex-col transform hover:scale-[1.02] hover:-translate-y-1`}
                   onMouseEnter={() => setHoveredCard(index)}
                   onMouseLeave={() => setHoveredCard(null)}
                   onClick={() => setExpandedCard(index)}
                   style={isExpanded ? { pointerEvents: "auto" } : {}}
                 >
-                  {/* Animated background gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#daa520]/0 via-[#daa520]/5 to-[#fff7d4]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                  {/* Enhanced gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#daa520]/0 via-[#daa520]/3 to-[#fff7d4]/8 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   
-                  {/* Geometric decorative element */}
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#daa520]/20 to-transparent rounded-bl-full opacity-60" />
+                  {/* Refined decorative elements */}
+                  <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#daa520]/8 to-transparent rounded-bl-[3rem] opacity-60" />
+                  <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-[#fff7d4]/5 to-transparent rounded-tr-[2rem]" />
                   
-                  <CardContent className="relative p-8 flex-1 flex flex-col justify-between z-10">
-                    <div className="space-y-6">
+                  <CardContent className="relative p-8 md:p-10 flex-1 flex flex-col justify-between z-10">
+                    <div className="space-y-8">
                       <div className="flex items-start space-x-6">
                         <div className="flex-shrink-0">
                           <motion.div 
-                            whileHover={{ rotate: 360, scale: 1.1 }}
-                            transition={{ duration: 0.8, ease: "easeInOut" }}
-                            className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#fff7d4]/30 to-[#daa520]/20 border-2 border-[#daa520]/40 flex items-center justify-center group-hover:border-[#daa520] group-hover:shadow-lg group-hover:shadow-[#daa520]/30 transition-all duration-500"
+                            whileHover={{ rotate: [0, -5, 5, 0], scale: 1.05 }}
+                            transition={{ duration: 0.6, ease: "easeInOut" }}
+                            className="w-18 h-18 rounded-3xl bg-gradient-to-br from-[#fff7d4]/15 to-[#daa520]/10 border border-[#daa520]/20 flex items-center justify-center group-hover:border-[#daa520]/40 group-hover:shadow-xl group-hover:shadow-[#daa520]/20 transition-all duration-500 backdrop-blur-sm"
                           >
                             <IconComponent
-                              className={`w-10 h-10 text-[#daa520] transition-all duration-500 ${
+                              className={`w-9 h-9 text-[#daa520] transition-all duration-500 ${
                                 hoveredCard === index ? "scale-110 text-[#fff7d4]" : ""
                               }`}
                             />
                           </motion.div>
                         </div>
-                        <div className="flex-1 min-w-0 space-y-3">
-                          <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-[#fff7d4] transition-colors duration-500 leading-tight">
+                        <div className="flex-1 min-w-0 space-y-4">
+                          <h3 className="text-2xl md:text-3xl font-light text-white mb-2 group-hover:text-[#fff7d4] transition-colors duration-500 leading-tight tracking-wide">
                             {industry.title}
                           </h3>
-                          <div className="text-[#daa520] text-base font-semibold mb-3 tracking-wide">
+                          <div className="text-[#daa520] text-base font-medium mb-3 tracking-wide opacity-90">
                             {industry.subtitle}
                           </div>
                         </div>
                       </div>
                       
-                      <div className="space-y-4">
-                        <div className="text-[#fff7d4]/90 text-sm leading-relaxed">
+                      <div className="space-y-6">
+                        <div className="text-[#fff7d4]/85 text-sm md:text-base leading-relaxed font-light">
                           {industry.description}
                         </div>
                         
@@ -189,10 +209,10 @@ export default function Component() {
                           {industry.keyServices.map((service, serviceIndex) => (
                             <motion.span
                               key={service}
-                              initial={{ opacity: 0, scale: 0.8 }}
+                              initial={{ opacity: 0, scale: 0.9 }}
                               whileInView={{ opacity: 1, scale: 1 }}
-                              transition={{ duration: 0.4, delay: serviceIndex * 0.1 }}
-                              className="bg-gradient-to-r from-[#fff7d4]/15 to-[#daa520]/15 text-[#daa520] text-xs px-4 py-2 rounded-full border border-[#daa520]/40 backdrop-blur-sm hover:bg-[#daa520]/20 hover:text-[#fff7d4] transition-all duration-300 cursor-default"
+                              transition={{ duration: 0.5, delay: serviceIndex * 0.1 }}
+                              className="bg-gradient-to-r from-[#fff7d4]/8 to-[#daa520]/8 text-[#daa520] text-xs font-medium px-4 py-2.5 rounded-full border border-[#daa520]/25 backdrop-blur-sm hover:bg-[#daa520]/15 hover:text-[#fff7d4] hover:border-[#daa520]/40 transition-all duration-300 cursor-default"
                             >
                               {service}
                             </motion.span>
@@ -201,13 +221,14 @@ export default function Component() {
                       </div>
                     </div>
                     
-                    {/* Hover indicator */}
-                    <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="flex items-center space-x-2 text-[#daa520] text-sm">
-                        <span>Click to expand</span>
+                    {/* Enhanced hover indicator */}
+                    <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:translate-x-0 translate-x-2">
+                      <div className="flex items-center space-x-3 text-[#daa520] text-sm font-light">
+                        <span className="tracking-wide">Explore Details</span>
                         <motion.div
-                          animate={{ x: [0, 4, 0] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
+                          animate={{ x: [0, 3, 0] }}
+                          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                          className="text-lg"
                         >
                           →
                         </motion.div>
@@ -215,18 +236,23 @@ export default function Component() {
                     </div>
 
                     {isExpanded && (
-                      <button
-                        className="absolute top-6 right-6 text-[#daa520] bg-[#15162c]/90 backdrop-blur-sm rounded-full p-3 hover:bg-[#daa520] hover:text-[#15162c] transition-all duration-300 z-50 border-2 border-[#daa520] shadow-lg"
+                      <motion.button
+                        initial={{ opacity: 0, scale: 0.8, rotate: -90 }}
+                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                        whileHover={{ scale: 1.1, rotate: 90 }}
+                        whileTap={{ scale: 0.95 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="absolute top-6 right-6 text-[#daa520] bg-gradient-to-br from-[#15162c]/95 to-[#1a1a2e]/95 backdrop-blur-md rounded-full p-3 hover:bg-gradient-to-br hover:from-[#daa520] hover:to-[#fff7d4] hover:text-[#15162c] transition-all duration-300 z-50 border-2 border-[#daa520]/60 hover:border-[#fff7d4] shadow-xl hover:shadow-2xl hover:shadow-[#daa520]/40 group/close"
                         onClick={(e) => {
                           e.stopPropagation();
                           setExpandedCard(null);
                         }}
                         aria-label="Close"
                       >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover/close:rotate-90">
                           <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-                      </button>
+                      </motion.button>
                     )}
                   </CardContent>
                 </Card>
@@ -272,13 +298,13 @@ export default function Component() {
 
                 <div className="flex-1 min-w-0 space-y-6">
                   <div>
-                    <h3 className="text-3xl font-bold text-white mb-3 group-hover:text-[#fff7d4] transition-colors duration-500 leading-tight">
+                    <h3 className="text-3xl md:text-4xl font-light text-white mb-3 group-hover:text-[#fff7d4] transition-colors duration-500 leading-tight tracking-wide">
                       {industries[4].title}
                     </h3>
-                    <div className="text-[#daa520] text-lg font-semibold mb-4 tracking-wide">
+                    <div className="text-[#daa520] text-lg font-medium mb-4 tracking-wide opacity-90">
                       {industries[4].subtitle}
                     </div>
-                    <div className="text-[#fff7d4]/90 text-base leading-relaxed mb-6 max-w-4xl">
+                    <div className="text-[#fff7d4]/85 text-base leading-relaxed mb-6 max-w-4xl font-light">
                       {industries[4].description}
                     </div>
                   </div>

@@ -8,7 +8,7 @@ const data = [
     value: 1, 
     color: "#daa520", 
     name: "Poland",
-    description: "Our headquarters and primary operations base",
+    description: "Our headquarters and primary operational base",
     industries: ["Finance", "IT", "Healthcare"],
     established: "2025"
   },
@@ -76,21 +76,15 @@ export default function WorldMapComponent() {
 
   return (
     <div className="w-full">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.2 }}
-        className="relative bg-gradient-to-br from-white via-[#fdf6e3]/30 to-white backdrop-blur-lg border-2 border-[#daa520]/20 hover:border-[#daa520]/40 rounded-3xl shadow-xl px-8 py-10 transition-all hover:shadow-2xl duration-500 overflow-hidden"
+      <div 
+        className="relative bg-gradient-to-br from-white via-[#fdf6e3]/30 to-white backdrop-blur-lg border-2 border-[#daa520]/20 hover:border-[#daa520]/40 rounded-3xl shadow-xl px-8 py-10 transition-all hover:shadow-2xl duration-300 overflow-hidden"
       >
         {/* Decorative background elements */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#daa520]/10 to-transparent rounded-full blur-2xl" />
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#fff7d4]/40 to-transparent rounded-full blur-xl" />
         
         {/* Header Section */}
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.2, delay: 0.1 }}
+        <div 
           className="text-left mb-8 relative z-10"
         >
           <div className="flex items-center gap-4 mb-4">
@@ -108,13 +102,10 @@ export default function WorldMapComponent() {
             Click on any highlighted country to discover our partnerships, 
             industry focus, and expansion timeline in that region.
           </p>
-        </motion.div>
+        </div>
 
         {/* World Map Container */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.2, delay: 0.2 }}
+        <div 
           className="relative flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-[#f8fafc] to-[#fdf6e3]/50 border border-[#daa520]/20 p-6"
         >
           <div className="max-h-[28rem] max-w-[28rem] w-full">
@@ -168,7 +159,7 @@ export default function WorldMapComponent() {
                   stroke: country ? "#1a1a2e" : "#d0d0d0",
                   strokeWidth: country ? (isHovered ? 2 : 1.5) : 0.8,
                   cursor: country ? "pointer" : "default",
-                  transition: "all 0.3s ease",
+                  transition: "all 0.2s ease",
                   filter: country && isHovered ? "brightness(1.1)" : "none",
                 };
               }}
@@ -176,41 +167,23 @@ export default function WorldMapComponent() {
           </div>
           
           {/* Floating stats */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, delay: 0.3 }}
-            className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm border border-[#daa520]/20 rounded-2xl px-4 py-3 shadow-lg"
-          >
+          <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm border border-[#daa520]/20 rounded-2xl px-4 py-3 shadow-lg">
             <div className="text-center">
               <div className="text-2xl font-bold text-[#daa520]">{data.length}</div>
               <div className="text-xs text-[#708090] font-medium">Partner Countries</div>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
-        {/* Partnership Statistics */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2, delay: 0.25 }}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mt-8 relative z-10"
-        >
-          {data.map((country, index) => (
-            <motion.button
+        {/* Partnership Statistics - simplified */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mt-8 relative z-10">
+          {data.map((country) => (
+            <button
               key={country.country}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.05 + 0.3 }}
-              whileHover={{ 
-                scale: 1.05, 
-                y: -2,
-                boxShadow: "0 8px 25px rgba(218, 165, 32, 0.15)"
-              }}
               onClick={() => setSelectedCountry(country)}
               onMouseEnter={() => handleCountryHover(country.country)}
               onMouseLeave={() => handleCountryHover(null)}
-              className="group bg-gradient-to-br from-white to-[#fdf6e3]/50 border border-[#daa520]/20 hover:border-[#daa520]/40 rounded-2xl p-3 transition-all duration-300"
+              className="group bg-gradient-to-br from-white to-[#fdf6e3]/50 border border-[#daa520]/20 hover:border-[#daa520]/40 rounded-2xl p-3 transition-all duration-200 hover:shadow-lg hover:scale-105"
             >
               <div className="flex flex-col items-center gap-2">
                 <div 
@@ -226,17 +199,12 @@ export default function WorldMapComponent() {
                   </div>
                 </div>
               </div>
-            </motion.button>
+            </button>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Legend */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2, delay: 0.35 }}
-          className="flex items-center justify-center gap-6 mt-6 text-sm text-[#708090] relative z-10"
-        >
+        {/* Legend - simplified */}
+        <div className="flex items-center justify-center gap-6 mt-6 text-sm text-[#708090] relative z-10">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 bg-[#daa520] rounded-full"></div>
             <span>Active Partnerships</span>
@@ -245,10 +213,10 @@ export default function WorldMapComponent() {
             <div className="w-3 h-3 bg-[#f0f0f0] border border-[#d0d0d0] rounded-full"></div>
             <span>European Union</span>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
-      {/* Enhanced Country Details Modal */}
+      {/* Enhanced Country Details Modal - simplified animations */}
       <AnimatePresence>
         {selectedCountry && (
           <motion.div
@@ -303,28 +271,23 @@ export default function WorldMapComponent() {
                 <div className="mb-6">
                   <h4 className="font-bold text-[#1a1a2e] mb-3">Key Industries</h4>
                   <div className="flex flex-wrap gap-2">
-                    {selectedCountry.industries.map((industry, index) => (
-                      <motion.span
+                    {selectedCountry.industries.map((industry) => (
+                      <span
                         key={industry}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: index * 0.05 }}
                         className="px-3 py-2 bg-gradient-to-r from-[#daa520]/10 to-[#daa520]/20 border border-[#daa520]/30 rounded-xl text-sm font-medium text-[#1a1a2e]"
                       >
                         {industry}
-                      </motion.span>
+                      </span>
                     ))}
                   </div>
                 </div>
 
-                {/* Action Button */}
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                {/* Action Button - simplified */}
+                <button
                   className="w-full bg-gradient-to-r from-[#daa520] to-[#b8860b] hover:from-[#b8860b] hover:to-[#daa520] text-white font-bold py-4 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
                   Explore Opportunities in {selectedCountry.name}
-                </motion.button>
+                </button>
               </div>
             </motion.div>
           </motion.div>

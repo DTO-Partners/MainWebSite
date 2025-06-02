@@ -108,11 +108,11 @@ export default function GDPRModal() {
       {/* Floating Action Button */}
       <motion.button
         onClick={handleModalToggle}
-        className="fixed z-50 bottom-6 left-6 bg-gradient-to-r from-[#1a1a2e] to-[#243046] text-white p-4 rounded-2xl shadow-2xl hover:shadow-[0_20px_40px_rgba(218,165,32,0.3)] transition-all duration-300 border border-[#daa520]/20 group"
+        className="fixed z-50 bottom-6 left-6 bg-white text-gray-700 p-4 rounded-2xl shadow-2xl hover:shadow-[0_20px_40px_rgba(0,0,0,0.15)] transition-all duration-300 border border-gray-200 group"
         title="Manage Cookie Preferences"
         whileHover={{ 
           scale: 1.05,
-          boxShadow: "0 25px 50px rgba(218, 165, 32, 0.4)"
+          boxShadow: "0 25px 50px rgba(0, 0, 0, 0.2)"
         }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, scale: 0 }}
@@ -123,18 +123,18 @@ export default function GDPRModal() {
           animate={{ rotate: [0, -10, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
         >
-          <FaCookieBite className="text-xl text-[#daa520] group-hover:text-[#fff7d4] transition-colors duration-300" />
+          <FaCookieBite className="text-xl text-gray-600 group-hover:text-gray-800 transition-colors duration-300" />
         </motion.div>
         
         {/* Notification dot */}
         <motion.div
-          className="absolute -top-1 -right-1 w-3 h-3 bg-[#daa520] rounded-full shadow-lg"
+          className="absolute -top-1 -right-1 w-3 h-3 bg-gray-500 rounded-full shadow-lg"
           animate={{ 
             scale: [1, 1.3, 1],
             boxShadow: [
-              "0 0 0 0 rgba(218, 165, 32, 0.4)",
-              "0 0 0 6px rgba(218, 165, 32, 0)",
-              "0 0 0 0 rgba(218, 165, 32, 0)"
+              "0 0 0 0 rgba(107, 114, 128, 0.4)",
+              "0 0 0 6px rgba(107, 114, 128, 0)",
+              "0 0 0 0 rgba(107, 114, 128, 0)"
             ]
           }}
           transition={{ duration: 2, repeat: Infinity }}
@@ -156,41 +156,41 @@ export default function GDPRModal() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.8, opacity: 0, y: 50 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="bg-gradient-to-br from-white via-[#fdf6e3]/30 to-white rounded-3xl shadow-2xl w-full max-w-3xl max-h-[85vh] flex flex-col relative overflow-hidden border-2 border-[#daa520]/20"
+              className="bg-white rounded-3xl shadow-2xl w-full max-w-3xl max-h-[85vh] flex flex-col relative overflow-hidden border border-gray-200"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Decorative background elements */}
-              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-[#daa520]/10 to-transparent rounded-bl-full" />
-              <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#fff7d4]/20 to-transparent rounded-tr-full" />
+              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-gray-100/30 to-transparent rounded-bl-full" />
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-gray-50/40 to-transparent rounded-tr-full" />
               
               {/* Header */}
-              <div className="relative flex items-center justify-between border-b border-[#daa520]/20 px-8 py-6 bg-gradient-to-r from-[#fff7d4]/20 to-transparent">
+              <div className="relative flex items-center justify-between border-b border-gray-200 px-8 py-6 bg-gradient-to-r from-gray-50/20 to-transparent">
                 <div className="flex items-center gap-4">
                   <motion.div
-                    className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#daa520]/20 to-[#daa520]/10 border border-[#daa520]/30 flex items-center justify-center"
+                    className="w-12 h-12 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-50 border border-gray-300 flex items-center justify-center"
                     whileHover={{ scale: 1.1, rotate: 15 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <FaCookieBite className="text-xl text-[#daa520]" />
+                    <FaCookieBite className="text-xl text-gray-700" />
                   </motion.div>
                   <div>
-                    <h2 className="text-2xl font-bold text-[#1a1a2e] tracking-tight">
+                    <h2 className="text-2xl font-bold text-gray-900 tracking-tight">
                       Cookie Preferences
                     </h2>
-                    <p className="text-sm text-[#708090] font-medium">
+                    <p className="text-sm text-gray-600 font-medium">
                       Manage your privacy settings
                     </p>
                   </div>
                 </div>
                 <motion.button
                   onClick={handleModalToggle}
-                  className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm border-2 border-[#daa520]/30 shadow-lg hover:bg-[#daa520]/10 hover:shadow-xl transition-all duration-200 flex items-center justify-center group"
+                  className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm border-2 border-gray-300 shadow-lg hover:bg-gray-50 hover:shadow-xl transition-all duration-200 flex items-center justify-center group"
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
                   aria-label="Close modal"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M18 6L6 18M6 6L18 18" stroke="#daa520" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-[#1a1a2e] transition-colors duration-200"/>
+                    <path d="M18 6L6 18M6 6L18 18" stroke="#374151" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-gray-800 transition-colors duration-200"/>
                   </svg>
                 </motion.button>
               </div>
@@ -202,9 +202,9 @@ export default function GDPRModal() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.4 }}
                 >
-                  <p className="text-base text-[#708090] mb-8 leading-relaxed">
+                  <p className="text-base text-gray-600 mb-8 leading-relaxed">
                     We use cookies to enhance your browsing experience, provide personalized content, and analyze our traffic. 
-                    <span className="text-[#1a1a2e] font-semibold"> Choose your preferences below</span> or accept all to continue with the optimal experience.
+                    <span className="text-gray-900 font-semibold"> Choose your preferences below</span> or accept all to continue with the optimal experience.
                   </p>
 
                   <div className="space-y-6">
@@ -219,10 +219,10 @@ export default function GDPRModal() {
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1 + 0.3, duration: 0.4 }}
-                          className="bg-gradient-to-r from-white to-[#fdf6e3]/50 border-2 border-[#e5e5e5] hover:border-[#daa520]/40 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group"
+                          className="bg-gradient-to-r from-white to-gray-50/50 border-2 border-gray-200 hover:border-gray-400 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group"
                         >
                           <div
-                            className="flex justify-between items-center cursor-pointer p-6 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-[#fff7d4]/20 group-hover:to-transparent"
+                            className="flex justify-between items-center cursor-pointer p-6 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-gray-100/20 group-hover:to-transparent"
                             onClick={() => handleCategoryToggle(category.key)}
                           >
                             <div className="flex items-center gap-4 flex-1">
@@ -236,16 +236,16 @@ export default function GDPRModal() {
                               
                               <div className="flex-1">
                                 <div className="flex items-center gap-3 mb-1">
-                                  <h3 className="text-lg font-bold text-[#1a1a2e] group-hover:text-[#daa520] transition-colors duration-300">
+                                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-gray-700 transition-colors duration-300">
                                     {category.title}
                                   </h3>
                                   {category.required && (
-                                    <span className="bg-[#daa520]/20 text-[#daa520] text-xs font-semibold px-2 py-1 rounded-full border border-[#daa520]/30">
+                                    <span className="bg-gray-200 text-gray-700 text-xs font-semibold px-2 py-1 rounded-full border border-gray-300">
                                       Required
                                     </span>
                                   )}
                                 </div>
-                                <p className="text-sm text-[#708090] font-medium leading-relaxed">
+                                <p className="text-sm text-gray-600 font-medium leading-relaxed">
                                   {category.description.slice(0, 80)}...
                                 </p>
                               </div>
@@ -260,7 +260,7 @@ export default function GDPRModal() {
                                 }}
                                 className={`relative w-14 h-7 rounded-full transition-all duration-300 ${
                                   isEnabled 
-                                    ? 'bg-gradient-to-r from-[#daa520] to-[#b8860b] shadow-lg shadow-[#daa520]/30' 
+                                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg shadow-blue-500/30' 
                                     : 'bg-gray-300 hover:bg-gray-400'
                                 } ${category.required ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:shadow-lg'}`}
                                 disabled={category.required}
@@ -274,14 +274,14 @@ export default function GDPRModal() {
                                   animate={{ 
                                     x: isEnabled ? 0 : 0,
                                     boxShadow: isEnabled 
-                                      ? "0 2px 8px rgba(218, 165, 32, 0.3)" 
+                                      ? "0 2px 8px rgba(59, 130, 246, 0.3)" 
                                       : "0 2px 4px rgba(0, 0, 0, 0.1)"
                                   }}
                                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                 />
                                 {isEnabled && (
                                   <motion.div
-                                    className="absolute inset-0 rounded-full bg-gradient-to-r from-[#daa520]/20 to-[#b8860b]/20"
+                                    className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-blue-600/20"
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
                                     transition={{ duration: 0.3 }}
@@ -293,7 +293,7 @@ export default function GDPRModal() {
                               <motion.div
                                 animate={{ rotate: isExpanded ? 180 : 0 }}
                                 transition={{ duration: 0.3 }}
-                                className="text-[#daa520] group-hover:text-[#b8860b] transition-colors duration-300"
+                                className="text-gray-600 group-hover:text-gray-800 transition-colors duration-300"
                               >
                                 <FaChevronDown className="text-sm" />
                               </motion.div>
@@ -311,12 +311,12 @@ export default function GDPRModal() {
                                 className="overflow-hidden"
                               >
                                 <div className="px-6 pb-6">
-                                  <div className="h-px bg-gradient-to-r from-transparent via-[#daa520]/30 to-transparent mb-4" />
+                                  <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mb-4" />
                                   <motion.p 
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1, duration: 0.3 }}
-                                    className="text-sm text-[#708090] leading-relaxed font-medium"
+                                    className="text-sm text-gray-600 leading-relaxed font-medium"
                                   >
                                     {category.description}
                                   </motion.p>
@@ -332,7 +332,7 @@ export default function GDPRModal() {
               </div>
 
               {/* Footer */}
-              <div className="relative border-t border-[#daa520]/20 px-8 py-6 bg-gradient-to-r from-[#fff7d4]/10 to-transparent">
+              <div className="relative border-t border-gray-200 px-8 py-6 bg-gradient-to-r from-gray-50/10 to-transparent">
                 <motion.div 
                   className="flex flex-col sm:flex-row justify-between items-center gap-4"
                   initial={{ opacity: 0, y: 20 }}
@@ -342,7 +342,7 @@ export default function GDPRModal() {
                   <div className="flex flex-col sm:flex-row gap-3">
                     <motion.button
                       onClick={handleRejectAll}
-                      className="px-6 py-3 bg-gradient-to-r from-gray-100 to-gray-200 text-[#1a1a2e] rounded-xl border-2 border-gray-300 hover:border-gray-400 font-semibold transition-all duration-300 hover:shadow-lg hover:from-gray-200 hover:to-gray-300"
+                      className="px-6 py-3 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-900 rounded-xl border-2 border-gray-300 hover:border-gray-400 font-semibold transition-all duration-300 hover:shadow-lg hover:from-gray-200 hover:to-gray-300"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -351,7 +351,7 @@ export default function GDPRModal() {
                     
                     <motion.button
                       onClick={handleSavePreferences}
-                      className="px-6 py-3 bg-gradient-to-r from-[#1a1a2e] to-[#243046] text-white rounded-xl border-2 border-[#1a1a2e] hover:border-[#daa520] font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-[#daa520]/20"
+                      className="px-6 py-3 bg-gradient-to-r from-gray-700 to-gray-800 text-white rounded-xl border-2 border-gray-700 hover:border-gray-600 font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/20"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -361,7 +361,7 @@ export default function GDPRModal() {
                   
                   <motion.button
                     onClick={handleAcceptAll}
-                    className="px-8 py-3 bg-gradient-to-r from-[#daa520] to-[#b8860b] text-white rounded-xl font-bold transition-all duration-300 hover:shadow-lg hover:shadow-[#daa520]/30 hover:from-[#b8860b] hover:to-[#daa520] border-2 border-[#daa520] hover:border-[#fff7d4]"
+                    className="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-bold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 hover:from-blue-600 hover:to-blue-700 border-2 border-blue-500 hover:border-blue-400"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -370,7 +370,7 @@ export default function GDPRModal() {
                 </motion.div>
                 
                 <motion.p 
-                  className="text-xs text-[#708090] mt-4 text-center font-medium"
+                  className="text-xs text-gray-500 mt-4 text-center font-medium"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.7, duration: 0.4 }}
