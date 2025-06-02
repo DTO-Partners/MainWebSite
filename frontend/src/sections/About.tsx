@@ -25,7 +25,7 @@ const cardVariants = {
     y: 0,
     scale: 1,
     transition: { 
-      duration: 0.6,
+      duration: 0.2,
       ease: [0.25, 0.46, 0.45, 0.94]
     } 
   },
@@ -42,7 +42,7 @@ const itemVariants = {
     x: 0,
     scale: 1,
     transition: {
-      duration: 0.5,
+      duration: 0.2,
       ease: [0.25, 0.46, 0.45, 0.94]
     }
   }
@@ -168,7 +168,7 @@ export default function About() {
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.2, delay: 0.2 }}
               className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#daa520] to-[#b8860b] flex items-center justify-center shadow-lg shadow-[#daa520]/30 mb-6"
             >
               <span className="text-2xl">🏢</span>
@@ -364,7 +364,7 @@ export default function About() {
                     key={item.label}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
+                    transition={{ delay: i * 0.01 }}
                     whileHover={{ 
                       x: 8, 
                       scale: 1.02,

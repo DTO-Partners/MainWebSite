@@ -63,19 +63,6 @@ export default function Hero() {
           >
             A trusted Recruitment Firm, bridging Talents and Countries{" "}
           </motion.p>
-
-          <motion.button
-            whileHover={{
-              scale: 1.05,
-              backgroundColor: "#3E5C76",
-              color: "#fff",
-            }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400 }}
-            className="px-6 py-2 bg-white text-black rounded-md font-semibold shadow-md"
-          >
-            Learn More
-          </motion.button>
         </motion.div>
       </div>
     </section>
