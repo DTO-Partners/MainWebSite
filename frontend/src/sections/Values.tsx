@@ -64,27 +64,48 @@ const Values = () => {
   return (
     <section
       id="Values"
-      className="flex justify-center items-center relative w-full bg-gradient-to-br from-[#1a1a2e] via-[#15162c] to-[#243046] py-28 px-6 text-white"
+      className="flex justify-center items-center relative w-full bg-gradient-to-br from-[#1a1a2e] via-[#15162c] to-[#243046] py-28 px-6 text-white overflow-hidden"
     >
+      {/* Enhanced background elements */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-radial from-[#daa520]/20 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-radial from-[#fff7d4]/15 to-transparent rounded-full blur-2xl" />
+        <div className="absolute top-1/2 left-0 w-64 h-64 bg-gradient-radial from-[#daa520]/10 to-transparent rounded-full blur-xl" />
+      </div>
+      
+      {/* Subtle grid pattern */}
+      <div 
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, #daa520 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }}
+      />
+      
       <div className="relative z-10 max-w-8xl mx-auto text-center">
         <motion.h3
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl font-extrabold mb-2 tracking-tight"
+          className="text-5xl md:text-6xl font-light mb-2 tracking-tight"
         >
           Our Values
         </motion.h3>
         <motion.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
-          transition={{ duration: 0.5 }}
-          className="origin-left h-[3px] w-24 bg-gradient-to-r from-[#daa520] to-[#fff7d4] mx-auto rounded mb-6"
+          transition={{ duration: 0.8 }}
+          className="origin-center h-[2px] w-32 bg-gradient-to-r from-transparent via-[#daa520] to-transparent mx-auto rounded-full shadow-lg mb-8"
         />
-        <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto mb-16">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-gray-300 text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-16 font-light"
+        >
           These five values define who we are, how we work, and how we grow —
           with our partners, candidates, and team.
-        </p>
+        </motion.p>
 
         {/* Responsive: Scrollable slider on mobile */}
         <div
@@ -111,15 +132,15 @@ const Values = () => {
                   aria-expanded={activeIdx === index}
                   className={`
                     min-w-[280px] max-w-[300px] flex-shrink-0 
-                    bg-white/10 backdrop-blur-md border border-[#fff7d4]/10
-                    rounded-2xl p-4 shadow-lg hover:shadow-2xl transition-all duration-300 
-                    cursor-pointer group outline-none
+                    bg-white/10 backdrop-blur-xl border border-[#fff7d4]/20
+                    rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 
+                    cursor-pointer group outline-none relative overflow-hidden
                     ${
                       activeIdx === index
-                        ? "ring-2 ring-[#daa520] scale-105 z-20"
-                        : ""
+                        ? "ring-2 ring-[#daa520] scale-105 z-20 shadow-[0_8px_44px_0_#daa52050]"
+                        : "hover:border-[#daa520]/40"
                     }
-                    snap-center
+                    snap-center transform hover:scale-[1.02] hover:-translate-y-1
                   `}
                   style={{
                     boxShadow:
@@ -128,22 +149,27 @@ const Values = () => {
                         : undefined,
                   }}
                 >
+                  {/* Enhanced hover background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#daa520]/0 via-[#daa520]/5 to-[#fff7d4]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+                  
                   <motion.div
-                    className={`w-14 h-14 bg-[#fff7d4]/30 rounded-full flex items-center justify-center text-3xl mb-4 mx-auto group-hover:bg-[#daa520]/30 transition-all duration-200`}
+                    className={`relative w-16 h-16 bg-gradient-to-br from-[#fff7d4]/30 to-[#daa520]/20 rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto group-hover:bg-gradient-to-br group-hover:from-[#daa520]/40 group-hover:to-[#fff7d4]/30 transition-all duration-300 shadow-lg group-hover:shadow-xl`}
                     animate={
-                      activeIdx === index ? { rotate: 20 } : { rotate: 0 }
+                      activeIdx === index ? { rotate: 20, scale: 1.1 } : { rotate: 0, scale: 1 }
                     }
+                    whileHover={{ rotate: [0, -5, 5, 0], scale: 1.1 }}
+                    transition={{ duration: 0.6, ease: "easeInOut" }}
                   >
                     {iconMap[value.title as keyof typeof iconMap]}
                   </motion.div>
-                  <h4 className="text-xl font-semibold text-white mb-1">
+                  <h4 className="relative text-xl font-light text-white mb-2 group-hover:text-[#fff7d4] transition-colors duration-300 tracking-wide">
                     {value.title}
                   </h4>
-                  <p className="text-[#daa520] text-sm italic mb-3">
+                  <p className="relative text-[#daa520] text-sm italic mb-4 font-light group-hover:text-[#fff7d4] transition-colors duration-300">
                     {value.subtitle}
                   </p>
                   <motion.p
-                    className={`text-gray-200 text-sm leading-relaxed transition-all duration-300
+                    className={`relative text-gray-200 text-xs md:text-sm leading-relaxed transition-all duration-500 font-light
                       ${
                         activeIdx === index
                           ? "line-clamp-none mt-2"
@@ -161,9 +187,10 @@ const Values = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="mt-4 text-xs text-[#fff7d4] font-semibold"
+                      transition={{ duration: 0.3 }}
+                      className="relative mt-6 text-xs text-[#fff7d4]/80 font-light bg-gradient-to-r from-[#daa520]/10 to-transparent backdrop-blur-sm px-4 py-2 rounded-xl border border-[#daa520]/20"
                     >
-                      Click/tap or press <kbd>Enter</kbd> to close
+                      Click/tap or press <kbd className="bg-[#daa520]/20 px-1.5 py-0.5 rounded text-[#fff7d4] font-medium">Enter</kbd> to close
                     </motion.div>
                   )}
                 </motion.div>
