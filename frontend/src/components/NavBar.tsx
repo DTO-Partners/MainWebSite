@@ -31,10 +31,13 @@ export default function Navbar() {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         isScrolled || isMobileMenuOpen
           ? "navbar-glass navbar-glow border-white/10"
-          : "bg-transparent border-transparent"
+          : "border-transparent"
       } border-b`}
+      style={{
+        background: isScrolled || isMobileMenuOpen ? undefined : 'transparent'
+      }}
     >
-      {/* Enhanced background pattern for scrolled state - always visible when scrolled */}
+      {/* Enhanced background pattern for scrolled state - only visible when scrolled */}
       {(isScrolled || isMobileMenuOpen) && (
         <motion.div 
           className="absolute inset-0 bg-gradient-to-r from-[#1a1a2e]/95 via-[#243046]/90 to-[#1a1a2e]/95"
@@ -44,8 +47,10 @@ export default function Navbar() {
         />
       )}
       
-      {/* Ambient light effect */}
-      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-96 h-1 bg-gradient-to-r from-transparent via-[#daa520]/30 to-transparent" />
+      {/* Ambient light effect - only show when scrolled */}
+      {(isScrolled || isMobileMenuOpen) && (
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-96 h-1 bg-gradient-to-r from-transparent via-[#daa520]/30 to-transparent" />
+      )}
       
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between relative z-10 min-h-[80px]">
         {/* Logo */}

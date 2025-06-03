@@ -1,13 +1,9 @@
-import { useHeroSlideshow } from '@/hooks/useHeroSlideshow';
-import { BackgroundSlideshow } from '@/components/hero/BackgroundSlideshow';
+import { VideoBackground } from '@/components/hero/VideoBackground';
 import { AnimatedParticles } from '@/components/hero/AnimatedParticles';
 import { HeroContent } from '@/components/hero/HeroContent';
-import { ProgressIndicators } from '@/components/hero/ProgressIndicators';
 import { ScrollIndicator } from '@/components/hero/ScrollIndicator';
 
 export default function Hero() {
-  const { current, isLoaded, slides, setCurrent } = useHeroSlideshow(4000);
-
   const scrollToNext = () => {
     const nextSection = document.getElementById("AboutUs");
     nextSection?.scrollIntoView({ behavior: "smooth" });
@@ -19,9 +15,9 @@ export default function Hero() {
       className="relative w-full h-screen min-h-[100vh] max-h-screen overflow-hidden"
       style={{ height: '100vh', minHeight: '100vh' }}
     >
-      {/* Background Slideshow - Fixed positioning to prevent scroll issues */}
+      {/* Video Background - Fixed positioning to prevent scroll issues */}
       <div className="absolute inset-0 w-full h-full z-0" style={{ zIndex: 0 }}>
-        <BackgroundSlideshow slides={slides} current={current} />
+        <VideoBackground />
       </div>
       
       {/* Content Layer */}
@@ -30,15 +26,7 @@ export default function Hero() {
         <AnimatedParticles count={20} />
         
         {/* Hero Content */}
-        <HeroContent isLoaded={isLoaded} onScrollToNext={scrollToNext} />
-        
-        {/* Progress Indicators */}
-        <ProgressIndicators 
-          slides={slides} 
-          current={current} 
-          setCurrent={setCurrent}
-          intervalDuration={4000}
-        />
+        <HeroContent isLoaded={true} onScrollToNext={scrollToNext} />
 
         {/* Scroll Indicator */}
         <ScrollIndicator onScrollToNext={scrollToNext} />
