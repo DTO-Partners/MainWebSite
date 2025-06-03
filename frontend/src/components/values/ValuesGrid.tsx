@@ -19,7 +19,6 @@ export function ValuesGrid({ values, activeIndex, onToggleCard }: ValuesGridProp
             index={index}
             isActive={activeIndex === index}
             onToggle={onToggleCard}
-            animationDelay={index * 100}
           />
         ))}
       </div>

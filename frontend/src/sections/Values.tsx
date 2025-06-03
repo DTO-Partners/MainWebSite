@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useValues } from "@/hooks/useValues";
 import { ValuesHeader } from "@/components/values/ValuesHeader";
 import { ValuesBackground } from "@/components/values/ValuesBackground";
@@ -8,13 +7,9 @@ const Values = () => {
   const { values, activeIndex, toggleValue } = useValues();
 
   return (
-    <motion.section
+    <section
       id="Values"
       className="flex justify-center items-center relative w-full bg-gradient-to-br from-[#1a1a2e] via-[#15162c] to-[#243046] py-28 px-6 text-white overflow-hidden"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true, margin: "-100px" }}
     >
       {/* Background Elements */}
       <ValuesBackground />
@@ -25,20 +20,15 @@ const Values = () => {
         <ValuesHeader />
         
         {/* Values Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true }}
-        >
+        <div className="opacity-100">
           <ValuesGrid
             values={values}
             activeIndex={activeIndex}
             onToggleCard={toggleValue}
           />
-        </motion.div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

@@ -284,13 +284,13 @@
     background: rgba(218, 165, 32, 0.6);
   }
 
-  /* Value card hover effects */
+  /* Value card hover effects - simplified for performance */
   .value-card {
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
   }
 
   .value-card:hover {
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-4px);
   }
 
   .value-card:focus {
