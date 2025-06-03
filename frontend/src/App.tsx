@@ -12,6 +12,7 @@ import Markets from "./sections/Markets";
 import GDPRModal from "./components/GDPRModal";
 import IndustriesSection from "./sections/Industries";
 import ApplyForm from "./sections/Apply";
+import Footer from "./sections/Footer";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
       <GDPRModal/>
       <IndustriesSection/>
       <ApplyForm/>
+      <Footer/>
     </div>
   )
 }
