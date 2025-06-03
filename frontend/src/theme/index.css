@@ -157,4 +157,110 @@
       left: 100%;
     }
   }
+
+  /* Enhanced Navbar Styles */
+  .navbar-glass {
+    background: rgba(26, 26, 46, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .navbar-glow {
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(255, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  .navbar-logo-glow {
+    filter: drop-shadow(0 0 20px rgba(218, 165, 32, 0.3));
+  }
+
+  .navbar-item-hover {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .navbar-item-hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .navbar-item-hover:hover::before {
+    left: 100%;
+  }
+
+  /* Mobile menu animations */
+  .mobile-menu-backdrop {
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+  }
+
+  /* Language toggle animations */
+  .language-flag-container {
+    perspective: 1000px;
+  }
+
+  .language-flag {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+  }
+
+  .language-flag-container:hover .language-flag {
+    transform: rotateY(10deg) scale(1.05);
+  }
+
+  /* Background gradient utilities */
+  .bg-radial-gradient {
+    background: radial-gradient(ellipse at center, var(--tw-gradient-stops));
+  }
+
+  /* Hero background fixes */
+  .hero-background-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+  }
+
+  /* Prevent background flickering */
+  .hero-image-stable {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Smooth transitions for hero backgrounds */
+  .hero-slide-enter {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+
+  .hero-slide-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 1200ms ease-in-out;
+  }
+
+  .hero-slide-exit {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .hero-slide-exit-active {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 1200ms ease-in-out;
+  }
 }

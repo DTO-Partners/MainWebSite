@@ -38,7 +38,28 @@ export function useHeroSlideshow(intervalDuration: number = 4000): UseHeroSlides
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setIsLoaded(true);
+    // Preload the first few images for better performance
+    const preloadImages = async () => {
+      const preloadPromises = slides.slice(0, 3).map((slide) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = resolve;
+          img.onerror = reject;
+          img.src = slide.src;
+        });
+      });
+
+      try {
+        await Promise.all(preloadPromises);
+        setIsLoaded(true);
+      } catch (error) {
+        console.warn('Some images failed to preload:', error);
+        setIsLoaded(true); // Continue anyway
+      }
+    };
+
+    preloadImages();
+
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, intervalDuration);
