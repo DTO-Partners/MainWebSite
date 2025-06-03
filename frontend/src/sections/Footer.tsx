@@ -39,6 +39,8 @@ export default function Footer() {
   const [showNearbyPlaces, setShowNearbyPlaces] = useState(false);
   const [activeTab, setActiveTab] = useState<'contact' | 'directions' | 'hours' | 'share'>('contact');
   const [timeOfDay, setTimeOfDay] = useState<'morning' | 'afternoon' | 'evening' | 'night'>('morning');
+  const [mapError, setMapError] = useState<string | null>(null);
+  const [apiLimited, setApiLimited] = useState(false);
 
   // Update time of day based on current time
   useEffect(() => {
@@ -138,6 +140,28 @@ export default function Footer() {
     window.open(url, '_blank');
   };
 
+  // Check if advanced APIs are available
+  const checkApiCapabilities = async () => {
+    try {
+      // Simple test for Geocoding API (won't actually use it, just check availability)
+      const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=test&key=${apiKey}`);
+      if (response.status === 403) {
+        setApiLimited(true);
+        console.warn('Some Google Maps APIs are restricted. Using basic map functionality only.');
+      }
+    } catch (error) {
+      console.warn('Unable to check API capabilities:', error);
+      setApiLimited(true);
+    }
+  };
+
+  // Run API check on component mount
+  useEffect(() => {
+    if (apiKey) {
+      checkApiCapabilities();
+    }
+  }, []);
+
   const shareLocation = () => {
     const url = `https://www.google.com/maps/place/${headquarters.lat},${headquarters.lng}`;
     if (navigator.share) {
@@ -184,6 +208,15 @@ export default function Footer() {
 
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
+  // Debug API key in development
+  useEffect(() => {
+    if (!apiKey) {
+      console.error('Google Maps API key is missing. Please check your .env file.');
+    } else if (import.meta.env.DEV) {
+      console.log('Google Maps API key loaded:', apiKey.slice(0, 10) + '...');
+    }
+  }, [apiKey]);
+
   const contactInfo = [
     {
       icon: Mail,
@@ -224,7 +257,17 @@ export default function Footer() {
   ];
 
   return (
-    <APIProvider apiKey={apiKey}>
+    <APIProvider 
+      apiKey={apiKey}
+      onLoad={() => {
+        console.log('Google Maps API loaded successfully');
+        setMapError(null);
+      }}
+      onError={(error: unknown) => {
+        console.error('Google Maps API failed to load:', error);
+        setMapError('Failed to load Google Maps. Please check your API key configuration.');
+      }}
+    >
       <footer
         id="Contact"
         className="bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#1a1a2e] text-white relative overflow-hidden"
@@ -286,15 +329,26 @@ export default function Footer() {
                 >
                   <button
                     onClick={toggleNearbyPlaces}
+                    disabled={apiLimited}
                     className={`flex items-center gap-2 transition-colors w-full ${
-                      showNearbyPlaces ? 'text-[#daa520]' : 'text-[#1a1a2e] hover:text-[#daa520]'
+                      apiLimited 
+                        ? 'text-gray-400 cursor-not-allowed' 
+                        : showNearbyPlaces 
+                          ? 'text-[#daa520]' 
+                          : 'text-[#1a1a2e] hover:text-[#daa520]'
                     }`}
+                    title={apiLimited ? 'Feature requires additional Google Maps APIs' : ''}
                   >
                     <MapIcon className="w-4 h-4" />
                     <span className="text-sm font-medium">
-                      {showNearbyPlaces ? 'Hide' : 'Show'} Nearby
+                      {apiLimited ? 'Places API Limited' : (showNearbyPlaces ? 'Hide' : 'Show') + ' Nearby'}
                     </span>
                   </button>
+                  {apiLimited && (
+                    <p className="text-xs text-gray-500 mt-1">
+                      Enable Places API in Google Cloud Console
+                    </p>
+                  )}
                 </motion.div>
               </div>
 
@@ -320,7 +374,39 @@ export default function Footer() {
               
               {/* Google Maps */}
               <div className="h-full w-full relative">
-                <Map
+                {!apiKey || mapError ? (
+                  <div className="h-full w-full bg-gradient-to-br from-[#1a1a2e] to-[#16213e] flex flex-col items-center justify-center text-white p-8">
+                    <MapPin className="w-16 h-16 text-[#daa520] mb-4" />
+                    <h3 className="text-xl font-semibold mb-2">Our Location</h3>
+                    {mapError && (
+                      <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-3 mb-4 max-w-md">
+                        <p className="text-red-200 text-sm">{mapError}</p>
+                      </div>
+                    )}
+                    <p className="text-gray-300 text-center max-w-sm mb-4">
+                      Jana Heweliusza 11/lokal 811<br/>
+                      80-890 Gdańsk, Poland
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <a 
+                        href="https://maps.google.com/?q=54.352,18.6466" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="px-6 py-2 bg-[#daa520] text-white rounded-lg hover:bg-[#daa520]/80 transition-all duration-300 flex items-center gap-2"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        View on Google Maps
+                      </a>
+                      <button 
+                        onClick={() => window.location.reload()}
+                        className="px-6 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-all duration-300 border border-white/20"
+                      >
+                        Retry Loading Map
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <Map
                   style={{ width: '100%', height: '100%' }}
                   center={mapCenter}
                   zoom={mapZoom}
@@ -353,7 +439,17 @@ export default function Footer() {
                   ]}
                 >
                   {nearbyPoints
-                    .filter(point => showNearbyPlaces || point.type === 'office' || point.type === 'parking' || point.type === 'transport')
+                    .filter(point => {
+                      // Always show office, parking, and transport
+                      if (['office', 'parking', 'transport'].includes(point.type)) return true;
+                      
+                      // Only show amenities if APIs are available and toggle is on
+                      if (point.type === 'amenity') {
+                        return !apiLimited && showNearbyPlaces;
+                      }
+                      
+                      return showNearbyPlaces;
+                    })
                     .map((point) => (
                     <Marker
                       key={point.id}
@@ -473,6 +569,7 @@ export default function Footer() {
                     </InfoWindow>
                   )}
                 </Map>
+                )}
               </div>
 
               {/* Enhanced Location Overlay */}
