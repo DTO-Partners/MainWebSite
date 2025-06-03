@@ -4,12 +4,12 @@ import { NavItem } from '@/hooks/useNavbar';
 
 interface NavbarMenuProps {
   navItems: NavItem[];
-  isScrolled: boolean;
+  isScrolled?: boolean;
   className?: string;
   onItemClick?: () => void;
 }
 
-export function NavbarMenu({ navItems, isScrolled, className = "", onItemClick }: NavbarMenuProps) {
+export function NavbarMenu({ navItems, className = "", onItemClick }: NavbarMenuProps) {
   return (
     <motion.ul 
       className={`flex gap-1 text-sm font-medium tracking-wide ${className}`}

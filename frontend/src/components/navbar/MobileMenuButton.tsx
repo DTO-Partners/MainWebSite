@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 interface MobileMenuButtonProps {
   isOpen: boolean;
   onToggle: () => void;
-  isScrolled: boolean;
+  isScrolled?: boolean;
 }
 
-export function MobileMenuButton({ isOpen, onToggle, isScrolled }: MobileMenuButtonProps) {
+export function MobileMenuButton({ isOpen, onToggle }: MobileMenuButtonProps) {
   return (
     <motion.button
       onClick={onToggle}

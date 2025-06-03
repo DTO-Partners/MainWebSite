@@ -5,10 +5,10 @@ import flagPL from "@/assets/flag-pl.png";
 interface LanguageToggleProps {
   currentLang: string;
   onToggle: () => void;
-  isScrolled: boolean;
+  isScrolled?: boolean;
 }
 
-export function LanguageToggle({ currentLang, onToggle, isScrolled }: LanguageToggleProps) {
+export function LanguageToggle({ currentLang, onToggle }: LanguageToggleProps) {
   return (
     <motion.div className="relative">
       <motion.button
