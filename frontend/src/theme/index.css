@@ -263,4 +263,38 @@
     transform: scale(0.95);
     transition: all 1200ms ease-in-out;
   }
+
+  /* Values scrollbar styles */
+  .values-scrollbar::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .values-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(218, 165, 32, 0.4);
+    border-radius: 8px;
+    transition: background 0.3s ease;
+  }
+
+  .values-scrollbar::-webkit-scrollbar-track {
+    background: rgba(34, 34, 53, 0.5);
+    border-radius: 8px;
+  }
+
+  .values-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(218, 165, 32, 0.6);
+  }
+
+  /* Value card hover effects */
+  .value-card {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .value-card:hover {
+    transform: translateY(-8px) scale(1.02);
+  }
+
+  .value-card:focus {
+    outline: 2px solid rgba(218, 165, 32, 0.5);
+    outline-offset: 4px;
+  }
 }

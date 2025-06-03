@@ -57,6 +57,36 @@
       "submit": "WYŚLIJ APLIKACJĘ",
       "sending": "Wysyłanie..."
     }
+  },
+  "values": {
+    "header": {
+      "title": "Nasze Wartości",
+      "description": "Te pięć wartości definiuje kim jesteśmy, jak pracujemy i jak się rozwijamy — z naszymi partnerami, kandydatami i zespołem."
+    },
+    "confidentiality": {
+      "title": "Poufność",
+      "subtitle": "Wartość, na którą nigdy nie pójdziemy na kompromis.",
+      "description": "Traktujemy poufność jako rdzeń naszych usług, chroniąc Wasze informacje z najwyższymi standardami dyskrecji."
+    },
+    "multiculturalism": {
+      "title": "Wielokulturowość",
+      "subtitle": "Widzimy różnorodność jako siłę.",
+      "description": "Szanujemy i respektujemy kulturę oraz praktyki każdego kraju, w którym działamy, zapewniając że nasza rekrutacja odzwierciedla różnorodność i wyjątkowość tych kultur."
+    },
+    "efficiency": {
+      "title": "Efektywność",
+      "subtitle": "Działamy szybko, z celem.",
+      "description": "Skupiamy się na dostarczaniu skutecznych i usprawnionej rozwiązań rekrutacyjnych, które przynoszą rzeczywiste rezultaty."
+    },
+    "transparency": {
+      "title": "Przejrzystość",
+      "subtitle": "Jasność buduje zaufanie.",
+      "description": "Wierzymy w otwartą, jasną komunikację z klientami i kandydatami na każdym etapie procesu."
+    },
+    "internationalization": {
+      "title": "Internacjonalizacja",
+      "subtitle": "Łączymy ludzi globalnie.",
+      "description": "Naszą misją jest łączenie talentów i możliwości ponad granicami, umożliwiając globalny rozwój kariery."
+    }
   }
 }
-  
