@@ -135,28 +135,6 @@ export function AccordionTrigger({ value, openItems, handleToggle, children, cla
       
       <div className="relative z-10 flex items-center justify-between w-full">
         {children}
-        
-        {/* Enhanced arrow with background */}
-        <motion.div
-          className="ml-4 w-10 h-10 rounded-full bg-gradient-to-br from-[#daa520]/10 to-[#daa520]/20 border border-[#daa520]/20 flex items-center justify-center group-hover/trigger:border-[#daa520]/40 group-hover/trigger:shadow-lg transition-all duration-300"
-          animate={{ 
-            rotate: isOpen ? 90 : 0,
-            scale: isOpen ? 1.1 : 1,
-            backgroundColor: isOpen ? "rgba(218, 165, 32, 0.15)" : "rgba(218, 165, 32, 0.1)"
-          }}
-          whileHover={{ scale: 1.15 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-        >
-          <motion.span 
-            className="text-[#daa520] text-sm font-bold"
-            animate={{ 
-              color: isOpen ? "#b8860b" : "#daa520"
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            ▶
-          </motion.span>
-        </motion.div>
       </div>
     </motion.button>
   );

@@ -6,36 +6,31 @@ const industries = [
     label: "Finance", 
     icon: "💼", 
     description: "Investment management & financial services",
-    color: "#2563eb",
-    proficiency: 95 
+    color: "#2563eb"
   },
   { 
     label: "Healthcare", 
     icon: "🩺", 
     description: "Medical professionals & healthcare solutions",
-    color: "#dc2626",
-    proficiency: 88 
+    color: "#dc2626"
   },
   { 
     label: "IT & Cybersecurity", 
     icon: "🖥️", 
     description: "Technology experts & security specialists",
-    color: "#7c3aed",
-    proficiency: 92 
+    color: "#7c3aed"
   },
   { 
     label: "Hospitality", 
     icon: "🏨", 
     description: "Tourism & hospitality management",
-    color: "#059669",
-    proficiency: 85 
+    color: "#059669"
   },
   { 
     label: "Food Engineering", 
     icon: "🍽️", 
     description: "Food science & engineering professionals",
-    color: "#ea580c",
-    proficiency: 90 
+    color: "#ea580c"
   },
 ];
 
@@ -43,42 +38,36 @@ const languages = [
   { 
     label: "English", 
     icon: "🇬🇧", 
-    description: "Native & Business fluency",
-    proficiency: 98,
+    description: "Native language",
     color: "#1e40af" 
   },
   { 
     label: "Polish", 
     icon: "🇵🇱", 
     description: "Native language",
-    proficiency: 100,
     color: "#dc2626" 
   },
   { 
     label: "Italian", 
     icon: "🇮🇹", 
-    description: "Professional working proficiency",
-    proficiency: 85,
+    description: "Native language",
     color: "#059669" 
   },
   { 
     label: "German", 
     icon: "🇩🇪", 
-    description: "Business communication level",
-    proficiency: 80,
+    description: "Business level",
     color: "#7c2d12" 
   },
   { 
     label: "Russian", 
     icon: "🇷🇺", 
-    description: "Conversational & business level",
-    proficiency: 75,
+    description: "Business level",
     color: "#7c3aed" 
   },
 ];
 
 const factChips = [
-  { text: "Founded in 2025", icon: "🏢", color: "#daa520" },
   { text: "Registered in Poland", icon: "🇵🇱", color: "#dc2626" },
   { text: "Multinational Team", icon: "🌍", color: "#059669" },
   { text: "Government Approved", icon: "✅", color: "#2563eb" },
@@ -147,7 +136,7 @@ export default function About() {
             <p className="text-base md:text-lg leading-relaxed text-[#1a1a2e]/85 font-light">
               DTO Partners is an{" "}
               <span className="font-medium text-[#daa520]">international recruitment company</span>{" "}
-              headquartered in Poland since 2025. Our foundations were built by managers with
+              headquartered in Poland. Our foundations were built by managers with
               recognized experience in{" "}
               <span className="font-medium text-[#1a1a2e]">Investment Management</span>,{" "}
               <span className="font-medium text-[#1a1a2e]">Food Science and Engineering</span>,
@@ -290,20 +279,6 @@ export default function About() {
                           {item.description}
                         </p>
                       </div>
-                      
-                      {/* Proficiency indicator */}
-                      <div className="flex flex-col items-end gap-2">
-                        <span className="text-xs font-semibold text-[#708090] tracking-wide">{item.proficiency}%</span>
-                        <div className="w-14 h-2 bg-gray-200/80 rounded-full overflow-hidden shadow-inner">
-                          <div
-                            className="h-full rounded-full transition-all duration-1000 shadow-sm"
-                            style={{ 
-                              backgroundColor: item.color,
-                              width: `${item.proficiency}%`
-                            }}
-                          />
-                        </div>
-                      </div>
                     </div>
                   </div>
                 ))}
@@ -362,20 +337,6 @@ export default function About() {
                         <p className="text-xs md:text-sm text-[#708090] mt-2 leading-relaxed font-light">
                           {lang.description}
                         </p>
-                      </div>
-                      
-                      {/* Proficiency indicator */}
-                      <div className="flex flex-col items-end gap-2">
-                        <span className="text-xs font-semibold text-[#708090] tracking-wide">{lang.proficiency}%</span>
-                        <div className="w-14 h-2 bg-gray-200/80 rounded-full overflow-hidden shadow-inner">
-                          <div
-                            className="h-full rounded-full transition-all duration-1000 shadow-sm"
-                            style={{ 
-                              backgroundColor: lang.color,
-                              width: `${lang.proficiency}%`
-                            }}
-                          />
-                        </div>
                       </div>
                     </div>
                   </div>
