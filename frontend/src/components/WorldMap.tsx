@@ -68,7 +68,6 @@ export default function WorldMapComponent() {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [animatedCountries, setAnimatedCountries] = useState<Set<string>>(new Set());
   const [filterRegion, setFilterRegion] = useState<'all' | 'europe' | 'africa' | 'middle-east'>('all');
-  const [showConnections, setShowConnections] = useState(false);
 
   // Handle keyboard events for better accessibility
   useEffect(() => {
@@ -252,20 +251,6 @@ export default function WorldMapComponent() {
           {/* Interactive Toggles */}
           <div className="flex items-center gap-4">
             <button
-              onClick={() => setShowConnections(!showConnections)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
-                showConnections
-                  ? 'bg-[#daa520] text-white shadow-lg'
-                  : 'bg-white/80 text-[#1a1a2e] hover:bg-[#daa520]/10 border border-[#daa520]/20'
-              }`}
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-              </svg>
-              Connections
-            </button>
-            
-            <button
               onClick={() => {
                 // Clear any existing animations first
                 setAnimatedCountries(new Set());
@@ -370,113 +355,6 @@ export default function WorldMapComponent() {
               WebkitUserSelect: 'none'
             }}
           >
-            {/* Simplified Connection Lines */}
-            {showConnections && (
-              <div className="absolute inset-0 w-full h-full pointer-events-none z-10 flex items-center justify-center">
-                <svg 
-                  width="900" 
-                  height="600" 
-                  className="absolute opacity-80"
-                  viewBox="0 0 900 600"
-                >
-                  <defs>
-                    <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#daa520" stopOpacity="0.6" />
-                      <stop offset="50%" stopColor="#daa520" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="#daa520" stopOpacity="0.6" />
-                    </linearGradient>
-                  </defs>
-                  
-                  {/* Connection lines from Poland (headquarters) to partner countries */}
-                  <g>
-                    {/* Poland coordinates - approximate center of Poland on world map */}
-                    {/* Poland to Germany */}
-                    <line x1="485" y1="215" x2="465" y2="220" 
-                          stroke="url(#connectionGradient)" 
-                          strokeWidth="2" 
-                          strokeDasharray="4,4"
-                          opacity="0.8">
-                      <animate attributeName="stroke-dashoffset" 
-                               values="0;8" 
-                               dur="2s" 
-                               repeatCount="indefinite"/>
-                    </line>
-                    
-                    {/* Poland to Luxembourg */}
-                    <line x1="485" y1="215" x2="445" y2="235" 
-                          stroke="url(#connectionGradient)" 
-                          strokeWidth="2" 
-                          strokeDasharray="4,4"
-                          opacity="0.8">
-                      <animate attributeName="stroke-dashoffset" 
-                               values="0;8" 
-                               dur="2.2s" 
-                               repeatCount="indefinite"/>
-                    </line>
-                    
-                    {/* Poland to Ireland */}
-                    <line x1="485" y1="215" x2="395" y2="195" 
-                          stroke="url(#connectionGradient)" 
-                          strokeWidth="2" 
-                          strokeDasharray="4,4"
-                          opacity="0.8">
-                      <animate attributeName="stroke-dashoffset" 
-                               values="0;8" 
-                               dur="1.8s" 
-                               repeatCount="indefinite"/>
-                    </line>
-                    
-                    {/* Poland to Saudi Arabia */}
-                    <line x1="485" y1="215" x2="580" y2="290" 
-                          stroke="url(#connectionGradient)" 
-                          strokeWidth="2" 
-                          strokeDasharray="4,4"
-                          opacity="0.8">
-                      <animate attributeName="stroke-dashoffset" 
-                               values="0;8" 
-                               dur="2.5s" 
-                               repeatCount="indefinite"/>
-                    </line>
-                    
-                    {/* Poland to UAE */}
-                    <line x1="485" y1="215" x2="600" y2="285" 
-                          stroke="url(#connectionGradient)" 
-                          strokeWidth="2" 
-                          strokeDasharray="4,4"
-                          opacity="0.8">
-                      <animate attributeName="stroke-dashoffset" 
-                               values="0;8" 
-                               dur="2.3s" 
-                               repeatCount="indefinite"/>
-                    </line>
-                  </g>
-                  
-                  {/* Connection points with pulsing animation */}
-                  <circle cx="485" cy="215" r="5" fill="#daa520" opacity="0.9">
-                    <animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite"/>
-                    <animate attributeName="opacity" values="0.9;0.6;0.9" dur="2s" repeatCount="indefinite"/>
-                  </circle>
-                  
-                  {/* Partner country points */}
-                  <circle cx="465" cy="220" r="3" fill="#3e5c76" opacity="0.8">
-                    <animate attributeName="r" values="3;4;3" dur="2s" repeatCount="indefinite"/>
-                  </circle>
-                  <circle cx="445" cy="235" r="3" fill="#008080" opacity="0.8">
-                    <animate attributeName="r" values="3;4;3" dur="2.2s" repeatCount="indefinite"/>
-                  </circle>
-                  <circle cx="395" cy="195" r="3" fill="#ffd700" opacity="0.8">
-                    <animate attributeName="r" values="3;4;3" dur="1.8s" repeatCount="indefinite"/>
-                  </circle>
-                  <circle cx="580" cy="290" r="3" fill="#708090" opacity="0.8">
-                    <animate attributeName="r" values="3;4;3" dur="2.5s" repeatCount="indefinite"/>
-                  </circle>
-                  <circle cx="600" cy="285" r="3" fill="#333333" opacity="0.8">
-                    <animate attributeName="r" values="3;4;3" dur="2.3s" repeatCount="indefinite"/>
-                  </circle>
-                </svg>
-              </div>
-            )}
-            
             <div className="flex items-center justify-center w-full h-full relative">
               <WorldMap
                 title=""
@@ -609,18 +487,6 @@ export default function WorldMapComponent() {
               <div className="text-xs text-[#1a1a2e] mt-1 font-medium">EMEA Region</div>
             </div>
           </div>
-
-          {/* Connection Status Indicator */}
-          {showConnections && (
-            <div className="absolute top-20 left-4 bg-white/90 backdrop-blur-sm border border-[#daa520]/20 rounded-xl px-3 py-2 shadow-lg z-10">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-[#daa520] rounded-full animate-pulse"></div>
-                <span className="text-xs text-[#708090] font-medium">
-                  Network Active
-                </span>
-              </div>
-            </div>
-          )}
 
           {/* Zoom level indicator */}
           <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm border border-[#daa520]/20 rounded-xl px-3 py-2 shadow-lg z-10">
