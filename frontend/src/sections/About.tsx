@@ -1,5 +1,5 @@
 import { useState } from "react";
-import aboutImg from "@/assets/about-us.jpg";
+import { AboutVideo } from "@/components/about/AboutVideo";
 
 const industries = [
   { 
@@ -104,51 +104,78 @@ export default function About() {
       
       {/* Main Content */}
       <div className="w-full flex h-1/2 relative z-10">
-        {/* Text Block */}
-        <div className="w-1/2 px-12 py-24 space-y-8 flex flex-col justify-center relative">
-          {/* Decorative side accent */}
-          <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-2 h-24 bg-gradient-to-b from-[#daa520] via-[#b8860b] to-[#daa520] rounded-r-full shadow-lg"></div>
+        {/* Enhanced Text Block */}
+        <div className="w-1/2 px-12 py-24 space-y-8 flex flex-col justify-center relative group">
+          {/* Enhanced decorative side accent with animation */}
+          <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10">
+            <div className="w-3 h-32 bg-gradient-to-b from-transparent via-[#daa520] to-transparent rounded-r-full shadow-2xl group-hover:w-4 group-hover:h-40 transition-all duration-700"></div>
+            <div className="absolute left-3 top-4 w-1 h-24 bg-gradient-to-b from-transparent via-[#b8860b]/60 to-transparent rounded-r-full group-hover:w-2 transition-all duration-500"></div>
+          </div>
           
-          <div className="space-y-4">
-            <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-[#daa520] via-[#b8860b] to-[#daa520] flex items-center justify-center shadow-2xl shadow-[#daa520]/40 mb-6 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <span className="text-3xl relative z-10">🏢</span>
+          {/* Floating background orbs */}
+          <div className="absolute top-20 right-20 w-24 h-24 bg-gradient-to-br from-[#fff7d4]/30 to-transparent rounded-full blur-2xl animate-pulse"></div>
+          <div className="absolute bottom-32 right-32 w-16 h-16 bg-gradient-to-tr from-[#daa520]/20 to-transparent rounded-full blur-xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+          
+          <div className="space-y-4 relative z-10">
+            <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-[#daa520] via-[#b8860b] to-[#daa520] flex items-center justify-center shadow-2xl shadow-[#daa520]/40 mb-6 relative overflow-hidden group/icon">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 border-2 border-white/20 rounded-3xl group-hover/icon:border-white/40 transition-all duration-300"></div>
+              <span className="text-3xl relative z-10 group-hover/icon:scale-110 transition-transform duration-300">🏢</span>
+              
+              {/* Icon decorative particles */}
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#fff7d4] rounded-full animate-ping"></div>
+              <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-white/60 rounded-full animate-pulse"></div>
             </div>
             
-            <h2 className="text-5xl md:text-6xl font-light text-[#1a1a2e] tracking-tight leading-none mb-4">
+            <h2 className="text-5xl md:text-6xl font-light text-[#1a1a2e] tracking-tight leading-none mb-4 group-hover:text-[#1a1a2e] transition-colors duration-500">
               About{" "}
               <span className="block text-3xl md:text-4xl bg-gradient-to-r from-[#daa520] to-[#b8860b] bg-clip-text text-transparent font-normal mt-2 tracking-wide">
                 DTO Partners
               </span>
             </h2>
             
-            <div className="h-[3px] w-40 bg-gradient-to-r from-[#daa520] via-[#b8860b] to-[#daa520] rounded-full shadow-lg mb-8 relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#daa520] via-white to-[#daa520] rounded-full animate-pulse opacity-50"></div>
+            <div className="relative">
+              <div className="h-[3px] w-40 bg-gradient-to-r from-[#daa520] via-[#b8860b] to-[#daa520] rounded-full shadow-lg mb-8 relative group-hover:w-48 transition-all duration-700">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#daa520] via-white to-[#daa520] rounded-full animate-pulse opacity-50"></div>
+                <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rounded-full shadow-lg animate-bounce"></div>
+              </div>
             </div>
           </div>
 
-          <div className="relative">
-            <span className="inline-flex items-center gap-3 uppercase text-sm tracking-widest text-[#1a1a2e] font-semibold bg-gradient-to-r from-[#fff7d4]/80 via-white/70 to-[#fff7d4]/80 backdrop-blur-md px-10 py-5 rounded-full border-2 border-[#daa520]/40 shadow-xl hover:shadow-2xl hover:border-[#daa520]/60 transition-all duration-500 transform hover:scale-105 relative overflow-hidden">
+          <div className="relative z-10">
+            <span className="inline-flex items-center gap-3 uppercase text-sm tracking-widest text-[#1a1a2e] font-semibold bg-gradient-to-r from-[#fff7d4]/80 via-white/70 to-[#fff7d4]/80 backdrop-blur-md px-10 py-5 rounded-full border-2 border-[#daa520]/40 shadow-xl hover:shadow-2xl hover:border-[#daa520]/60 transition-all duration-500 transform hover:scale-105 relative overflow-hidden group/badge">
               <div className="absolute inset-0 bg-gradient-to-r from-[#daa520]/5 via-transparent to-[#daa520]/5 rounded-full"></div>
+              <div className="absolute inset-0 border border-white/30 rounded-full group-hover/badge:border-white/50 transition-all duration-300"></div>
               <span className="w-3 h-3 bg-[#daa520] rounded-full shadow-md animate-pulse relative z-10" />
               <span className="relative z-10">International Recruitment Company</span>
+              
+              {/* Badge hover effect */}
+              <div className="absolute top-0 left-0 w-0 group-hover/badge:w-full h-full bg-gradient-to-r from-[#daa520]/10 to-[#daa520]/5 rounded-full transition-all duration-700"></div>
             </span>
           </div>
 
-          <div className="space-y-6">
-            <p className="text-base md:text-lg leading-relaxed text-[#1a1a2e]/85 font-light">
+          <div className="space-y-6 relative z-10">
+            <p className="text-base md:text-lg leading-relaxed text-[#1a1a2e]/85 font-light group-hover:text-[#1a1a2e]/95 transition-colors duration-500">
               DTO Partners is an{" "}
-              <span className="font-medium text-[#daa520]">international recruitment company</span>{" "}
+              <span className="font-medium text-[#daa520]">
+                international recruitment company
+              </span>{" "}
               headquartered in Poland. Our foundations were built by managers with
               recognized experience in{" "}
-              <span className="font-medium text-[#1a1a2e]">Investment Management</span>,{" "}
-              <span className="font-medium text-[#1a1a2e]">Food Science and Engineering</span>,
+              <span className="font-medium text-[#1a1a2e]">
+                Investment Management
+              </span>,{" "}
+              <span className="font-medium text-[#1a1a2e]">
+                Food Science and Engineering
+              </span>,
               within major international private and public organizations.
             </p>
             
-            <p className="text-sm md:text-base leading-relaxed text-[#708090] font-light">
+            <p className="text-sm md:text-base leading-relaxed text-[#708090] font-light group-hover:text-[#708090]/95 transition-colors duration-500">
               DTO Partners has been{" "}
-              <span className="font-medium text-[#daa520]">approved and registered</span>{" "}
+              <span className="font-medium text-[#daa520]">
+                approved and registered
+              </span>{" "}
               with the National Register of Recruitment Firms by the{" "}
               <span className="font-medium text-[#1a1a2e]">
                 Ministry of Family, Labour and Social Policies of the Republic of Poland
@@ -179,7 +206,6 @@ export default function About() {
                     <span className="text-[#1a1a2e] group-hover:text-[#daa520] transition-colors duration-300 tracking-wide font-semibold block">
                       {item.text}
                     </span>
-                    <div className="w-0 group-hover:w-full h-0.5 bg-[#daa520] mt-1 transition-all duration-500 rounded-full"></div>
                   </div>
                 </div>
                 
@@ -196,40 +222,88 @@ export default function About() {
           </div>
         </div>
 
-        {/* Image */}
-        <div className="w-1/2 min-h-full flex relative overflow-hidden">
-          {/* Geometric decorative elements */}
-          <div className="absolute top-8 left-8 w-4 h-4 bg-[#daa520] rotate-45 z-20 animate-pulse"></div>
-          <div className="absolute top-16 left-16 w-2 h-2 bg-[#b8860b] rounded-full z-20"></div>
-          <div className="absolute bottom-12 left-6 w-6 h-6 border-2 border-[#daa520] rotate-45 z-20"></div>
+        {/* Enhanced Video Section */}
+        <div className="w-1/2 min-h-full flex relative overflow-hidden group">
+          {/* Enhanced background with multiple layers */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a2e]/10 via-transparent to-[#daa520]/15 z-5"></div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#daa520]/8 via-transparent to-[#1a1a2e]/12 z-5"></div>
           
-          {/* Corner frame */}
-          <div className="absolute top-6 right-6 w-20 h-20 border-4 border-[#daa520]/40 border-l-transparent border-b-transparent rounded-tr-3xl z-20"></div>
-          <div className="absolute bottom-6 left-6 w-16 h-16 border-4 border-[#daa520]/40 border-r-transparent border-t-transparent rounded-bl-3xl z-20"></div>
+          {/* Animated floating orbs */}
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-br from-[#daa520]/20 to-transparent rounded-full blur-3xl animate-pulse z-5"></div>
+          <div className="absolute bottom-1/3 right-1/3 w-24 h-24 bg-gradient-to-tl from-[#fff7d4]/40 to-transparent rounded-full blur-2xl animate-pulse z-5" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-2/3 left-1/6 w-16 h-16 bg-gradient-to-r from-[#b8860b]/30 to-transparent rounded-full blur-xl animate-pulse z-5" style={{ animationDelay: '2s' }}></div>
           
-          {/* Gradient overlays */}
-          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[#1a1a2e]/5 to-[#1a1a2e]/15 z-10"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#daa520]/15 via-transparent to-transparent z-10"></div>
-          <div className="absolute inset-0 bg-gradient-to-l from-[#daa520]/5 via-transparent to-transparent z-10"></div>
+          {/* Modern geometric frame */}
+          <div className="absolute inset-6 border-2 border-[#daa520]/30 rounded-3xl z-10 group-hover:border-[#daa520]/50 transition-all duration-700">
+            {/* Corner accent triangles */}
+            <div className="absolute -top-3 -left-3 w-8 h-8 bg-[#daa520] rotate-45 rounded-sm shadow-lg"></div>
+            <div className="absolute -top-3 -right-3 w-8 h-8 bg-[#b8860b] rotate-45 rounded-sm shadow-lg"></div>
+            <div className="absolute -bottom-3 -left-3 w-8 h-8 bg-[#b8860b] rotate-45 rounded-sm shadow-lg"></div>
+            <div className="absolute -bottom-3 -right-3 w-8 h-8 bg-[#daa520] rotate-45 rounded-sm shadow-lg"></div>
+          </div>
           
-          {/* Floating info card */}
-          <div className="absolute bottom-8 right-8 bg-white/95 backdrop-blur-xl rounded-2xl px-6 py-4 shadow-2xl border border-[#daa520]/30 z-20 transform hover:scale-105 transition-all duration-300">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-[#daa520] to-[#b8860b] rounded-full flex items-center justify-center">
-                <span className="text-white text-sm">🎬</span>
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-[#1a1a2e]">Video Ready</p>
-                <p className="text-xs text-[#708090]">Replace with your content</p>
-              </div>
+          {/* Layered border effects */}
+          <div className="absolute inset-8 border border-white/50 rounded-2xl z-10 group-hover:border-white/70 transition-all duration-700"></div>
+          <div className="absolute inset-10 border border-[#daa520]/20 rounded-xl z-10 group-hover:border-[#daa520]/40 transition-all duration-700"></div>
+          
+          {/* Animated side accents */}
+          <div className="absolute left-0 top-1/4 w-1 h-1/2 bg-gradient-to-b from-transparent via-[#daa520] to-transparent z-15 group-hover:w-2 transition-all duration-500"></div>
+          <div className="absolute right-0 top-1/3 w-1 h-1/3 bg-gradient-to-b from-transparent via-[#b8860b] to-transparent z-15 group-hover:w-2 transition-all duration-500"></div>
+          <div className="absolute top-0 left-1/4 h-1 w-1/2 bg-gradient-to-r from-transparent via-[#daa520] to-transparent z-15 group-hover:h-2 transition-all duration-500"></div>
+          <div className="absolute bottom-0 left-1/3 h-1 w-1/3 bg-gradient-to-r from-transparent via-[#b8860b] to-transparent z-15 group-hover:h-2 transition-all duration-500"></div>
+          
+          {/* Enhanced floating indicators */}
+          <div className="absolute top-8 left-8 z-20">
+            <div className="flex flex-col gap-2">
+              <div className="w-3 h-3 bg-[#daa520] rounded-full animate-ping"></div>
+              <div className="w-2 h-2 bg-[#b8860b] rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              <div className="w-1 h-1 bg-[#daa520] rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
             </div>
           </div>
           
-          <img
-            src={aboutImg}
-            alt="DTO Partners team"
-            className="object-cover w-full h-full transition-all duration-700 ease-out hover:scale-105 filter brightness-105 contrast-105"
-          />
+          <div className="absolute top-8 right-8 z-20">
+            <div className="w-12 h-12 border-2 border-[#daa520]/50 rounded-full relative group-hover:border-[#daa520]/80 transition-all duration-500">
+              <div className="absolute inset-1 border border-[#daa520]/30 rounded-full group-hover:border-[#daa520]/60 transition-all duration-500"></div>
+              <div className="absolute inset-3 bg-[#daa520]/20 rounded-full group-hover:bg-[#daa520]/40 transition-all duration-500"></div>
+            </div>
+          </div>
+          
+          <div className="absolute bottom-8 left-8 z-20">
+            <div className="flex gap-1">
+              <div className="w-1 h-8 bg-[#daa520]/60 rounded-full animate-pulse"></div>
+              <div className="w-1 h-6 bg-[#b8860b]/60 rounded-full animate-pulse" style={{ animationDelay: '0.3s' }}></div>
+              <div className="w-1 h-4 bg-[#daa520]/60 rounded-full animate-pulse" style={{ animationDelay: '0.6s' }}></div>
+            </div>
+          </div>
+          
+          {/* Enhanced floating info card with glassmorphism */}
+          <div className="absolute bottom-8 right-8 bg-white/10 backdrop-blur-2xl rounded-3xl px-8 py-6 shadow-2xl border border-white/20 z-20 transform hover:scale-105 hover:-translate-y-2 transition-all duration-500 group-hover:bg-white/20">
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <div className="w-12 h-12 bg-gradient-to-br from-[#daa520] via-[#b8860b] to-[#daa520] rounded-2xl flex items-center justify-center shadow-xl">
+                  <span className="text-white text-lg">🎬</span>
+                </div>
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
+              </div>
+              <div>
+                <p className="text-sm font-bold text-white mb-1 tracking-wide">Smart Video</p>
+                <p className="text-xs text-white/80 leading-relaxed">Auto-switches with<br />language selection</p>
+              </div>
+            </div>
+            
+            {/* Card decorative elements */}
+            <div className="absolute -top-2 -left-2 w-6 h-6 border-2 border-[#daa520]/50 rotate-45 rounded-sm"></div>
+            <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-[#daa520]/30 rotate-45 rounded-sm"></div>
+          </div>
+          
+          {/* Video container with enhanced styling */}
+          <div className="absolute inset-12 rounded-2xl overflow-hidden shadow-2xl z-0 group-hover:inset-11 transition-all duration-700">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a2e]/20 via-transparent to-[#daa520]/20 z-10 group-hover:opacity-50 transition-opacity duration-700"></div>
+            <AboutVideo className="w-full h-full rounded-2xl" />
+          </div>
+          
+          {/* Interactive hover effects */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#daa520]/0 via-[#daa520]/0 to-[#daa520]/0 group-hover:from-[#daa520]/5 group-hover:via-[#daa520]/2 group-hover:to-[#daa520]/5 transition-all duration-700 z-5 pointer-events-none rounded-3xl"></div>
         </div>
       </div>
 

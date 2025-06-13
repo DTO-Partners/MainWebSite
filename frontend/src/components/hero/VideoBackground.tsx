@@ -13,18 +13,17 @@ export function VideoBackground({ className = '' }: VideoBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { i18n } = useTranslation();
   
-  // Get video source based on current language with fallback
   const getVideoSource = (language: string, useFallback: boolean = false) => {
     if (useFallback) {
-      return '/hero_video.mp4'; // Always use default video as fallback
+      return '/hero_video.mp4';
     }
     
     switch (language) {
       case 'pl':
-        return '/hero_video_pl.mp4'; // Polish video (needs to be added to public folder)
+        return '/hero_video_pl.mp4';
       case 'en':
       default:
-        return '/hero_video.mp4'; // English/default video
+        return '/hero_video.mp4';
     }
   };
 
