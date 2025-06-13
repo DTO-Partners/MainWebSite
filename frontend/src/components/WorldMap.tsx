@@ -193,8 +193,8 @@ export default function WorldMapComponent() {
 
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
-    const delta = e.deltaY * -0.002;
-    setZoomLevel(prev => Math.max(0.8, Math.min(4, prev + delta)));
+    // Disable mouse wheel zooming - zoom level is controlled only by buttons
+    return;
   };
 
   return (
@@ -374,10 +374,10 @@ export default function WorldMapComponent() {
             {showConnections && (
               <div className="absolute inset-0 w-full h-full pointer-events-none z-10 flex items-center justify-center">
                 <svg 
-                  width="800" 
-                  height="500" 
+                  width="900" 
+                  height="600" 
                   className="absolute opacity-80"
-                  viewBox="0 0 800 500"
+                  viewBox="0 0 900 600"
                 >
                   <defs>
                     <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -387,51 +387,92 @@ export default function WorldMapComponent() {
                     </linearGradient>
                   </defs>
                   
-                  {/* Simple static connection lines from Poland to partner countries */}
+                  {/* Connection lines from Poland (headquarters) to partner countries */}
                   <g>
+                    {/* Poland coordinates - approximate center of Poland on world map */}
                     {/* Poland to Germany */}
-                    <line x1="400" y1="200" x2="350" y2="180" 
+                    <line x1="485" y1="215" x2="465" y2="220" 
                           stroke="url(#connectionGradient)" 
                           strokeWidth="2" 
-                          strokeDasharray="3,3"
-                          opacity="0.7"/>
+                          strokeDasharray="4,4"
+                          opacity="0.8">
+                      <animate attributeName="stroke-dashoffset" 
+                               values="0;8" 
+                               dur="2s" 
+                               repeatCount="indefinite"/>
+                    </line>
                     
                     {/* Poland to Luxembourg */}
-                    <line x1="400" y1="200" x2="320" y2="220" 
+                    <line x1="485" y1="215" x2="445" y2="235" 
                           stroke="url(#connectionGradient)" 
                           strokeWidth="2" 
-                          strokeDasharray="3,3"
-                          opacity="0.7"/>
+                          strokeDasharray="4,4"
+                          opacity="0.8">
+                      <animate attributeName="stroke-dashoffset" 
+                               values="0;8" 
+                               dur="2.2s" 
+                               repeatCount="indefinite"/>
+                    </line>
                     
                     {/* Poland to Ireland */}
-                    <line x1="400" y1="200" x2="250" y2="150" 
+                    <line x1="485" y1="215" x2="395" y2="195" 
                           stroke="url(#connectionGradient)" 
                           strokeWidth="2" 
-                          strokeDasharray="3,3"
-                          opacity="0.7"/>
+                          strokeDasharray="4,4"
+                          opacity="0.8">
+                      <animate attributeName="stroke-dashoffset" 
+                               values="0;8" 
+                               dur="1.8s" 
+                               repeatCount="indefinite"/>
+                    </line>
                     
                     {/* Poland to Saudi Arabia */}
-                    <line x1="400" y1="200" x2="550" y2="320" 
+                    <line x1="485" y1="215" x2="580" y2="290" 
                           stroke="url(#connectionGradient)" 
                           strokeWidth="2" 
-                          strokeDasharray="3,3"
-                          opacity="0.7"/>
+                          strokeDasharray="4,4"
+                          opacity="0.8">
+                      <animate attributeName="stroke-dashoffset" 
+                               values="0;8" 
+                               dur="2.5s" 
+                               repeatCount="indefinite"/>
+                    </line>
                     
                     {/* Poland to UAE */}
-                    <line x1="400" y1="200" x2="580" y2="300" 
+                    <line x1="485" y1="215" x2="600" y2="285" 
                           stroke="url(#connectionGradient)" 
                           strokeWidth="2" 
-                          strokeDasharray="3,3"
-                          opacity="0.7"/>
+                          strokeDasharray="4,4"
+                          opacity="0.8">
+                      <animate attributeName="stroke-dashoffset" 
+                               values="0;8" 
+                               dur="2.3s" 
+                               repeatCount="indefinite"/>
+                    </line>
                   </g>
                   
-                  {/* Connection points */}
-                  <circle cx="400" cy="200" r="4" fill="#daa520" opacity="0.9" />
-                  <circle cx="350" cy="180" r="2" fill="#3e5c76" opacity="0.8" />
-                  <circle cx="320" cy="220" r="2" fill="#008080" opacity="0.8" />
-                  <circle cx="250" cy="150" r="2" fill="#ffd700" opacity="0.8" />
-                  <circle cx="550" cy="320" r="2" fill="#708090" opacity="0.8" />
-                  <circle cx="580" cy="300" r="2" fill="#333333" opacity="0.8" />
+                  {/* Connection points with pulsing animation */}
+                  <circle cx="485" cy="215" r="5" fill="#daa520" opacity="0.9">
+                    <animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.9;0.6;0.9" dur="2s" repeatCount="indefinite"/>
+                  </circle>
+                  
+                  {/* Partner country points */}
+                  <circle cx="465" cy="220" r="3" fill="#3e5c76" opacity="0.8">
+                    <animate attributeName="r" values="3;4;3" dur="2s" repeatCount="indefinite"/>
+                  </circle>
+                  <circle cx="445" cy="235" r="3" fill="#008080" opacity="0.8">
+                    <animate attributeName="r" values="3;4;3" dur="2.2s" repeatCount="indefinite"/>
+                  </circle>
+                  <circle cx="395" cy="195" r="3" fill="#ffd700" opacity="0.8">
+                    <animate attributeName="r" values="3;4;3" dur="1.8s" repeatCount="indefinite"/>
+                  </circle>
+                  <circle cx="580" cy="290" r="3" fill="#708090" opacity="0.8">
+                    <animate attributeName="r" values="3;4;3" dur="2.5s" repeatCount="indefinite"/>
+                  </circle>
+                  <circle cx="600" cy="285" r="3" fill="#333333" opacity="0.8">
+                    <animate attributeName="r" values="3;4;3" dur="2.3s" repeatCount="indefinite"/>
+                  </circle>
                 </svg>
               </div>
             )}
