@@ -9,9 +9,9 @@ const Values = () => {
   return (
     <section
       id="Values"
-      className="flex justify-center items-center relative w-full bg-gradient-to-br from-[#1a1a2e] via-[#15162c] to-[#243046] py-28 px-6 text-white overflow-hidden"
+      className="flex justify-center items-center relative w-full bg-gradient-to-br from-[#1a1a2e] via-[#15162c] to-[#243046] py-32 px-8 text-white overflow-hidden min-h-screen"
     >
-      {/* Background Elements */}
+      {/* Enhanced Background Elements */}
       <ValuesBackground />
       
       {/* Main Content */}
