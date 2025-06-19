@@ -284,6 +284,25 @@
     background: rgba(218, 165, 32, 0.6);
   }
 
+  /* Enhanced tablet scroll behavior */
+  @media (min-width: 768px) and (max-width: 1279px) {
+    .values-scrollbar {
+      padding-bottom: 20px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(218, 165, 32, 0.4) rgba(34, 34, 53, 0.5);
+    }
+    
+    .values-scrollbar::-webkit-scrollbar {
+      height: 8px;
+    }
+    
+    .values-scrollbar::-webkit-scrollbar-thumb {
+      background: linear-gradient(to right, rgba(218, 165, 32, 0.4), rgba(184, 134, 11, 0.6));
+      border-radius: 10px;
+    }
+  }
+
   /* Value card hover effects - simplified for performance */
   .value-card {
     transition: all 0.3s ease;

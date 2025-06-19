@@ -67,7 +67,7 @@ export default function WorldMapComponent() {
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [animatedCountries, setAnimatedCountries] = useState<Set<string>>(new Set());
-  const [filterRegion, setFilterRegion] = useState<'all' | 'europe' | 'africa' | 'middle-east'>('all');
+  const [filterRegion, setFilterRegion] = useState<'all' | 'europe' | 'middle-east'>('all');
 
   // Handle keyboard events for better accessibility
   useEffect(() => {
@@ -114,8 +114,7 @@ export default function WorldMapComponent() {
           'be': 'Belgium', 'at': 'Austria', 'ch': 'Switzerland', 'se': 'Sweden', 'no': 'Norway',
           'dk': 'Denmark', 'fi': 'Finland', 'gb': 'United Kingdom', 'pt': 'Portugal',
           'gr': 'Greece', 'hu': 'Hungary', 'cz': 'Czech Republic', 'sk': 'Slovakia',
-          'tr': 'Turkey', 'eg': 'Egypt', 'ma': 'Morocco', 'ng': 'Nigeria', 'za': 'South Africa',
-          'ke': 'Kenya', 'gh': 'Ghana', 'et': 'Ethiopia', 'tz': 'Tanzania', 'ug': 'Uganda'
+          'tr': 'Turkey'
         };
         
         const countryName = countryNames[countryCode.toLowerCase()] || 'this country';
@@ -214,7 +213,6 @@ export default function WorldMapComponent() {
               {[
                 { key: 'all', label: 'All Regions', emoji: '🌍' },
                 { key: 'europe', label: 'Europe', emoji: '🇪🇺' },
-                { key: 'africa', label: 'Africa', emoji: '🌍' },
                 { key: 'middle-east', label: 'Middle East', emoji: '🕌' }
               ].map((region) => (
                 <button
@@ -225,9 +223,6 @@ export default function WorldMapComponent() {
                     if (region.key === 'europe') {
                       setZoomLevel(2.6);
                       setPanPosition({ x: -20, y: 30 });
-                    } else if (region.key === 'africa') {
-                      setZoomLevel(2.4);
-                      setPanPosition({ x: -50, y: -60 });
                     } else if (region.key === 'middle-east') {
                       setZoomLevel(2.8);
                       setPanPosition({ x: -100, y: 10 });
@@ -381,7 +376,7 @@ export default function WorldMapComponent() {
                     (d) => d.country.toLowerCase() === countryCode?.toLowerCase()
                   );
                   
-                  // Expanded regional coverage - Europe, Africa, and Middle East
+                  // Expanded regional coverage - Europe and Middle East
                   const visibleCountries = [
                     // Our partner countries
                     ...data.map((d) => d.country),
@@ -397,14 +392,6 @@ export default function WorldMapComponent() {
                     "ge", "am", "az", "ru",
                     // Balkans expansion
                     "xk", // Kosovo
-                    // North Africa (Mediterranean region)
-                    "ma", "dz", "tn", "ly", "eg",
-                    // Sub-Saharan Africa (Major economies and regions)
-                    "ng", "za", "ke", "gh", "et", "tz", "ug", "rw", "sn", "ci", 
-                    "ml", "bf", "ne", "td", "cm", "cf", "cd", "cg", "ga", "gq",
-                    "ao", "zm", "zw", "bw", "na", "sz", "ls", "mw", "mz", "mg",
-                    "mu", "sc", "dj", "so", "er", "sd", "ss", "lr", "sl", "gn",
-                    "gw", "cv", "st", "km",
                     // Middle East and Gulf region (comprehensive)
                     "tr", "sy", "lb", "jo", "il", "ps", "iq", "ir", "kw", "bh", 
                     "qa", "ae", "om", "sa", "ye",
@@ -418,7 +405,6 @@ export default function WorldMapComponent() {
                   
                   // Define region groups
                   const europeanCountries = ['at', 'be', 'bg', 'hr', 'cy', 'cz', 'dk', 'ee', 'es', 'fi', 'fr', 'gr', 'hu', 'it', 'lt', 'lv', 'mt', 'nl', 'pt', 'ro', 'se', 'si', 'sk', 'ch', 'no', 'is', 'rs', 'me', 'mk', 'ba', 'al', 'md', 'ua', 'by', 'gb', 'ie', 'ge', 'am', 'az', 'ru', 'xk', 'pl', 'de', 'lu'];
-                  const africanCountries = ['ma', 'dz', 'tn', 'ly', 'eg', 'ng', 'za', 'ke', 'gh', 'et', 'tz', 'ug', 'rw', 'sn', 'ci', 'ml', 'bf', 'ne', 'td', 'cm', 'cf', 'cd', 'cg', 'ga', 'gq', 'ao', 'zm', 'zw', 'bw', 'na', 'sz', 'ls', 'mw', 'mz', 'mg', 'mu', 'sc', 'dj', 'so', 'er', 'sd', 'ss', 'lr', 'sl', 'gn', 'gw', 'cv', 'st', 'km'];
                   const middleEastCountries = ['tr', 'sy', 'lb', 'jo', 'il', 'ps', 'iq', 'ir', 'kw', 'bh', 'qa', 'ae', 'om', 'sa', 'ye', 'kz', 'uz', 'tm', 'kg', 'tj', 'af', 'pk'];
                   
                   const currentCountry = countryCode?.toLowerCase() || '';
@@ -427,8 +413,6 @@ export default function WorldMapComponent() {
                   let isInFilteredRegion = true;
                   if (filterRegion === 'europe') {
                     isInFilteredRegion = europeanCountries.includes(currentCountry);
-                  } else if (filterRegion === 'africa') {
-                    isInFilteredRegion = africanCountries.includes(currentCountry);
                   } else if (filterRegion === 'middle-east') {
                     isInFilteredRegion = middleEastCountries.includes(currentCountry);
                   }
@@ -532,7 +516,7 @@ export default function WorldMapComponent() {
           </div>
           <div className="flex items-center gap-3">
             <div className="w-4 h-4 bg-[#f1f5f9] border-2 border-[#cbd5e1] rounded-full"></div>
-            <span className="font-medium">Europe, Middle East & Africa</span>
+            <span className="font-medium">Europe & Middle East</span>
           </div>
           <div className="flex items-center gap-3">
             <div className="w-4 h-4 bg-gradient-to-r from-[#daa520] to-[#b8860b] rounded-full shadow-md"></div>

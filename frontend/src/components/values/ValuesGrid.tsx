@@ -10,8 +10,8 @@ interface ValuesGridProps {
 export function ValuesGrid({ values, activeIndex, onToggleCard }: ValuesGridProps) {
   return (
     <div className="values-grid-container relative">
-      {/* Enhanced container with better spacing */}
-      <div className="flex w-full gap-2 pb-8 min-h-fit md:overflow-x-visible md:scrollbar-none overflow-x-auto values-scrollbar snap-x md:justify-center lg:gap-5">
+      {/* Enhanced container with better spacing and tablet responsiveness */}
+      <div className="flex w-full gap-2 pb-8 min-h-fit overflow-x-auto values-scrollbar snap-x md:gap-3 lg:gap-5 xl:overflow-x-visible xl:justify-center">
         {values.map((value, index) => (
           <ValueCard
             key={value.id}
@@ -23,8 +23,8 @@ export function ValuesGrid({ values, activeIndex, onToggleCard }: ValuesGridProp
         ))}
       </div>
       
-      {/* Scroll hint for mobile */}
-      <div className="md:hidden flex justify-center mt-6">
+      {/* Scroll hint for mobile and tablet */}
+      <div className="xl:hidden flex justify-center mt-6">
         <div className="flex items-center gap-2 text-xs text-[#daa520]/60 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full border border-[#daa520]/20">
           <span>Swipe to explore</span>
           <div className="flex gap-1">

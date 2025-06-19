@@ -278,10 +278,10 @@ export default function Footer() {
 
         <div className="relative">
           {/* Main Footer Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[600px]">
+          <div className="grid grid-cols-1 xl:grid-cols-2 min-h-[600px]">
             {/* Google Maps Section */}
             <motion.div
-              className="relative h-[400px] lg:h-full"
+              className="relative h-[400px] md:h-[500px] xl:h-full order-2 xl:order-1"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -290,25 +290,25 @@ export default function Footer() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a2e]/20 to-transparent pointer-events-none" />
               
               {/* Map Controls - Positioned to avoid Google controls */}
-              <div className="absolute top-6 left-6 z-10 flex flex-col gap-3 pointer-events-auto max-w-xs">
+              <div className="absolute top-4 left-4 md:top-6 md:left-6 z-10 flex flex-col gap-2 md:gap-3 pointer-events-auto max-w-[200px] md:max-w-xs">
                 
                 {/* Map Type Selector */}
                 <motion.div
-                  className="bg-white/95 backdrop-blur-lg rounded-xl p-3 border border-[#daa520]/20 shadow-lg"
+                  className="bg-white/95 backdrop-blur-lg rounded-lg md:rounded-xl p-2 md:p-3 border border-[#daa520]/20 shadow-lg"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
                 >
-                  <div className="flex items-center gap-2 mb-2">
-                    <Layers className="w-4 h-4 text-[#1a1a2e]" />
-                    <span className="text-sm font-medium text-[#1a1a2e]">Style</span>
+                  <div className="flex items-center gap-1 md:gap-2 mb-2">
+                    <Layers className="w-3 h-3 md:w-4 md:h-4 text-[#1a1a2e]" />
+                    <span className="text-xs md:text-sm font-medium text-[#1a1a2e]">Style</span>
                   </div>
                   <div className="grid grid-cols-2 gap-1">
                     {['roadmap', 'satellite', 'hybrid', 'terrain'].map((type) => (
                       <button
                         key={type}
                         onClick={() => setMapType(type as any)}
-                        className={`px-2 py-1 text-xs rounded transition-colors ${
+                        className={`px-1.5 py-1 md:px-2 md:py-1 text-xs rounded transition-colors ${
                           mapType === type
                             ? 'bg-[#daa520] text-white'
                             : 'bg-gray-100 text-[#1a1a2e] hover:bg-gray-200'
@@ -322,7 +322,7 @@ export default function Footer() {
 
                 {/* Nearby Places Toggle */}
                 <motion.div
-                  className="bg-white/95 backdrop-blur-lg rounded-xl p-3 border border-[#daa520]/20 shadow-lg"
+                  className="bg-white/95 backdrop-blur-lg rounded-lg md:rounded-xl p-2 md:p-3 border border-[#daa520]/20 shadow-lg"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
@@ -330,7 +330,7 @@ export default function Footer() {
                   <button
                     onClick={toggleNearbyPlaces}
                     disabled={apiLimited}
-                    className={`flex items-center gap-2 transition-colors w-full ${
+                    className={`flex items-center gap-1 md:gap-2 transition-colors w-full ${
                       apiLimited 
                         ? 'text-gray-400 cursor-not-allowed' 
                         : showNearbyPlaces 
@@ -339,8 +339,8 @@ export default function Footer() {
                     }`}
                     title={apiLimited ? 'Feature requires additional Google Maps APIs' : ''}
                   >
-                    <MapIcon className="w-4 h-4" />
-                    <span className="text-sm font-medium">
+                    <MapIcon className="w-3 h-3 md:w-4 md:h-4" />
+                    <span className="text-xs md:text-sm font-medium">
                       {apiLimited ? 'Places API Limited' : (showNearbyPlaces ? 'Hide' : 'Show') + ' Nearby'}
                     </span>
                   </button>
@@ -353,19 +353,19 @@ export default function Footer() {
               </div>
 
               {/* Time-based Greeting - Positioned to avoid Google controls */}
-              <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-10 pointer-events-auto">
+              <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 pointer-events-auto md:top-6">
                 <motion.div
-                  className="bg-white/95 backdrop-blur-lg rounded-xl px-4 py-2 border border-[#daa520]/20 shadow-lg"
+                  className="bg-white/95 backdrop-blur-lg rounded-lg md:rounded-xl px-3 py-2 md:px-4 md:py-2 border border-[#daa520]/20 shadow-lg"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8 }}
                 >
-                  <div className="flex items-center gap-2 text-[#1a1a2e]">
+                  <div className="flex items-center gap-1 md:gap-2 text-[#1a1a2e]">
                     {timeOfDay === 'morning' && <span>🌅</span>}
                     {timeOfDay === 'afternoon' && <span>☀️</span>}
                     {timeOfDay === 'evening' && <span>🌆</span>}
                     {timeOfDay === 'night' && <span>🌙</span>}
-                    <span className="text-sm font-medium">
+                    <span className="text-xs md:text-sm font-medium">
                       Good {timeOfDay}!
                     </span>
                   </div>
@@ -573,9 +573,9 @@ export default function Footer() {
               </div>
 
               {/* Enhanced Location Overlay */}
-              <div className="absolute bottom-6 left-6 right-6 z-10 pointer-events-auto">
+              <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6 z-10 pointer-events-auto">
                 <motion.div
-                  className="bg-white/95 backdrop-blur-lg rounded-2xl border border-[#daa520]/20 shadow-2xl overflow-hidden max-w-2xl mx-auto"
+                  className="bg-white/95 backdrop-blur-lg rounded-xl md:rounded-2xl border border-[#daa520]/20 shadow-2xl overflow-hidden max-w-2xl mx-auto"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
@@ -592,20 +592,20 @@ export default function Footer() {
                       <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id as any)}
-                        className={`flex-1 flex items-center justify-center gap-2 px-3 py-3 text-sm font-medium transition-colors ${
+                        className={`flex-1 flex items-center justify-center gap-1 md:gap-2 px-2 py-2 md:px-3 md:py-3 text-xs md:text-sm font-medium transition-colors ${
                           activeTab === tab.id
                             ? 'text-[#daa520] border-b-2 border-[#daa520] bg-[#daa520]/10'
                             : 'text-[#1a1a2e]/60 hover:text-[#1a1a2e] hover:bg-gray-50'
                         }`}
                       >
-                        <tab.icon className="w-4 h-4" />
+                        <tab.icon className="w-3 h-3 md:w-4 md:h-4" />
                         <span className="hidden sm:inline">{tab.label}</span>
                       </button>
                     ))}
                   </div>
 
                   {/* Tab Content */}
-                  <div className="p-6">
+                  <div className="p-4 md:p-6">
                     <AnimatePresence mode="wait">
                       {activeTab === 'contact' && (
                         <motion.div
@@ -811,26 +811,26 @@ export default function Footer() {
             </motion.div>
             {/* Company Information Section */}
             <motion.div
-              className="p-8 lg:p-12 flex flex-col justify-between"
+              className="p-6 md:p-8 xl:p-12 flex flex-col justify-between order-1 xl:order-2"
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
             >
               {/* Company Header */}
-              <div className="mb-8">
+              <div className="mb-6 md:mb-8">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                   viewport={{ once: true }}
                 >
-                  <h2 className="text-4xl font-light text-white mb-4">
+                  <h2 className="text-3xl md:text-4xl font-light text-white mb-4">
                     DTO{" "}
                     <span className="font-bold text-[#daa520]">Partners</span>
                   </h2>
-                  <div className="w-24 h-0.5 bg-gradient-to-r from-[#daa520] to-transparent mb-6" />
-                  <p className="text-white/80 leading-relaxed max-w-md">
+                  <div className="w-20 md:w-24 h-0.5 bg-gradient-to-r from-[#daa520] to-transparent mb-4 md:mb-6" />
+                  <p className="text-white/80 leading-relaxed max-w-md text-sm md:text-base">
                     Excellence in executive search and strategic recruitment.
                     Connecting exceptional talent with visionary organizations
                     across global markets.
@@ -838,7 +838,7 @@ export default function Footer() {
                 </motion.div>
               </div>
               {/* Contact Information */}
-              <div className="space-y-8">
+              <div className="space-y-6 md:space-y-8">
                 {/* Email Contacts */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -846,26 +846,26 @@ export default function Footer() {
                   transition={{ duration: 0.6, delay: 0.6 }}
                   viewport={{ once: true }}
                 >
-                  <h3 className="text-white font-semibold mb-4 text-lg">
+                  <h3 className="text-white font-semibold mb-3 md:mb-4 text-base md:text-lg">
                     Contact Information
                   </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-2 gap-3 md:gap-4">
                     {contactInfo.map((contact, _) => (
                       <motion.a
                         key={contact.label}
                         href={contact.href}
-                        className="flex items-center gap-3 text-white/80 hover:text-[#daa520] transition-colors duration-300 group"
+                        className="flex items-center gap-2 md:gap-3 text-white/80 hover:text-[#daa520] transition-colors duration-300 group"
                         whileHover={{ x: 5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-[#daa520]/20 transition-colors duration-300">
-                          <contact.icon className="w-5 h-5" />
+                        <div className="w-8 h-8 md:w-10 md:h-10 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-[#daa520]/20 transition-colors duration-300">
+                          <contact.icon className="w-4 h-4 md:w-5 md:h-5" />
                         </div>
                         <div>
                           <p className="text-xs text-white/60 uppercase tracking-wider">
                             {contact.label}
                           </p>
-                          <p className="text-sm font-medium">{contact.value}</p>
+                          <p className="text-xs md:text-sm font-medium">{contact.value}</p>
                         </div>
                       </motion.a>
                     ))}
@@ -878,20 +878,20 @@ export default function Footer() {
                   transition={{ duration: 0.6, delay: 0.8 }}
                   viewport={{ once: true }}
                 >
-                  <h3 className="text-white font-semibold mb-4 text-lg">
+                  <h3 className="text-white font-semibold mb-3 md:mb-4 text-base md:text-lg">
                     Phone Numbers
                   </h3>
-                  <div className="flex flex-wrap gap-4">
+                  <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4">
                     {phoneNumbers.map((phone, _) => (
                       <motion.a
                         key={phone.number}
                         href={phone.href}
-                        className="flex items-center gap-3 bg-white/10 hover:bg-[#daa520]/20 rounded-lg px-4 py-3 text-white/80 hover:text-[#daa520] transition-all duration-300"
+                        className="flex items-center gap-2 md:gap-3 bg-white/10 hover:bg-[#daa520]/20 rounded-lg px-3 py-2 md:px-4 md:py-3 text-white/80 hover:text-[#daa520] transition-all duration-300"
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <Phone className="w-4 h-4" />
-                        <span className="text-sm font-medium">
+                        <Phone className="w-3 h-3 md:w-4 md:h-4" />
+                        <span className="text-xs md:text-sm font-medium">
                           {phone.number}
                         </span>
                       </motion.a>
@@ -905,16 +905,16 @@ export default function Footer() {
                   transition={{ duration: 0.6, delay: 1 }}
                   viewport={{ once: true }}
                 >
-                  <h3 className="text-white font-semibold mb-4 text-lg">
+                  <h3 className="text-white font-semibold mb-3 md:mb-4 text-base md:text-lg">
                     Company Registration
                   </h3>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
                     {companyData.map((data, _) => (
                       <div
                         key={data.label}
-                        className="flex items-center gap-2 text-white/70 text-sm"
+                        className="flex items-center gap-2 text-white/70 text-xs md:text-sm"
                       >
-                        <data.icon className="w-4 h-4 text-[#daa520]/70" />
+                        <data.icon className="w-3 h-3 md:w-4 md:h-4 text-[#daa520]/70" />
                         <span className="font-medium">{data.label}:</span>
                         <span>{data.value}</span>
                       </div>
@@ -928,20 +928,20 @@ export default function Footer() {
                   transition={{ duration: 0.6, delay: 1.2 }}
                   viewport={{ once: true }}
                 >
-                  <h3 className="text-white font-semibold mb-4 text-lg">
+                  <h3 className="text-white font-semibold mb-3 md:mb-4 text-base md:text-lg">
                     Follow Us
                   </h3>
-                  <div className="flex gap-3">
+                  <div className="flex gap-2 md:gap-3">
                     {socialLinks.map((social, _) => (
                       <motion.a
                         key={social.label}
                         href={social.href}
-                        className="w-10 h-10 bg-white/10 hover:bg-[#daa520] rounded-lg flex items-center justify-center text-white/80 hover:text-white transition-all duration-300"
+                        className="w-8 h-8 md:w-10 md:h-10 bg-white/10 hover:bg-[#daa520] rounded-lg flex items-center justify-center text-white/80 hover:text-white transition-all duration-300"
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         transition={{ duration: 0.2 }}
                         aria-label={social.label}
                       >
-                        <social.icon className="w-5 h-5" />
+                        <social.icon className="w-4 h-4 md:w-5 md:h-5" />
                       </motion.a>
                     ))}
                   </div>
@@ -951,18 +951,18 @@ export default function Footer() {
           </div>
           {/* Bottom Bar */}
           <motion.div
-            className="border-t border-white/10 px-8 py-6"
+            className="border-t border-white/10 px-4 py-4 md:px-8 md:py-6"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 1.4 }}
             viewport={{ once: true }}
           >
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <div className="text-white/60 text-sm">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4">
+              <div className="text-white/60 text-xs md:text-sm text-center md:text-left">
                 © {new Date().getFullYear()} DTO Partners Sp. z o.o. All rights
                 reserved.
               </div>
-              <div className="flex items-center gap-6 text-sm">
+              <div className="flex items-center gap-4 md:gap-6 text-xs md:text-sm flex-wrap justify-center">
                 <a
                   href="#"
                   className="text-white/60 hover:text-[#daa520] transition-colors duration-300"

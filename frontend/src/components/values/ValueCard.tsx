@@ -20,18 +20,17 @@ export function ValueCard({ value, index, isActive, onToggle }: ValueCardProps) 
   };
 
   return (
-    <div
-      tabIndex={0}
+    <button
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       aria-expanded={isActive}
-      role="button"
       className={`
-        value-card min-w-[320px] max-w-[300px] flex-shrink-0 
-        bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-2xl 
-        border-2 rounded-3xl p-8 shadow-2xl cursor-pointer group outline-none 
+        value-card min-w-[300px] sm:min-w-[320px] md:min-w-[280px] lg:min-w-[300px] xl:min-w-[320px]
+        max-w-[300px] sm:max-w-[320px] md:max-w-[280px] lg:max-w-[300px] xl:max-w-[320px]
+        flex-shrink-0 bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-2xl 
+        border-2 rounded-3xl p-6 md:p-8 shadow-2xl cursor-pointer group outline-none 
         relative overflow-hidden snap-center focus:ring-2 focus:ring-[#daa520]/50
-        transition-colors duration-300
+        transition-colors duration-300 text-left
         ${isActive 
           ? "ring-2 ring-[#daa520] border-[#daa520]/60 bg-gradient-to-br from-white/15 via-white/8 to-white/15 shadow-3xl" 
           : "border-white/20 hover:border-[#daa520]/40 hover:shadow-3xl"
@@ -127,6 +126,6 @@ export function ValueCard({ value, index, isActive, onToggle }: ValueCardProps) 
           </div>
         )}
       </div>
-    </div>
+    </button>
   );
 }
