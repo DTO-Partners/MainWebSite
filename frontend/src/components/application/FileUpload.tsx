@@ -68,13 +68,18 @@ export function FileUpload({
               <span className="text-sm text-[#1a1a2e]/50">
                 Supported formats: PDF, DOC, DOCX ({maxSize})
               </span>
+              {fileName && (
+                <span className="text-sm text-[#daa520] font-medium block mt-1">
+                  ✅ File uploaded successfully
+                </span>
+              )}
             </div>
           </div>
           <label 
             htmlFor={id} 
             className="cursor-pointer bg-[#daa520] hover:bg-[#1a1a2e] text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
           >
-            Browse Files
+            {fileName ? "Change File" : "Browse Files"}
           </label>
         </div>
         {error && (

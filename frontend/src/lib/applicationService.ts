@@ -29,8 +29,6 @@ export class ApplicationService {
   private static readonly EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID ?? '';
   private static readonly EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY ?? '';
   
-  private static readonly API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT ?? 'https://api.dtopartners.com';
-  
   /**
    * Validates the application form data
    */
@@ -120,9 +118,9 @@ export class ApplicationService {
       const applicationId = this.generateApplicationId();
       
       // Prepare email data for EmailJS
-      const emailData = this.prepareEmailData(data, applicationId);
+      const emailData = await this.prepareEmailData(data, applicationId);
       
-      // Send email using EmailJS
+      // Send main application email (now includes CV download link if available)
       await emailjs.send(
         this.EMAILJS_SERVICE_ID,
         this.EMAILJS_TEMPLATE_ID,
@@ -133,9 +131,17 @@ export class ApplicationService {
       // Log successful submission
       this.logSubmission(applicationId, 'success');
       
+      // Provide feedback based on CV upload status
+      let cvUploadMessage = '';
+      if (data.cvFile && emailData.cv_download_url) {
+        cvUploadMessage = ' Your CV has been uploaded and is available for download in the email sent to our HR team.';
+      } else if (data.cvFile) {
+        cvUploadMessage = ' Your CV upload failed, but your application was submitted. Please email your CV directly to candidates@dtopartners.com with your application ID.';
+      }
+      
       return {
         success: true,
-        message: 'Application submitted successfully! We will review your application and get back to you soon.',
+        message: `Application submitted successfully!${cvUploadMessage} We will review your application and get back to you soon.`,
         applicationId
       };
       
@@ -152,11 +158,49 @@ export class ApplicationService {
       };
     }
   }
-  
+
+  /**
+   * Uploads CV file to temporary storage and gets download link
+   */
+  private static async uploadCVFile(file: File): Promise<string | null> {
+    try {
+      // Using file.io for temporary file hosting (free service)
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('expires', '7d'); // File expires in 7 days
+      
+      const response = await fetch('https://file.io', {
+        method: 'POST',
+        body: formData
+      });
+      
+      if (!response.ok) {
+        throw new Error('File upload failed');
+      }
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        console.log(`CV uploaded successfully: ${result.link}`);
+        return result.link;
+      } else {
+        throw new Error(result.message ?? 'Upload failed');
+      }
+      
+    } catch (error) {
+      console.error('CV file upload error:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Sends CV instructions or attempts to attach CV file
+   */
   /**
    * Prepares email data for EmailJS template
+   * Note: File content is NOT included due to EmailJS 50KB variable limit
    */
-  private static prepareEmailData(data: ApplicationFormData, applicationId: string) {
+  private static async prepareEmailData(data: ApplicationFormData, applicationId: string) {
     const submissionDate = new Date().toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -164,6 +208,32 @@ export class ApplicationService {
       hour: '2-digit',
       minute: '2-digit'
     });
+
+    // Try to upload CV file and get download link
+    let cvDownloadUrl: string | null = null;
+    if (data.cvFile) {
+      cvDownloadUrl = await this.uploadCVFile(data.cvFile);
+    }
+
+    // Determine CV download status
+    let cvDownloadStatus: string;
+    if (cvDownloadUrl) {
+      cvDownloadStatus = 'Available (expires in 7 days)';
+    } else if (data.cvFile) {
+      cvDownloadStatus = 'Upload failed - contact applicant';
+    } else {
+      cvDownloadStatus = 'No file uploaded';
+    }
+
+    // Determine CV note
+    let cvNote: string;
+    if (cvDownloadUrl) {
+      cvNote = `CV file "${data.cvFile?.name}" is available for download at: ${cvDownloadUrl} (link expires in 7 days for security)`;
+    } else if (data.cvFile) {
+      cvNote = `CV file "${data.cvFile.name}" upload failed. Please contact ${data.fullName} at ${data.email} to request the file.`;
+    } else {
+      cvNote = 'No CV file was uploaded with this application.';
+    }
 
     return {
       // Email routing
@@ -180,22 +250,34 @@ export class ApplicationService {
       nationality: data.nationality ?? 'Not specified',
       
       // Work authorization
-      work_authorization: data.workAuthorization || 'Not specified',
-      visa_assistance: data.visaAssistance || 'Not specified',
+      work_authorization: data.workAuthorization ?? 'Not specified',
+      visa_assistance: data.visaAssistance ?? 'Not specified',
       
       // Professional summary
       professional_summary: data.professionalSummary ?? 'Not provided',
       
-      // File information
+      // File information with download link
       cv_file_name: data.cvFile?.name ?? 'No file uploaded',
       cv_file_size: data.cvFile ? `${(data.cvFile.size / 1024 / 1024).toFixed(2)} MB` : 'N/A',
+      cv_file_type: data.cvFile?.type ?? 'N/A',
+      cv_file_uploaded: data.cvFile ? 'Yes ✅' : 'No ❌',
+      cv_download_url: cvDownloadUrl ?? '',
+      cv_download_status: cvDownloadStatus,
       
-      // GDPR consent
-      gdpr_consent: data.gdprConsent ? 'Yes' : 'No',
+      // GDPR consent (with emoji for better display)
+      gdpr_consent: data.gdprConsent ? 'Yes ✅' : 'No ❌',
       
       // Additional metadata
       user_agent: navigator.userAgent,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      
+      // Browser information for better tracking
+      browser_language: navigator.language,
+      screen_resolution: `${screen.width}x${screen.height}`,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      
+      // Instructions for handling CV
+      cv_note: cvNote
     };
   }
 
@@ -238,16 +320,9 @@ export class ApplicationService {
       url: window.location.href
     };
     
-    // Send to analytics endpoint (non-blocking)
-    fetch(`${this.API_ENDPOINT}/analytics/application-submission`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(logData)
-    }).catch(err => {
-      console.warn('Analytics logging failed:', err);
-    });
+    // Analytics logging disabled due to API endpoint SSL/CORS issues
+    // Re-enable when backend API is properly configured with valid SSL and CORS
+    console.log('Application submission logged:', logData);
   }
 
   /**

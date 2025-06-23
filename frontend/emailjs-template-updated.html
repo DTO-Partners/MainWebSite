@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="date=no">
+    <meta name="format-detection" content="address=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="x-apple-disable-message-reformatting">
+    <title>Job Application - {{application_id}}</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            line-height: 1.5;
+            color: #333333;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #dddddd;
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: #2c3e50;
+            color: #ffffff;
+            padding: 25px 30px;
+            text-align: center;
+            border-bottom: 3px solid #34495e;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .header p {
+            margin: 8px 0 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        /* Content */
+        .content {
+            padding: 30px;
+        }
+        
+        /* Sections */
+        .section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #fafafa;
+            border: 1px solid #e8e8e8;
+            border-left: 4px solid #2c3e50;
+        }
+        .section h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Info Grid - Responsive */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 4px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .info-value {
+            color: #555555;
+            font-size: 14px;
+            word-break: break-word;
+        }
+        
+        /* CV Section */
+        .cv-section {
+            background: #f8f9fa;
+            border-left-color: #6c757d;
+        }
+        .cv-info {
+            background: #ffffff;
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            margin-top: 12px;
+        }
+        .cv-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+        .cv-info-row span:first-child {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-right: 10px;
+            min-width: 120px;
+        }
+        .cv-info-row span:last-child {
+            flex: 1;
+            text-align: right;
+            word-break: break-word;
+        }
+        
+        /* Download Button */
+        .cv-download-btn {
+            display: inline-block;
+            width: 100%;
+            max-width: 300px;
+            padding: 12px 24px;
+            background: #2c3e50;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            text-align: center;
+            margin: 15px auto;
+            border: 2px solid #2c3e50;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        .cv-download-btn:hover {
+            background: #34495e;
+            border-color: #34495e;
+        }
+        
+        /* Notes */
+        .cv-note {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            margin-top: 12px;
+            color: #6c757d;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        /* Professional Summary */
+        .professional-summary {
+            background: #ffffff;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            margin-top: 12px;
+            line-height: 1.6;
+            color: #555555;
+            font-size: 14px;
+            word-wrap: break-word;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #34495e;
+            color: #ffffff;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 13px;
+            border-top: 3px solid #2c3e50;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        
+        /* Metadata */
+        .metadata {
+            font-size: 11px;
+            color: #6c757d;
+            background: #f8f9fa;
+            padding: 12px;
+            border: 1px solid #e9ecef;
+            margin-top: 20px;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+        
+        /* Status Indicators */
+        .status-indicator {
+            display: inline-block;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .status-yes {
+            background: #e8f5e8;
+            color: #2d5a2d;
+            border: 1px solid #c3e6c3;
+        }
+        .status-no {
+            background: #fdf2f2;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                margin: 0;
+                border: none;
+            }
+            .header {
+                padding: 20px 15px;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+            .content {
+                padding: 20px 15px;
+            }
+            .section {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            .section h3 {
+                font-size: 14px;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            .info-item {
+                padding: 10px;
+            }
+            .info-label {
+                font-size: 12px;
+            }
+            .info-value {
+                font-size: 13px;
+            }
+            .cv-info {
+                padding: 12px;
+            }
+            .cv-info-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .cv-info-row span:first-child {
+                margin-bottom: 4px;
+                min-width: auto;
+            }
+            .cv-info-row span:last-child {
+                text-align: left;
+            }
+            .cv-download-btn {
+                font-size: 13px;
+                padding: 10px 20px;
+            }
+            .professional-summary {
+                font-size: 13px;
+                padding: 12px;
+            }
+            .footer {
+                padding: 15px;
+                font-size: 12px;
+            }
+            .metadata {
+                font-size: 10px;
+                padding: 10px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .header h1 {
+                font-size: 18px;
+            }
+            .header p {
+                font-size: 12px;
+            }
+            .section h3 {
+                font-size: 13px;
+            }
+            .info-label {
+                font-size: 11px;
+            }
+            .info-value {
+                font-size: 12px;
+            }
+            .cv-download-btn {
+                font-size: 12px;
+                padding: 8px 16px;
+            }
+            .professional-summary {
+                font-size: 12px;
+            }
+        }
+        
+        @media screen and (max-width: 320px) {
+            .content {
+                padding: 15px 10px;
+            }
+            .section {
+                padding: 12px;
+            }
+            .header {
+                padding: 15px 10px;
+            }
+            .footer {
+                padding: 12px 10px;
+            }
+        }
+        
+        /* Email Client Specific Fixes */
+        @media screen and (-webkit-min-device-pixel-ratio: 0) {
+            .info-grid {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-flex-wrap: wrap;
+                flex-wrap: wrap;
+            }
+            .info-item {
+                -webkit-box-flex: 1;
+                -webkit-flex: 1 1 250px;
+                flex: 1 1 250px;
+                margin: 6px;
+            }
+        }
+        
+        /* Outlook Specific Fixes */
+        @media screen and (max-width: 600px) {
+            .outlook-fix {
+                width: 100% !important;
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!--[if mso]>
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+    <td>
+    <![endif]-->
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Job Application Received</h1>
+            <p>Application ID: {{application_id}}</p>
+            <p>Submitted: {{submission_date}}</p>
+        </div>
+
+        <div class="content">
+            <!-- Applicant Information -->
+            <div class="section">
+                <h3>Candidate Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Full Name:</span>
+                        <span class="info-value">{{full_name}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Email:</span>
+                        <span class="info-value">{{email}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Phone:</span>
+                        <span class="info-value">{{phone}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Nationality:</span>
+                        <span class="info-value">{{nationality}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Work Authorization -->
+            <div class="section">
+                <h3>Work Authorization Status</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Work Authorization:</span>
+                        <span class="info-value">{{work_authorization}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Visa Assistance:</span>
+                        <span class="info-value">{{visa_assistance}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professional Summary -->
+            <div class="section">
+                <h3>Professional Summary</h3>
+                <div class="professional-summary">
+                    {{professional_summary}}
+                </div>
+            </div>
+
+            <!-- CV Information -->
+            <div class="section cv-section">
+                <h3>Resume/CV Information</h3>
+                <div class="cv-info">
+                    <div style="border-bottom: 1px solid #e0e0e0; padding-bottom: 12px; margin-bottom: 12px;">
+                        <div class="cv-info-row">
+                            <span>File Status:</span>
+                            <span>{{cv_file_uploaded}}</span>
+                        </div>
+                        <div class="cv-info-row">
+                            <span>File Name:</span>
+                            <span>{{cv_file_name}}</span>
+                        </div>
+                        <div class="cv-info-row">
+                            <span>File Size:</span>
+                            <span>{{cv_file_size}}</span>
+                        </div>
+                        <div class="cv-info-row">
+                            <span>File Type:</span>
+                            <span>{{cv_file_type}}</span>
+                        </div>
+                        <div class="cv-info-row">
+                            <span>Download Status:</span>
+                            <span>{{cv_download_status}}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                {{#if cv_download_url}}
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="{{cv_download_url}}" class="cv-download-btn outlook-fix">
+                        Download Resume/CV
+                    </a>
+                    <p style="margin-top: 8px; font-size: 12px; color: #6c757d; line-height: 1.4;">
+                        Download link expires in 7 days for security purposes
+                    </p>
+                </div>
+                {{/if}}
+                
+                <div class="cv-note">
+                    <strong>Note:</strong> {{cv_note}}
+                </div>
+            </div>
+
+            <!-- GDPR Consent -->
+            <div class="section">
+                <h3>Data Protection Consent</h3>
+                <div class="info-item">
+                    <span class="info-label">GDPR Consent:</span>
+                    <span class="info-value">{{gdpr_consent}}</span>
+                </div>
+            </div>
+
+            <!-- Technical Metadata -->
+            <div class="metadata">
+                <strong>Application Metadata:</strong><br>
+                <strong>Timestamp:</strong> {{timestamp}}<br>
+                <strong>Browser Language:</strong> {{browser_language}}<br>
+                <strong>Screen Resolution:</strong> {{screen_resolution}}<br>
+                <strong>Timezone:</strong> {{timezone}}
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>DTO Partners</strong></p>
+            <p>Human Resources Department</p>
+            <p>This application was submitted through the official DTO Partners website</p>
+        </div>
+    </div>
+    
+    <!--[if mso]>
+    </td>
+    </tr>
+    </table>
+    <![endif]-->
+</body>
+</html>

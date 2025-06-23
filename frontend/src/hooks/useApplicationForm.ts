@@ -24,7 +24,7 @@ export function useApplicationForm() {
   const [showSuccess, setShowSuccess] = useState(false)
 
   // Handle input changes
-  const handleInputChange = (field: keyof ApplicationFormData, value: string | boolean | File) => {
+  const handleInputChange = (field: keyof ApplicationFormData, value: string | boolean | File | undefined) => {
     setFormData(prev => ({ ...prev, [field]: value }))
     // Clear validation error for this field
     if (validationErrors[field]) {
@@ -37,10 +37,15 @@ export function useApplicationForm() {
 
   // Handle file upload
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0]
+    const file = e.target.files?.[0]
+    if (file) {
+      console.log('File selected:', file.name, 'Size:', file.size, 'Type:', file.type)
       setFileName(file.name)
       handleInputChange('cvFile', file)
+    } else {
+      // Reset if no file selected
+      setFileName('')
+      handleInputChange('cvFile', undefined)
     }
   }
 
