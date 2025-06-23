@@ -448,8 +448,7 @@
                     </div>
                 </div>
                 
-                {{#if cv_download_url}}
-                <div style="text-align: center; margin-top: 20px;">
+                <div id="cv-download-section" style="text-align: center; margin-top: 20px; {{cv_download_display}}">
                     <a href="{{cv_download_url}}" class="cv-download-btn outlook-fix">
                         Download Resume/CV
                     </a>
@@ -457,7 +456,6 @@
                         Download link expires in 7 days for security purposes
                     </p>
                 </div>
-                {{/if}}
                 
                 <div class="cv-note">
                     <strong>Note:</strong> {{cv_note}}

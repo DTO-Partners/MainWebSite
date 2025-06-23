@@ -120,6 +120,11 @@ export class ApplicationService {
       // Prepare email data for EmailJS
       const emailData = await this.prepareEmailData(data, applicationId);
       
+      // Log email data for debugging (remove sensitive info)
+      const debugData = { ...emailData };
+      const { user_agent, ...debugDataClean } = debugData; // Remove verbose user agent
+      console.log('Sending EmailJS data:', debugDataClean);
+      
       // Send main application email (now includes CV download link if available)
       await emailjs.send(
         this.EMAILJS_SERVICE_ID,
@@ -131,10 +136,17 @@ export class ApplicationService {
       // Log successful submission
       this.logSubmission(applicationId, 'success');
       
-      // Provide feedback based on CV upload status
+      // Check if we're in development mode
+      const isDevelopment = window.location.hostname === 'localhost' || 
+                           window.location.hostname === '127.0.0.1' ||
+                           window.location.hostname.includes('local');
+      
+      // Provide feedback based on CV upload status and environment
       let cvUploadMessage = '';
       if (data.cvFile && emailData.cv_download_url) {
         cvUploadMessage = ' Your CV has been uploaded and is available for download in the email sent to our HR team.';
+      } else if (data.cvFile && isDevelopment) {
+        cvUploadMessage = ' Your CV upload was skipped in development mode. In production, CVs will be uploaded automatically.';
       } else if (data.cvFile) {
         cvUploadMessage = ' Your CV upload failed, but your application was submitted. Please email your CV directly to candidates@dtopartners.com with your application ID.';
       }
@@ -161,34 +173,109 @@ export class ApplicationService {
 
   /**
    * Uploads CV file to temporary storage and gets download link
+   * Handles CORS issues with fallback for localhost development
    */
   private static async uploadCVFile(file: File): Promise<string | null> {
     try {
-      // Using file.io for temporary file hosting (free service)
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('expires', '7d'); // File expires in 7 days
+      // Check if we're in development (localhost)
+      const isDevelopment = window.location.hostname === 'localhost' || 
+                           window.location.hostname === '127.0.0.1' ||
+                           window.location.hostname.includes('local');
       
-      const response = await fetch('https://file.io', {
-        method: 'POST',
-        body: formData
-      });
+      // Try multiple file upload services as fallbacks
+      const uploadServices = [
+        {
+          name: 'tmpfiles.org',
+          upload: () => this.uploadToTmpFiles(file)
+        },
+        {
+          name: 'file.io',
+          upload: () => this.uploadToFileIO(file)
+        }
+      ];
       
-      if (!response.ok) {
-        throw new Error('File upload failed');
+      for (const service of uploadServices) {
+        try {
+          console.log(`Attempting upload to ${service.name}...`);
+          const result = await service.upload();
+          if (result) {
+            console.log(`CV uploaded successfully to ${service.name}: ${result}`);
+            return result;
+          }
+        } catch (error) {
+          console.warn(`Upload to ${service.name} failed:`, error);
+          
+          // In development, if all services fail due to CORS, show helpful message
+          if (isDevelopment && error instanceof TypeError && error.message.includes('CORS')) {
+            console.warn('CORS restriction detected in development. CV upload will work in production.');
+            return null;
+          }
+          continue;
+        }
       }
       
-      const result = await response.json();
-      
-      if (result.success) {
-        console.log(`CV uploaded successfully: ${result.link}`);
-        return result.link;
-      } else {
-        throw new Error(result.message ?? 'Upload failed');
-      }
+      throw new Error('All upload services failed');
       
     } catch (error) {
       console.error('CV file upload error:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Upload to file.io service
+   */
+  private static async uploadToFileIO(file: File): Promise<string | null> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('expires', '7d');
+    
+    const response = await fetch('https://file.io', {
+      method: 'POST',
+      body: formData,
+      mode: 'cors'
+    });
+    
+    if (!response.ok) {
+      throw new Error(`file.io upload failed: ${response.status}`);
+    }
+    
+    const result = await response.json();
+    return result.success ? result.link : null;
+  }
+
+  /**
+   * Upload to tmpfiles.org service (CORS-friendly alternative)
+   * Uses proxy in development to avoid CORS issues
+   */
+  private static async uploadToTmpFiles(file: File): Promise<string | null> {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      
+      // Use proxy in development, direct URL in production
+      const isDevelopment = window.location.hostname === 'localhost' || 
+                           window.location.hostname === '127.0.0.1' ||
+                           window.location.hostname.includes('local');
+      
+      const uploadUrl = isDevelopment 
+        ? '/api/file-upload'  // Proxied through Vite
+        : 'https://tmpfiles.org/api/v1/upload';
+      
+      const response = await fetch(uploadUrl, {
+        method: 'POST',
+        body: formData,
+        mode: 'cors'
+      });
+      
+      if (!response.ok) {
+        throw new Error(`tmpfiles.org upload failed: ${response.status}`);
+      }
+      
+      const result = await response.json();
+      return result.data?.url ?? null;
+    } catch (error) {
+      console.warn('tmpfiles.org upload failed:', error);
       return null;
     }
   }
@@ -263,6 +350,7 @@ export class ApplicationService {
       cv_file_uploaded: data.cvFile ? 'Yes ✅' : 'No ❌',
       cv_download_url: cvDownloadUrl ?? '',
       cv_download_status: cvDownloadStatus,
+      cv_download_display: cvDownloadUrl ? '' : 'display: none;',
       
       // GDPR consent (with emoji for better display)
       gdpr_consent: data.gdprConsent ? 'Yes ✅' : 'No ❌',

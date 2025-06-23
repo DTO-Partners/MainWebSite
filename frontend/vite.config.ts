@@ -21,4 +21,19 @@ export default defineConfig({
       "@public": path.resolve(__dirname, "./public"),
     },
   },
+  server: {
+    // Proxy configuration for development file uploads
+    proxy: {
+      '/api/file-upload': {
+        target: 'https://tmpfiles.org',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/file-upload/, '/api/v1/upload'),
+        configure: (proxy) => {
+          proxy.on('error', (err) => {
+            console.log('Proxy error:', err);
+          });
+        }
+      }
+    }
+  }
 });
