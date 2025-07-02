@@ -167,19 +167,73 @@ export default function WorldMapComponent() {
 
   return (
     <div className="w-full">
-      <div 
-        className="relative bg-gradient-to-br from-white via-[#fdf6e3]/30 to-white backdrop-blur-lg border-2 border-[#daa520]/20 hover:border-[#daa520]/40 rounded-3xl shadow-xl px-8 py-10 transition-all hover:shadow-2xl duration-300 overflow-hidden"
-      >
+      {/* Mobile Message - Show only on small screens */}
+      <div className="block lg:hidden">
+        <div className="relative bg-gradient-to-br from-white via-[#fdf6e3]/30 to-white backdrop-blur-lg border-2 border-[#daa520]/20 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 transition-all duration-300">
+          {/* Mobile Header */}
+          <div className="text-center mb-4">
+            <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-[#daa520] to-[#b8860b] flex items-center justify-center shadow-lg mb-4">
+              <span className="text-2xl">🌍</span>
+            </div>
+            <h3 className="text-xl font-bold text-[#1a1a2e] mb-2">
+              {t("worldMap.header.title")}
+            </h3>
+            <p className="text-sm text-[#708090] font-medium leading-relaxed mb-6">
+              {t("worldMap.header.description")}
+            </p>
+          </div>
+
+          {/* Countries Grid for Mobile */}
+          <div className="grid grid-cols-2 gap-3 mb-6">
+            {data.map((country, index) => (
+              <motion.div
+                key={country.country}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.3 }}
+                className="bg-white/80 border border-[#daa520]/20 rounded-lg p-3 text-center hover:bg-[#daa520]/5 transition-all duration-200 cursor-pointer"
+                onClick={() => setSelectedCountry(country)}
+              >
+                <div className="text-lg mb-1">{country.country === 'pl' ? '🇵🇱' : country.country === 'de' ? '🇩🇪' : country.country === 'lu' ? '🇱🇺' : country.country === 'ie' ? '🇮🇪' : country.country === 'sa' ? '🇸🇦' : '🇦🇪'}</div>
+                <div className="text-sm font-semibold text-[#1a1a2e]">{country.name}</div>
+                <div className="text-xs text-[#708090] mt-1">{country.industries.length} {country.industries.length === 1 ? 'industry' : 'industries'}</div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Mobile Statistics */}
+          <div className="grid grid-cols-3 gap-3 text-center">
+            <div className="bg-white/60 rounded-lg p-3">
+              <div className="text-lg font-bold text-[#daa520]">{data.length}</div>
+              <div className="text-xs text-[#708090]">{t("worldMap.statistics.activePartnerships")}</div>
+            </div>
+            <div className="bg-white/60 rounded-lg p-3">
+              <div className="text-lg font-bold text-[#daa520]">2</div>
+              <div className="text-xs text-[#708090]">{t("worldMap.statistics.emeaRegion")}</div>
+            </div>
+            <div className="bg-white/60 rounded-lg p-3">
+              <div className="text-lg font-bold text-[#daa520]">5</div>
+              <div className="text-xs text-[#708090]">{t("worldMap.statistics.sectors")}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop/Tablet Map - Hidden on mobile */}
+      <div className="hidden lg:block">
+        <div 
+          className="relative bg-gradient-to-br from-white via-[#fdf6e3]/30 to-white backdrop-blur-lg border-2 border-[#daa520]/20 hover:border-[#daa520]/40 rounded-3xl shadow-xl px-6 lg:px-8 py-8 lg:py-10 transition-all hover:shadow-2xl duration-300 overflow-hidden"
+        >
         {/* Decorative background elements */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#daa520]/10 to-transparent rounded-full blur-2xl" />
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#fff7d4]/40 to-transparent rounded-full blur-xl" />
         
         {/* Interactive Controls Panel */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 relative z-10">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6 relative z-10">
           {/* Region Filters */}
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
             <span className="text-sm font-semibold text-[#1a1a2e]">{t("worldMap.controls.focusRegion")}</span>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
               {[
                 { key: 'all', label: t("worldMap.controls.regions.all"), emoji: '🌍' },
                 { key: 'europe', label: t("worldMap.controls.regions.europe"), emoji: '🇪🇺' },
@@ -201,20 +255,20 @@ export default function WorldMapComponent() {
                       setPanPosition({ x: -50, y: 20 });
                     }
                   }}
-                  className={`px-3 py-2 rounded-xl text-xs font-medium transition-all duration-300 ${
+                  className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-xs font-medium transition-all duration-300 ${
                     filterRegion === region.key
                       ? 'bg-[#daa520] text-white shadow-lg'
                       : 'bg-white/80 text-[#1a1a2e] hover:bg-[#daa520]/10 border border-[#daa520]/20'
                   }`}
                 >
-                  {region.emoji} {region.label}
+                  <span className="hidden sm:inline">{region.emoji} </span>{region.label}
                 </button>
               ))}
             </div>
           </div>
 
           {/* Interactive Toggles */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <button
               onClick={() => {
                 // Clear any existing animations first
@@ -271,31 +325,31 @@ export default function WorldMapComponent() {
 
         {/* Global Partnership Visualization */}
         <div 
-          className="relative flex items-center justify-center w-full h-[700px] overflow-hidden rounded-2xl bg-gradient-to-br from-[#f8fafc] via-[#fdf6e3]/40 to-[#f0f9ff] border-2 border-[#daa520]/30 p-6 shadow-inner"
+          className="relative flex items-center justify-center w-full h-[500px] lg:h-[700px] overflow-hidden rounded-xl lg:rounded-2xl bg-gradient-to-br from-[#f8fafc] via-[#fdf6e3]/40 to-[#f0f9ff] border-2 border-[#daa520]/30 p-3 sm:p-6 shadow-inner"
         >
           {/* Zoom Controls */}
-          <div className="absolute top-4 left-4 flex flex-col gap-2 z-20">
+          <div className="absolute top-2 sm:top-4 left-2 sm:left-4 flex flex-col gap-1 sm:gap-2 z-20">
             <button
               onClick={handleZoomIn}
-              className="w-8 h-8 bg-white/90 hover:bg-white border border-[#daa520]/30 hover:border-[#daa520] rounded-lg flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md"
+              className="w-6 h-6 sm:w-8 sm:h-8 bg-white/90 hover:bg-white border border-[#daa520]/30 hover:border-[#daa520] rounded-md sm:rounded-lg flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md"
               title={t("worldMap.controls.zoomIn")}
             >
-              <svg className="w-4 h-4 text-[#1a1a2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3 h-3 sm:w-4 sm:h-4 text-[#1a1a2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
             </button>
             <button
               onClick={handleZoomOut}
-              className="w-8 h-8 bg-white/90 hover:bg-white border border-[#daa520]/30 hover:border-[#daa520] rounded-lg flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md"
+              className="w-6 h-6 sm:w-8 sm:h-8 bg-white/90 hover:bg-white border border-[#daa520]/30 hover:border-[#daa520] rounded-md sm:rounded-lg flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md"
               title={t("worldMap.controls.zoomOut")}
             >
-              <svg className="w-4 h-4 text-[#1a1a2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3 h-3 sm:w-4 sm:h-4 text-[#1a1a2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 12H6" />
               </svg>
             </button>
             <button
               onClick={handleResetView}
-              className="w-8 h-8 bg-white/90 hover:bg-white border border-[#daa520]/30 hover:border-[#daa520] rounded-lg flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md"
+              className="w-6 h-6 sm:w-8 sm:h-8 bg-white/90 hover:bg-white border border-[#daa520]/30 hover:border-[#daa520] rounded-md sm:rounded-lg flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md"
               title={t("worldMap.controls.resetView")}
             >
               <svg className="w-4 h-4 text-[#1a1a2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -450,14 +504,14 @@ export default function WorldMapComponent() {
         </div>
 
         {/* Partnership Overview Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-8 relative z-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mt-6 lg:mt-8 relative z-10">
           {data.map((country) => (
             <button
               key={country.country}
               onClick={() => setSelectedCountry(country)}
               onMouseEnter={() => handleCountryHover(country.country)}
               onMouseLeave={() => handleCountryHover(null)}
-              className="group bg-gradient-to-br from-white via-[#fdf6e3]/30 to-white border-2 border-[#daa520]/20 hover:border-[#daa520]/50 rounded-2xl p-4 transition-all duration-300 hover:shadow-xl hover:scale-105 hover:-translate-y-1"
+              className="group bg-gradient-to-br from-white via-[#fdf6e3]/30 to-white border-2 border-[#daa520]/20 hover:border-[#daa520]/50 rounded-xl lg:rounded-2xl p-3 sm:p-4 transition-all duration-300 hover:shadow-xl hover:scale-105 hover:-translate-y-1"
             >
               <div className="flex flex-col items-center gap-3">
                 <div 
@@ -465,7 +519,7 @@ export default function WorldMapComponent() {
                   style={{ backgroundColor: country.color }}
                 />
                 <div className="text-center">
-                  <div className="font-bold text-[#1a1a2e] group-hover:text-[#daa520] transition-colors text-sm leading-tight">
+                  <div className="font-bold text-[#1a1a2e] group-hover:text-[#daa520] transition-colors text-xs sm:text-sm leading-tight">
                     {country.name}
                   </div>
                   <div className="text-xs text-[#708090] mt-1 font-medium">
@@ -492,9 +546,10 @@ export default function WorldMapComponent() {
             <span className="font-medium">{t("worldMap.legend.headquarters")}</span>
           </div>
         </div>
+        </div>
       </div>
 
-      {/* Enhanced Partnership Details Modal with Keyboard Navigation */}
+      {/* Modal for both mobile and desktop */}
       <AnimatePresence>
         {selectedCountry && (
           <motion.div
