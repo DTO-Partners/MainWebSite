@@ -563,7 +563,8 @@ export default function WorldMapComponent() {
                 <div className="mb-8">
                   <h4 className="font-bold text-gray-900 mb-4 text-lg">Key Industry Sectors</h4>
                   <div className="grid grid-cols-2 gap-3">
-                    {selectedCountry.industries.map((industry, index) => (
+                    
+                    {selectedCountry.industries.map((industry: any, index: any) => (
                       <div
                         key={`${industry}-${index}`}
                         className="px-4 py-3 bg-gradient-to-r from-[#daa520]/10 via-[#daa520]/15 to-[#daa520]/10 border-2 border-[#daa520]/25 rounded-xl text-sm font-semibold text-gray-800 text-center shadow-sm"
