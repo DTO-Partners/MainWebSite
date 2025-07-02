@@ -1,6 +1,7 @@
 # DTO Partners - Main Website
 
 [![DeepScan grade](https://deepscan.io/api/teams/27171/projects/29731/branches/951272/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=27171&pid=29731&bid=951272)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/192dfabd-6dfc-4222-a09a-e52fa1963a4c/deploy-status)](https://app.netlify.com/projects/betadto/deploys)
 
 > Modern, responsive website for DTO Partners - a strategic advisory firm specializing in business transformation and international expansion.
 
