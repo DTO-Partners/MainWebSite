@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 import WorldMapComponent from "@/components/WorldMap";
 import { useState } from "react";
 // Optional: If using shadcn/ui for accordion & tooltip
@@ -15,36 +16,32 @@ import {
 } from "@/components/ui/Tooltip";
 
 export default function InternationalReach() {
-  const countries = [
-    { code: "pl", name: "Poland", type: "png" },
-    { code: "de", name: "Germany", type: "jpeg" },
-    { code: "lu", name: "Luxembourg", type: "png" },
-    { code: "ie", name: "Ireland", type: "png" },
-    { code: "sa", name: "Saudi Arabia", type: "png" },
-    { code: "ae", name: "UAE", type: "png" },
-  ];
+  const { t } = useTranslation();
+  
+  const countries = t("markets.countries.list", { returnObjects: true }) as Array<{
+    code: string;
+    name: string;
+    type: string;
+  }>;
 
-  const industries = [
-    {
-      title: "Finance",
-      countries: ["Luxembourg", "Ireland", "Saudi Arabia"],
-    },
-    {
-      title: "IT & Cybersecurity",
-      countries: ["Luxembourg", "Poland", "Ireland"],
-    },
-    {
-      title: "Healthcare",
-      countries: ["Poland", "Germany", "Saudi Arabia"],
-    },
-    {
-      title: "Hospitality",
-      countries: ["Poland", "Germany", "Saudi Arabia"],
-    },
-  ];
+  const industries = t("markets.industries.list", { returnObjects: true }) as Array<{
+    title: string;
+    countries: string[];
+  }>;
 
-  const [_, setHoveredCountry] = useState<null | string>(null);
   const [selectedCountry, setSelectedCountry] = useState<null | string>(null);
+
+  // Function to get industry icon based on title (works for both English and Polish)
+  const getIndustryIcon = (title: string): string => {
+    // Check for English titles
+    if (title === "Finance" || title === "Finanse") return "💰";
+    if (title === "IT & Cybersecurity" || title === "IT i Cyberbezpieczeństwo") return "🖥️";
+    if (title === "Healthcare" || title === "Opieka Zdrowotna") return "🩺";
+    if (title === "Hospitality" || title === "Hotelarstwo") return "🏨";
+    
+    // Default fallback
+    return "🌍";
+  };
 
   return (
     <section
@@ -75,7 +72,7 @@ export default function InternationalReach() {
         >
           <div className="inline-flex items-center gap-3 bg-gradient-to-r from-[#fff7d4]/60 via-white/80 to-[#fff7d4]/60 backdrop-blur-md px-8 py-3 rounded-full border border-[#daa520]/30 shadow-lg mb-8">
             <span className="w-2 h-2 bg-[#daa520] rounded-full animate-pulse"></span>
-            <span className="text-sm font-semibold text-[#1a1a2e] tracking-wider uppercase">Global Markets</span>
+            <span className="text-sm font-semibold text-[#1a1a2e] tracking-wider uppercase">{t("markets.header.badge")}</span>
           </div>
         </motion.div>
 
@@ -85,9 +82,9 @@ export default function InternationalReach() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-5xl md:text-6xl font-light mb-8 tracking-tight leading-tight"
         >
-          Our Partnerships{" "}
+          {t("markets.header.title")}{" "}
           <span className="block text-4xl md:text-5xl bg-gradient-to-r from-[#daa520] to-[#b8860b] bg-clip-text text-transparent font-normal mt-2">
-            Across The World
+            {t("markets.header.subtitle")}
           </span>
         </motion.h3>
         
@@ -104,19 +101,10 @@ export default function InternationalReach() {
           className="space-y-6"
         >
           <p className="text-lg sm:text-xl leading-relaxed text-[#1a1a2e]/85 max-w-4xl mx-auto font-light">
-            At <span className="font-semibold text-[#daa520]">DTO Partners</span>,
-            our network reaches across continents, with strategic focus on{" "}
-            <span className="text-[#daa520] font-semibold">Europe</span> and{" "}
-            <span className="text-[#daa520] font-semibold">Middle East</span>. We
-            deliver tailored solutions to meet unique industry challenges for our
-            clients worldwide.
+            {t("markets.header.description")}
           </p>
           <p className="text-base leading-relaxed text-[#708090] max-w-3xl mx-auto font-light">
-            Our recruitment covers{" "}
-            <span className="text-[#1a1a2e] font-semibold">
-              junior to executive search
-            </span>
-            , including government-authorized professionals.
+            {t("markets.header.recruitment")}
           </p>
         </motion.div>
       </div>
@@ -131,10 +119,10 @@ export default function InternationalReach() {
         >
           <div className="inline-flex items-center gap-3 bg-gradient-to-r from-[#fff7d4]/60 via-white/80 to-[#fff7d4]/60 backdrop-blur-md px-6 py-2 rounded-full border border-[#daa520]/30 shadow-lg mb-6">
             <span className="w-2 h-2 bg-[#daa520] rounded-full animate-pulse"></span>
-            <span className="text-sm font-semibold text-[#1a1a2e] tracking-wider uppercase">Our Presence</span>
+            <span className="text-sm font-semibold text-[#1a1a2e] tracking-wider uppercase">{t("markets.countries.badge")}</span>
           </div>
           <h4 className="text-3xl md:text-4xl font-light text-[#1a1a2e] mb-4">
-            Countries We Operate In
+            {t("markets.countries.title")}
           </h4>
           <div className="w-16 h-1 bg-gradient-to-r from-[#daa520] to-[#b8860b] rounded-full mx-auto"></div>
         </motion.div>
@@ -153,7 +141,6 @@ export default function InternationalReach() {
                       y: -5,
                     }}
                     whileTap={{ scale: 0.95 }}
-                    onMouseLeave={() => setHoveredCountry(null)}
                     onClick={() => setSelectedCountry(country.name)}
                     className="relative bg-gradient-to-br from-white/95 via-[#fdf6e3]/50 to-white/90 backdrop-blur-lg border-2 border-[#daa520]/20 hover:border-[#daa520]/50 rounded-3xl p-6 shadow-xl hover:shadow-2xl flex flex-col items-center transition-all duration-500 cursor-pointer group overflow-hidden"
                   >
@@ -257,7 +244,7 @@ export default function InternationalReach() {
                 
                 <h3 className="text-3xl font-light text-[#1a1a2e] mb-3 tracking-tight text-center">{selectedCountry}</h3>
                 <div className="flex items-center space-x-3 text-[#daa520] text-lg font-semibold mb-6">
-                  <span>Available Industries</span>
+                  <span>{t("markets.modal.availableIndustries")}</span>
                   <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -285,19 +272,14 @@ export default function InternationalReach() {
                       transition={{ duration: 0.3 }}
                       className="text-3xl group-hover:scale-110 transition-transform duration-300"
                     >
-                      {{
-                        Finance: "💰",
-                        "IT & Cybersecurity": "🖥️",
-                        Healthcare: "🩺",
-                        Hospitality: "🏨",
-                      }[industry.title] || "🌍"}
+                      {getIndustryIcon(industry.title)}
                     </motion.span>
                     <span className="text-[#1a1a2e] font-semibold text-lg group-hover:text-[#daa520] transition-colors duration-300">{industry.title}</span>
                   </motion.div>
                 ))}
                 {industries.filter(i => i.countries.includes(selectedCountry)).length === 0 && (
                   <div className="text-[#708090] text-center py-6 italic bg-white/50 rounded-2xl border border-[#daa520]/20">
-                    No industries currently listed for this country.
+                    {t("markets.modal.noIndustries")}
                   </div>
                 )}
               </div>
@@ -329,10 +311,10 @@ export default function InternationalReach() {
               <div className="mb-6 text-center">
                 <div className="inline-flex items-center gap-3 bg-gradient-to-r from-[#fff7d4]/60 via-white/80 to-[#fff7d4]/60 backdrop-blur-md px-6 py-2 rounded-full border border-[#daa520]/30 shadow-lg mb-4">
                   <span className="w-2 h-2 bg-[#daa520] rounded-full animate-pulse"></span>
-                  <span className="text-sm font-semibold text-[#1a1a2e] tracking-wider uppercase">Interactive Map</span>
+                  <span className="text-sm font-semibold text-[#1a1a2e] tracking-wider uppercase">{t("markets.map.badge")}</span>
                 </div>
-                <h5 className="text-2xl font-light text-[#1a1a2e] mb-2">Global Network Overview</h5>
-                <p className="text-[#708090] text-sm">Click on regions to explore our presence</p>
+                <h5 className="text-2xl font-light text-[#1a1a2e] mb-2">{t("markets.map.title")}</h5>
+                <p className="text-[#708090] text-sm">{t("markets.map.description")}</p>
               </div>
               <WorldMapComponent />
             </div>
@@ -355,10 +337,10 @@ export default function InternationalReach() {
             >
               <div className="inline-flex items-center gap-3 bg-gradient-to-r from-[#fff7d4]/60 via-white/80 to-[#fff7d4]/60 backdrop-blur-md px-6 py-2 rounded-full border border-[#daa520]/30 shadow-lg mb-6">
                 <span className="w-2 h-2 bg-[#daa520] rounded-full animate-pulse"></span>
-                <span className="text-sm font-semibold text-[#1a1a2e] tracking-wider uppercase">Industry Focus</span>
+                <span className="text-sm font-semibold text-[#1a1a2e] tracking-wider uppercase">{t("markets.industries.badge")}</span>
               </div>
               <h4 className="text-3xl md:text-4xl font-light text-[#1a1a2e] mb-4">
-                Industries by Country
+                {t("markets.industries.title")}
               </h4>
               <div className="w-16 h-1 bg-gradient-to-r from-[#daa520] to-[#b8860b] rounded-full mx-auto"></div>
             </motion.div>
@@ -380,12 +362,7 @@ export default function InternationalReach() {
                           className="w-16 h-16 rounded-2xl bg-gradient-to-br from-white/90 to-[#fff7d4]/60 border-2 border-[#daa520]/30 group-hover/trigger:border-[#daa520]/60 flex items-center justify-center shadow-lg group-hover/trigger:shadow-xl transition-all duration-300"
                         >
                           <span className="text-3xl">
-                            {{
-                              Finance: "💰",
-                              "IT & Cybersecurity": "🖥️",
-                              Healthcare: "🩺",
-                              Hospitality: "🏨",
-                            }[industry.title] || "🌍"}
+                            {getIndustryIcon(industry.title)}
                           </span>
                         </motion.div>
                         <div className="flex-1 text-left">
@@ -402,7 +379,7 @@ export default function InternationalReach() {
                             whileHover={{ opacity: 1 }}
                             transition={{ duration: 0.2 }}
                           >
-                            {industry.countries.length} countries • Click to explore
+                            {industry.countries.length} {t("markets.accordion.exploreText")}
                           </motion.div>
                         </div>
                       </div>
@@ -420,7 +397,7 @@ export default function InternationalReach() {
                           animate={{ opacity: 1 }}
                           transition={{ delay: 0.2 }}
                         >
-                          Explore our partnerships across these strategic markets:
+                          {t("markets.accordion.partnershipText")}
                         </motion.p>
                         <div className="flex flex-wrap gap-3">
                           {industry.countries.map((country, countryIndex) => (

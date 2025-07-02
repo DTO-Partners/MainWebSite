@@ -1,78 +1,36 @@
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { AboutVideo } from "@/components/about/AboutVideo";
-
-const industries = [
-  {
-    label: "Finance",
-    icon: "💼",
-    description: "Investment management & financial services",
-    color: "#2563eb",
-  },
-  {
-    label: "Healthcare",
-    icon: "🩺",
-    description: "Medical professionals & healthcare solutions",
-    color: "#dc2626",
-  },
-  {
-    label: "IT & Cybersecurity",
-    icon: "🖥️",
-    description: "Technology experts & security specialists",
-    color: "#7c3aed",
-  },
-  {
-    label: "Hospitality",
-    icon: "🏨",
-    description: "Tourism & hospitality management",
-    color: "#059669",
-  },
-  {
-    label: "Food Engineering",
-    icon: "🍽️",
-    description: "Food science & engineering professionals",
-    color: "#ea580c",
-  },
-];
-
-const languages = [
-  {
-    label: "English",
-    icon: "🇬🇧",
-    color: "#1e40af",
-  },
-  {
-    label: "Polish",
-    icon: "🇵🇱",
-    color: "#dc2626",
-  },
-  {
-    label: "Italian",
-    icon: "🇮🇹",
-    color: "#059669",
-  },
-  {
-    label: "German",
-    icon: "🇩🇪",
-    color: "#7c2d12",
-  },
-  {
-    label: "Russian",
-    icon: "🇷🇺",
-    color: "#7c3aed",
-  },
-];
-
-const factChips = [
-  { text: "Registered in Poland", icon: "🇵🇱", color: "#dc2626" },
-  { text: "Multinational Team", icon: "🌍", color: "#059669" },
-  { text: "Government Approved", icon: "✅", color: "#2563eb" },
-];
 
 export default function About() {
   const [activeTab, setActiveTab] = useState<"industries" | "languages">(
     "industries"
   );
   const [copied, setCopied] = useState<string | null>(null);
+  const { t } = useTranslation();
+
+  const industries = (t("about.industries", { returnObjects: true }) as Array<{
+    label: string;
+    description: string;
+  }>).map((industry, index) => ({
+    ...industry,
+    icon: ["💼", "🩺", "🖥️", "🏨", "🍽️"][index],
+    color: ["#2563eb", "#dc2626", "#7c3aed", "#059669", "#ea580c"][index]
+  }));
+
+  const languages = (t("about.languages", { returnObjects: true }) as Array<{
+    label: string;
+  }>).map((language, index) => ({
+    ...language,
+    icon: ["🏴󠁧󠁢󠁥󠁮󠁧󠁿", "🇵🇱", "🇮🇹", "🇩🇪", "🇷🇺"][index],
+    color: ["#1e40af", "#dc2626", "#059669", "#7c2d12", "#7c3aed"][index]
+  }));
+
+  const factChips = (t("about.factChips", { returnObjects: true }) as string[]).map((text, index) => ({
+    text,
+    icon: ["🇵🇱", "🌍", "✅"][index],
+    color: ["#dc2626", "#059669", "#2563eb"][index]
+  }));
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -134,9 +92,9 @@ export default function About() {
 
             <div className="text-center lg:text-left">
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-[#1a1a2e] tracking-tight leading-none mb-4 group-hover:text-[#1a1a2e] transition-colors duration-500">
-                About{" "}
+                {t("about.title")}{" "}
                 <span className="block text-2xl md:text-3xl lg:text-4xl bg-gradient-to-r from-[#daa520] to-[#b8860b] bg-clip-text text-transparent font-normal mt-2 tracking-wide">
-                  DTO Partners
+                  {t("about.subtitle")}
                 </span>
               </h2>
             </div>
@@ -155,7 +113,7 @@ export default function About() {
               <div className="absolute inset-0 border border-white/30 rounded-full group-hover/badge:border-white/50 transition-all duration-300"></div>
               <span className="w-2 md:w-3 h-2 md:h-3 bg-[#daa520] rounded-full shadow-md animate-pulse relative z-10" />
               <span className="relative z-10 text-center">
-                International Recruitment Company
+                {t("about.badge")}
               </span>
 
               {/* Badge hover effect */}
@@ -165,34 +123,11 @@ export default function About() {
 
           <div className="space-y-4 md:space-y-6 relative z-10 text-center lg:text-left">
             <p className="text-base md:text-lg leading-relaxed text-[#1a1a2e]/85 font-light group-hover:text-[#1a1a2e]/95 transition-colors duration-500">
-              DTO Partners is an{" "}
-              <span className="font-medium text-[#daa520]">
-                international recruitment company
-              </span>{" "}
-              headquartered in Poland. Our foundations were built by managers
-              with recognized experience in{" "}
-              <span className="font-medium text-[#1a1a2e]">
-                Investment Management
-              </span>
-              ,{" "}
-              <span className="font-medium text-[#1a1a2e]">
-                Food Science and Engineering
-              </span>
-              , within major international private and public organizations.
+              {t("about.description1")}
             </p>
 
             <p className="text-sm md:text-base leading-relaxed text-[#708090] font-light group-hover:text-[#708090]/95 transition-colors duration-500">
-              DTO Partners has been{" "}
-              <span className="font-medium text-[#daa520]">
-                approved and registered
-              </span>{" "}
-              with the National Register of Recruitment Firms by the{" "}
-              <span className="font-medium text-[#1a1a2e]">
-                Ministry of Family, Labour and Social Policies of the Republic
-                of Poland
-              </span>
-              , highlighting our commitment to provide trustworthy and
-              high-quality services tailored to your needs.
+              {t("about.description2")}
             </p>
           </div>
 
@@ -318,12 +253,10 @@ export default function About() {
               </div>
               <div>
                 <p className="text-xs md:text-sm font-bold text-white mb-1 tracking-wide">
-                  Smart Video
+                  {t("about.videoCard.title")}
                 </p>
                 <p className="text-xs text-white/80 leading-relaxed hidden md:block">
-                  Auto-switches with
-                  <br />
-                  language selection
+                  {t("about.videoCard.description")}
                 </p>
                 <p className="text-xs text-white/80 leading-relaxed md:hidden">
                   Auto-switches
@@ -360,11 +293,11 @@ export default function About() {
             <div className="inline-flex items-center gap-2 md:gap-3 bg-gradient-to-r from-[#fff7d4]/60 via-white/80 to-[#fff7d4]/60 backdrop-blur-md px-6 md:px-8 py-2 md:py-3 rounded-full border border-[#daa520]/30 shadow-lg mb-4 md:mb-6">
               <span className="w-1.5 md:w-2 h-1.5 md:h-2 bg-[#daa520] rounded-full animate-pulse"></span>
               <span className="text-xs md:text-sm font-semibold text-[#1a1a2e] tracking-wider uppercase">
-                Our Expertise
+                {t("about.expertise.badge")}
               </span>
             </div>
             <h3 className="text-2xl md:text-3xl lg:text-4xl font-light text-[#1a1a2e] mb-3 md:mb-4">
-              Global Reach, Local Excellence
+              {t("about.expertise.title")}
             </h3>
             <div className="w-16 md:w-24 h-0.5 md:h-1 bg-gradient-to-r from-[#daa520] to-[#b8860b] rounded-full mx-auto"></div>
           </div>
@@ -381,8 +314,8 @@ export default function About() {
             >
               <div className="flex items-center gap-1.5 md:gap-2">
                 <span className="text-sm md:text-base">💼</span>
-                <span className="hidden sm:inline">Industries</span>
-                <span className="sm:hidden">Work</span>
+                <span className="hidden sm:inline">{t("about.expertise.tabIndustries")}</span>
+                <span className="sm:hidden">{t("about.expertise.tabIndustriesShort")}</span>
               </div>
             </button>
             <button
@@ -395,8 +328,8 @@ export default function About() {
             >
               <div className="flex items-center gap-1.5 md:gap-2">
                 <span className="text-sm md:text-base">🌍</span>
-                <span className="hidden sm:inline">Languages</span>
-                <span className="sm:hidden">Lang</span>
+                <span className="hidden sm:inline">{t("about.expertise.tabLanguages")}</span>
+                <span className="sm:hidden">{t("about.expertise.tabLanguagesShort")}</span>
               </div>
             </button>
           </div>
@@ -420,11 +353,11 @@ export default function About() {
                   </div>
                   <div className="flex-1 text-center sm:text-left">
                     <h3 className="text-2xl md:text-3xl lg:text-4xl font-light text-[#1a1a2e] group-hover:text-[#daa520] transition-colors duration-700 leading-tight tracking-wide mb-2 md:mb-3">
-                      Industries We Operate In
+                      {t("about.expertise.industriesTitle")}
                     </h3>
                     <div className="h-0.5 md:h-1 w-0 group-hover:w-24 md:group-hover:w-32 bg-gradient-to-r from-[#daa520] to-[#b8860b] rounded-full transition-all duration-700 mx-auto sm:mx-0" />
                     <p className="text-[#708090] font-light text-sm md:text-base leading-relaxed mt-3 md:mt-4">
-                      Diverse sectors, unified excellence in talent acquisition.
+                      {t("about.expertise.industriesDescription")}
                     </p>
                   </div>
                 </div>
@@ -486,11 +419,11 @@ export default function About() {
                   </div>
                   <div className="flex-1 text-center sm:text-left">
                     <h3 className="text-2xl md:text-3xl lg:text-4xl font-light text-[#1a1a2e] group-hover:text-[#daa520] transition-colors duration-700 leading-tight tracking-wide mb-2 md:mb-3">
-                      Languages We Speak
+                      {t("about.expertise.languagesTitle")}
                     </h3>
                     <div className="h-0.5 md:h-1 w-0 group-hover:w-24 md:group-hover:w-32 bg-gradient-to-r from-[#1a1a2e] to-[#daa520] rounded-full transition-all duration-700 mx-auto sm:mx-0" />
                     <p className="text-[#708090] font-light text-sm md:text-base leading-relaxed mt-3 md:mt-4">
-                      Breaking barriers through multilingual excellence.
+                      {t("about.expertise.languagesDescription")}
                     </p>
                   </div>
                 </div>

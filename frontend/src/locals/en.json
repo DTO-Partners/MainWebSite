@@ -1,4 +1,19 @@
 {
+  "hero": {
+    "badge": "Excellence in Global Recruitment",
+    "title": {
+      "first": "DTO",
+      "second": "Partners"
+    },
+    "subtitle": {
+      "main": "Bridging exceptional talent with visionary organizations across continents.",
+      "tagline": "Where expertise meets opportunity."
+    },
+    "cta": {
+      "button": "Discover Our Story",
+      "scrollIndicator": "Scroll to next section"
+    }
+  },
   "nav": {
     "aboutus": "About Us",
     "markets": "Markets & Industries",
@@ -56,6 +71,320 @@
       "privacyPolicy": "privacy policy",
       "submit": "SEND APPLICATION",
       "sending": "Sending..."
+    }
+  },
+  "about": {
+    "badge": "International Recruitment Company",
+    "title": "About",
+    "subtitle": "DTO Partners",
+    "description1": "DTO Partners is an international recruitment company headquartered in Poland. Our foundations were built by managers with recognized experience in Investment Management, Food Science and Engineering, within major international private and public organizations.",
+    "description2": "DTO Partners has been approved and registered with the National Register of Recruitment Firms by the Ministry of Family, Labour and Social Policies of the Republic of Poland, highlighting our commitment to provide trustworthy and high-quality services tailored to your needs.",
+    "factChips": [
+      "Registered in Poland",
+      "Multinational Team", 
+      "Government Approved"
+    ],
+    "videoCard": {
+      "title": "Smart Video",
+      "description": "Auto-switches with language selection"
+    },
+    "expertise": {
+      "badge": "Our Expertise",
+      "title": "Global Reach, Local Excellence",
+      "industriesTitle": "Industries We Operate In",
+      "industriesDescription": "Diverse sectors, unified excellence in talent acquisition.",
+      "languagesTitle": "Languages We Speak",
+      "languagesDescription": "Breaking barriers through multilingual excellence.",
+      "tabIndustries": "Industries",
+      "tabLanguages": "Languages",
+      "tabIndustriesShort": "Work",
+      "tabLanguagesShort": "Lang"
+    },
+    "industries": [
+      {
+        "label": "Finance",
+        "description": "Investment management & financial services"
+      },
+      {
+        "label": "Healthcare",
+        "description": "Medical professionals & healthcare solutions"
+      },
+      {
+        "label": "IT & Cybersecurity",
+        "description": "Technology experts & security specialists"
+      },
+      {
+        "label": "Hospitality",
+        "description": "Tourism & hospitality management"
+      },
+      {
+        "label": "Food Engineering",
+        "description": "Food science & engineering professionals"
+      }
+    ],
+    "languages": [
+      {
+        "label": "English"
+      },
+      {
+        "label": "Polish"
+      },
+      {
+        "label": "Italian"
+      },
+      {
+        "label": "German"
+      },
+      {
+        "label": "Russian"
+      }
+    ]
+  },
+  "markets": {
+    "header": {
+      "badge": "Global Markets",
+      "title": "Our Partnerships",
+      "subtitle": "Across The World",
+      "description": "At DTO Partners, our network reaches across continents, with strategic focus on Europe and Middle East. We deliver tailored solutions to meet unique industry challenges for our clients worldwide.",
+      "recruitment": "Our recruitment covers junior to executive search, including government-authorized professionals."
+    },
+    "countries": {
+      "badge": "Our Presence",
+      "title": "Countries We Operate In",
+      "list": [
+        { "code": "pl", "name": "Poland", "type": "png" },
+        { "code": "de", "name": "Germany", "type": "jpeg" },
+        { "code": "lu", "name": "Luxembourg", "type": "png" },
+        { "code": "ie", "name": "Ireland", "type": "png" },
+        { "code": "sa", "name": "Saudi Arabia", "type": "png" },
+        { "code": "ae", "name": "UAE", "type": "png" }
+      ]
+    },
+    "industries": {
+      "badge": "Industry Focus",
+      "title": "Industries by Country",
+      "list": [
+        {
+          "title": "Finance",
+          "countries": ["Luxembourg", "Ireland", "Saudi Arabia"]
+        },
+        {
+          "title": "IT & Cybersecurity",
+          "countries": ["Luxembourg", "Poland", "Ireland"]
+        },
+        {
+          "title": "Healthcare",
+          "countries": ["Poland", "Germany", "Saudi Arabia"]
+        },
+        {
+          "title": "Hospitality",
+          "countries": ["Poland", "Germany", "Saudi Arabia"]
+        }
+      ]
+    },
+    "map": {
+      "badge": "Interactive Map",
+      "title": "Global Network Overview",
+      "description": "Click on regions to explore our presence"
+    },
+    "modal": {
+      "availableIndustries": "Available Industries",
+      "noIndustries": "No industries currently listed for this country.",
+      "close": "Close"
+    },
+    "accordion": {
+      "exploreText": "countries • Click to explore",
+      "partnershipText": "Explore our partnerships across these strategic markets:"
+    }
+  },
+  "industries": {
+    "header": {
+      "badge": "DTO Partners",
+      "title": "Industries",
+      "subtitle": "We Serve",
+      "description": "Delivering exceptional talent across diverse sectors with precision, expertise, and unwavering commitment to excellence."
+    },
+    "sections": {
+      "finance": {
+        "title": "FINANCE",
+        "subtitle": "Empowering financial growth.",
+        "description": "We provide expert recruitment for asset management, private banking, and corporate banking, ensuring compliance and operational excellence.",
+        "keyServices": [
+          "Asset Management",
+          "Wealth Management", 
+          "Corporate Banking"
+        ],
+        "detailedServices": {
+          "title": "Detailed Services",
+          "services": [
+            "Asset Management (Funds Management)",
+            "Wealth Management and Private Banking (KYC/AML, Legal, Compliance, Lending, Relationship Management, Structuring, Operations, Project Management)",
+            "Corporate Banking (KYC/AML, Legal, Compliance, Lending, Relationship Management, Structuring, Operations, Project Management)"
+          ]
+        }
+      },
+      "healthcare": {
+        "title": "HEALTHCARE",
+        "subtitle": "Caring for communities.",
+        "description": "We connect top talent with hospitals, clinics, and care centers, supporting quality healthcare delivery across regions.",
+        "keyServices": [
+          "Hospitals",
+          "Private Clinics",
+          "Rehabilitation Centers"
+        ],
+        "detailedServices": {
+          "title": "Detailed Services",
+          "services": [
+            "Hospitals",
+            "Private Clinics",
+            "Rehabilitation Centers",
+            "Nursing Homes"
+          ]
+        }
+      },
+      "itCybersecurity": {
+        "title": "IT & CYBERSECURITY",
+        "subtitle": "Securing digital futures.",
+        "description": "Our network delivers skilled professionals in IT support, project management, and cybersecurity to drive innovation and safety.",
+        "keyServices": [
+          "IT Support",
+          "Cybersecurity",
+          "Software Development"
+        ],
+        "detailedServices": {
+          "title": "Detailed Services",
+          "services": [
+            "IT Support and Services",
+            "Project Management",
+            "Database Management",
+            "Cybersecurity",
+            "Software Development"
+          ]
+        }
+      },
+      "hospitality": {
+        "title": "HOSPITALITY",
+        "subtitle": "Excellence in service.",
+        "description": "We recruit for hotels and resorts, focusing on guest experience and operational efficiency in the hospitality sector.",
+        "keyServices": [
+          "Hotels",
+          "Resorts"
+        ],
+        "detailedServices": {
+          "title": "Detailed Services",
+          "services": [
+            "Hotels and Resorts"
+          ]
+        }
+      },
+      "foodEngineering": {
+        "title": "FOOD ENGINEERING",
+        "subtitle": "Quality from field to table.",
+        "description": "We support the food industry with experts in safety management, documentation, and regulatory compliance for global standards.",
+        "keyServices": [
+          "Food Safety",
+          "Quality Audits",
+          "Training"
+        ],
+        "detailedServices": {
+          "title": "Detailed Services",
+          "services": [
+            "Quality and food safety management",
+            "Creation of documentation according to and working with standards ISO 9001, IFS FOODS, BRC, HACCP, GHP/GMP",
+            "Creation of technological projects",
+            "Quality audits",
+            "Food and safety training in accordance with national and international legislation",
+            "Knowledge of national and international food and nutrition safety regulations",
+            "Representation of companies before state authorities in the field of, inter alia, food safety control",
+            "Preparation of documentation for the food and beverage industry, inter alia for the expansion of business activities, the opening of catering facilities"
+          ]
+        }
+      }
+    },
+    "actions": {
+      "exploreDetails": "Explore Details",
+      "exploreExpertise": "Explore our expertise",
+      "close": "Close"
+    }
+  },
+  "worldMap": {
+    "header": {
+      "title": "Global Partnership Network",
+      "description": "Click on any highlighted country to discover our partnerships, industry focus, and expansion timeline in that region."
+    },
+    "controls": {
+      "focusRegion": "Focus Region:",
+      "regions": {
+        "all": "All Regions",
+        "europe": "Europe",
+        "middleEast": "Middle East"
+      },
+      "highlightTour": "Highlight Tour",
+      "zoomIn": "Zoom In",
+      "zoomOut": "Zoom Out",
+      "resetView": "Reset View"
+    },
+    "legend": {
+      "activePartnerships": "Active Partnerships",
+      "europeMiddleEast": "Europe & Middle East",
+      "headquarters": "Headquarters (Poland)"
+    },
+    "statistics": {
+      "activePartnerships": "Active Partnerships",
+      "emeaRegion": "EMEA Region",
+      "sectors": "Sectors",
+      "zoom": "Zoom"
+    },
+    "countries": {
+      "pl": {
+        "name": "Poland",
+        "description": "Our headquarters and primary operational base",
+        "industries": ["Finance", "IT", "Healthcare"],
+        "established": "2025"
+      },
+      "de": {
+        "name": "Germany", 
+        "description": "Strategic partnership for Central European expansion",
+        "industries": ["Engineering", "Manufacturing", "Finance"],
+        "established": "2025"
+      },
+      "lu": {
+        "name": "Luxembourg",
+        "description": "Financial services and investment management hub", 
+        "industries": ["Finance", "Investment", "Banking"],
+        "established": "2025"
+      },
+      "ie": {
+        "name": "Ireland",
+        "description": "Technology and pharmaceutical sector partnerships",
+        "industries": ["Technology", "Pharmaceuticals", "Finance"],
+        "established": "2025"
+      },
+      "sa": {
+        "name": "Saudi Arabia",
+        "description": "Energy sector and infrastructure development",
+        "industries": ["Energy", "Infrastructure", "Engineering"],
+        "established": "2025"
+      },
+      "ae": {
+        "name": "UAE",
+        "description": "Middle East business development and hospitality",
+        "industries": ["Hospitality", "Business Development", "Finance"],
+        "established": "2025"
+      }
+    },
+    "tooltips": {
+      "partnershipActive": "Partnership Active",
+      "exploreOpportunities": "Click to explore partnership opportunities"
+    },
+    "modal": {
+      "partnershipOverview": "Partnership Overview",
+      "keyIndustrySectors": "Key Industry Sectors",
+      "partnershipEstablished": "Partnership established",
+      "exploreOpportunities": "Explore Opportunities in",
+      "closeModal": "Close modal",
+      "contactInterest": "Thank you for your interest in {country}!\n\nPlease contact us at partnerships@dtopartners.com for more details about opportunities in {country}.",
+      "partnershipInquiry": "Interested in partnering with us in {country}?\n\nWe're exploring expansion opportunities!\nContact us at partnerships@dtopartners.com"
     }
   },
   "values": {

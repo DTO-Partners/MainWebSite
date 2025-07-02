@@ -1,11 +1,14 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 interface HeroContentProps {
-  isLoaded: boolean;
-  onScrollToNext: () => void;
+  readonly isLoaded: boolean;
+  readonly onScrollToNext: () => void;
 }
 
 export function HeroContent({ isLoaded, onScrollToNext }: HeroContentProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="relative z-10 flex items-center justify-center min-h-screen px-6">
       <motion.div
@@ -23,7 +26,7 @@ export function HeroContent({ isLoaded, onScrollToNext }: HeroContentProps) {
         >
           <div className="px-6 py-3 hero-backdrop-blur hero-glow border border-white/20 rounded-full">
             <span className="text-white/90 text-sm font-medium tracking-widest uppercase">
-              Excellence in Global Recruitment
+              {t("hero.badge")}
             </span>
           </div>
         </motion.div>
@@ -35,14 +38,14 @@ export function HeroContent({ isLoaded, onScrollToNext }: HeroContentProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 1 }}
         >
-          DTO
+          {t("hero.title.first")}
           <motion.span 
             className="block font-bold hero-gradient-text"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 1 }}
           >
-            Partners
+            {t("hero.title.second")}
           </motion.span>
         </motion.h1>
 
@@ -61,9 +64,9 @@ export function HeroContent({ isLoaded, onScrollToNext }: HeroContentProps) {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.4, duration: 0.8 }}
         >
-          Bridging exceptional talent with visionary organizations across continents.
+          {t("hero.subtitle.main")}
           <br />
-          <span className="text-white/70 text-lg">Where expertise meets opportunity.</span>
+          <span className="text-white/70 text-lg">{t("hero.subtitle.tagline")}</span>
         </motion.p>
 
         {/* CTA Section */}
@@ -79,7 +82,7 @@ export function HeroContent({ isLoaded, onScrollToNext }: HeroContentProps) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Discover Our Story
+            {t("hero.cta.button")}
             <motion.span
               className="inline-block ml-2"
               animate={{ x: [0, 4, 0] }}

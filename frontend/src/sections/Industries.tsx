@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 import { Badge } from "@/components/ui/Badge";
 import { Card, CardContent } from "@/components/ui/IndustryCard";
 import { TrendingUp, Heart, Shield, Building, ChefHat } from "lucide-react";
@@ -38,80 +39,48 @@ if (typeof document !== 'undefined') {
 export default function Component() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [expandedCard, setExpandedCard] = useState<number | null>(null);
+  const { t } = useTranslation();
 
   const industries = [
     {
-      title: "FINANCE",
-      subtitle: "Empowering financial growth.",
-      description:
-        "We provide expert recruitment for asset management, private banking, and corporate banking, ensuring compliance and operational excellence.",
-      keyServices: [
-        "Asset Management",
-        "Wealth Management",
-        "Corporate Banking",
-      ],
+      title: t("industries.sections.finance.title"),
+      subtitle: t("industries.sections.finance.subtitle"),
+      description: t("industries.sections.finance.description"),
+      keyServices: t("industries.sections.finance.keyServices", { returnObjects: true }) as string[],
       icon: TrendingUp,
-      services: [
-        "Asset Management (Funds Management)",
-        "Wealth Management and Private Banking (KYC/AML, Legal, Compliance, Lending, Relationship Management, Structuring, Operations, Project Management)",
-        "Corporate Banking (KYC/AML, Legal, Compliance, Lending, Relationship Management, Structuring, Operations, Project Management)",
-      ],
+      services: t("industries.sections.finance.detailedServices.services", { returnObjects: true }) as string[],
     },
     {
-      title: "HEALTHCARE",
-      subtitle: "Caring for communities.",
-      description:
-        "We connect top talent with hospitals, clinics, and care centers, supporting quality healthcare delivery across regions.",
-      keyServices: ["Hospitals", "Private Clinics", "Rehabilitation Centers"],
+      title: t("industries.sections.healthcare.title"),
+      subtitle: t("industries.sections.healthcare.subtitle"),
+      description: t("industries.sections.healthcare.description"),
+      keyServices: t("industries.sections.healthcare.keyServices", { returnObjects: true }) as string[],
       icon: Heart,
-      services: [
-        "Hospitals",
-        "Private Clinics",
-        "Rehabilitation Centers",
-        "Nursing Homes",
-      ],
+      services: t("industries.sections.healthcare.detailedServices.services", { returnObjects: true }) as string[],
     },
     {
-      title: "IT & CYBERSECURITY",
-      subtitle: "Securing digital futures.",
-      description:
-        "Our network delivers skilled professionals in IT support, project management, and cybersecurity to drive innovation and safety.",
-      keyServices: ["IT Support", "Cybersecurity", "Software Development"],
+      title: t("industries.sections.itCybersecurity.title"),
+      subtitle: t("industries.sections.itCybersecurity.subtitle"),
+      description: t("industries.sections.itCybersecurity.description"),
+      keyServices: t("industries.sections.itCybersecurity.keyServices", { returnObjects: true }) as string[],
       icon: Shield,
-      services: [
-        "IT Support and Services",
-        "Project Management",
-        "Database Management",
-        "Cybersecurity",
-        "Software Development",
-      ],
+      services: t("industries.sections.itCybersecurity.detailedServices.services", { returnObjects: true }) as string[],
     },
     {
-      title: "HOSPITALITY",
-      subtitle: "Excellence in service.",
-      description:
-        "We recruit for hotels and resorts, focusing on guest experience and operational efficiency in the hospitality sector.",
-      keyServices: ["Hotels", "Resorts"],
+      title: t("industries.sections.hospitality.title"),
+      subtitle: t("industries.sections.hospitality.subtitle"),
+      description: t("industries.sections.hospitality.description"),
+      keyServices: t("industries.sections.hospitality.keyServices", { returnObjects: true }) as string[],
       icon: Building,
-      services: ["Hotels and Resorts"],
+      services: t("industries.sections.hospitality.detailedServices.services", { returnObjects: true }) as string[],
     },
     {
-      title: "FOOD ENGINEERING",
-      subtitle: "Quality from field to table.",
-      description:
-        "We support the food industry with experts in safety management, documentation, and regulatory compliance for global standards.",
-      keyServices: ["Food Safety", "Quality Audits", "Training"],
+      title: t("industries.sections.foodEngineering.title"),
+      subtitle: t("industries.sections.foodEngineering.subtitle"),
+      description: t("industries.sections.foodEngineering.description"),
+      keyServices: t("industries.sections.foodEngineering.keyServices", { returnObjects: true }) as string[],
       icon: ChefHat,
-      services: [
-        "Quality and food safety management",
-        "Creation of documentation according to and working with standards ISO 9001, IFS FOODS, BRC, HACCP, GHP/ GMP",
-        "Creation of technological projects",
-        "Quality audits",
-        "Food and safety training in accordance with national and international legislation",
-        "Knowledge of national and international food and nutrition safety regulations",
-        "Representation of companies before state authorities in the field of, inter alia, food safety control",
-        "Preparation of documentation for the food and beverage industry, inter alia for the expansion of business activities, the opening of catering facilities",
-      ],
+      services: t("industries.sections.foodEngineering.detailedServices.services", { returnObjects: true }) as string[],
     },
   ];
 
@@ -204,7 +173,7 @@ export default function Component() {
                         
                         {/* Detailed Services */}
                         <div className="space-y-4 md:space-y-6">
-                          <h4 className="text-xl md:text-2xl lg:text-3xl font-light text-[#daa520] mb-4 md:mb-6">Detailed Services</h4>
+                          <h4 className="text-xl md:text-2xl lg:text-3xl font-light text-[#daa520] mb-4 md:mb-6">{t("industries.sections.finance.detailedServices.title")}</h4>
                           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
                             {industry.services.map((service, serviceIndex) => (
                               <motion.div
@@ -243,7 +212,7 @@ export default function Component() {
               variant="outline"
               className="border-[#daa520]/50 text-[#daa520] bg-[#daa520]/8 backdrop-blur-sm px-4 py-2 md:px-6 lg:px-8 md:py-3 text-xs md:text-sm font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase rounded-full shadow-lg shadow-[#daa520]/20 hover:shadow-xl hover:shadow-[#daa520]/30 transition-all duration-300"
             >
-              DTO Partners
+              {t("industries.header.badge")}
             </Badge>
           </motion.div>
           
@@ -253,14 +222,14 @@ export default function Component() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl text-white font-extralight mb-4 sm:mb-6 md:mb-8 tracking-tight leading-[0.9] relative"
           >
-            Industries
+            {t("industries.header.title")}
             <motion.span 
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
               className="block text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-[#daa520] font-light mt-1 sm:mt-2 md:mt-4 tracking-wide"
             >
-              We Serve
+              {t("industries.header.subtitle")}
             </motion.span>
             
             {/* Decorative accent */}
@@ -278,10 +247,7 @@ export default function Component() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-[#fff7d4]/85 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl max-w-4xl mx-auto leading-relaxed font-light relative px-4"
           >
-            Delivering exceptional talent across diverse sectors with 
-            <span className="text-[#daa520] font-medium"> precision</span>, 
-            <span className="text-[#daa520] font-medium"> expertise</span>, and 
-            <span className="text-[#daa520] font-medium"> unwavering commitment</span> to excellence.
+            {t("industries.header.description")}
           </motion.p>
           
           {/* Additional decorative elements */}
@@ -382,7 +348,7 @@ export default function Component() {
                     {/* Enhanced hover indicator */}
                     <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 opacity-0 group-hover:opacity-100 transition-all duration-700 transform group-hover:translate-x-0 translate-x-4">
                       <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4 text-[#daa520] text-xs sm:text-sm md:text-base font-light">
-                        <span className="tracking-wide">Explore Details</span>
+                        <span className="tracking-wide">{t("industries.actions.exploreDetails")}</span>
                         <motion.div
                           animate={{ x: [0, 5, 0] }}
                           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -484,7 +450,7 @@ export default function Component() {
               {/* Enhanced hover indicator for full-width card */}
               <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 lg:bottom-8 lg:right-10 opacity-0 group-hover:opacity-100 transition-all duration-700 transform group-hover:translate-x-0 translate-x-4">
                 <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4 text-[#daa520] text-sm sm:text-base md:text-lg font-medium">
-                  <span className="tracking-wide">Explore our expertise</span>
+                  <span className="tracking-wide">{t("industries.actions.exploreExpertise")}</span>
                   <motion.div
                     animate={{ scale: [1, 1.3, 1], rotate: [0, 360, 0] }}
                     transition={{ duration: 3, repeat: Infinity }}

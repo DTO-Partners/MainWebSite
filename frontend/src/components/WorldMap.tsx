@@ -1,66 +1,10 @@
 import { useState, useEffect } from "react";
 import { WorldMap } from "react-svg-worldmap";
 import { motion, AnimatePresence } from "framer-motion";
-
-const data = [
-  { 
-    country: "pl", 
-    value: 1, 
-    color: "#daa520", 
-    name: "Poland",
-    description: "Our headquarters and primary operational base",
-    industries: ["Finance", "IT", "Healthcare"],
-    established: "2025"
-  },
-  { 
-    country: "de", 
-    value: 1, 
-    color: "#3e5c76", 
-    name: "Germany",
-    description: "Strategic partnership for Central European expansion",
-    industries: ["Engineering", "Manufacturing", "Finance"],
-    established: "2025"
-  },
-  { 
-    country: "lu", 
-    value: 1, 
-    color: "#008080", 
-    name: "Luxembourg",
-    description: "Financial services and investment management hub",
-    industries: ["Finance", "Investment", "Banking"],
-    established: "2025"
-  },
-  { 
-    country: "ie", 
-    value: 1, 
-    color: "#ffd700", 
-    name: "Ireland",
-    description: "Technology and pharmaceutical sector partnerships",
-    industries: ["Technology", "Pharmaceuticals", "Finance"],
-    established: "2025"
-  },
-  { 
-    country: "sa", 
-    value: 1, 
-    color: "#708090", 
-    name: "Saudi Arabia",
-    description: "Energy sector and infrastructure development",
-    industries: ["Energy", "Infrastructure", "Engineering"],
-    established: "2025"
-  },
-  { 
-    country: "ae", 
-    value: 1, 
-    color: "#333333", 
-    name: "UAE",
-    description: "Middle East business development and hospitality",
-    industries: ["Hospitality", "Business Development", "Finance"],
-    established: "2025"
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 export default function WorldMapComponent() {
-  const [selectedCountry, setSelectedCountry] = useState<typeof data[0] | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<any | null>(null);
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
   const [zoomLevel, setZoomLevel] = useState(2.2);
   const [panPosition, setPanPosition] = useState({ x: -50, y: 20 });
@@ -68,6 +12,32 @@ export default function WorldMapComponent() {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [animatedCountries, setAnimatedCountries] = useState<Set<string>>(new Set());
   const [filterRegion, setFilterRegion] = useState<'all' | 'europe' | 'middle-east'>('all');
+  const { t } = useTranslation();
+
+  // Get countries data from translations
+  const getCountryData = (countryCode: string) => {
+    const countryData = t(`worldMap.countries.${countryCode}`, { returnObjects: true }) as any;
+    const colors = {
+      pl: "#daa520",
+      de: "#3e5c76", 
+      lu: "#008080",
+      ie: "#ffd700",
+      sa: "#708090",
+      ae: "#333333"
+    };
+    
+    return {
+      country: countryCode,
+      value: 1,
+      color: colors[countryCode as keyof typeof colors] || "#daa520",
+      name: countryData.name,
+      description: countryData.description,
+      industries: countryData.industries,
+      established: countryData.established
+    };
+  };
+
+  const data = ['pl', 'de', 'lu', 'ie', 'sa', 'ae'].map(getCountryData);
 
   // Handle keyboard events for better accessibility
   useEffect(() => {
@@ -120,7 +90,7 @@ export default function WorldMapComponent() {
         const countryName = countryNames[countryCode.toLowerCase()] || 'this country';
         
         // Simple, reliable alert for partnership inquiries
-        alert(`🌍 Interested in partnering with us in ${countryName}?\n\n💼 We're exploring expansion opportunities!\n📧 Contact us at partnerships@dtopartners.com`);
+        alert(t("worldMap.modal.partnershipInquiry", { country: countryName }));
         
         // Add subtle animation effect with error handling
         setAnimatedCountries(prev => new Set([...prev, countryCode.toLowerCase()]));
@@ -208,12 +178,12 @@ export default function WorldMapComponent() {
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6 relative z-10">
           {/* Region Filters */}
           <div className="flex items-center gap-3">
-            <span className="text-sm font-semibold text-[#1a1a2e]">Focus Region:</span>
+            <span className="text-sm font-semibold text-[#1a1a2e]">{t("worldMap.controls.focusRegion")}</span>
             <div className="flex gap-2">
               {[
-                { key: 'all', label: 'All Regions', emoji: '🌍' },
-                { key: 'europe', label: 'Europe', emoji: '🇪🇺' },
-                { key: 'middle-east', label: 'Middle East', emoji: '🕌' }
+                { key: 'all', label: t("worldMap.controls.regions.all"), emoji: '🌍' },
+                { key: 'europe', label: t("worldMap.controls.regions.europe"), emoji: '🇪🇺' },
+                { key: 'middle-east', label: t("worldMap.controls.regions.middleEast"), emoji: '🕌' }
               ].map((region) => (
                 <button
                   key={region.key}
@@ -274,7 +244,7 @@ export default function WorldMapComponent() {
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
-              Highlight Tour
+              {t("worldMap.controls.highlightTour")}
             </button>
           </div>
         </div>
@@ -289,14 +259,13 @@ export default function WorldMapComponent() {
             </div>
             <div>
               <h3 className="text-2xl font-bold text-[#1a1a2e]">
-                Global Partnership Network
+                {t("worldMap.header.title")}
               </h3>
               <div className="h-1 w-16 bg-gradient-to-r from-[#daa520] to-[#b8860b] rounded-full mt-1" />
             </div>
           </div>
           <p className="text-[#708090] font-medium leading-relaxed">
-            Click on any highlighted country to discover our partnerships, 
-            industry focus, and expansion timeline in that region.
+            {t("worldMap.header.description")}
           </p>
         </div>
 
@@ -309,7 +278,7 @@ export default function WorldMapComponent() {
             <button
               onClick={handleZoomIn}
               className="w-8 h-8 bg-white/90 hover:bg-white border border-[#daa520]/30 hover:border-[#daa520] rounded-lg flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md"
-              title="Zoom In"
+              title={t("worldMap.controls.zoomIn")}
             >
               <svg className="w-4 h-4 text-[#1a1a2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -318,7 +287,7 @@ export default function WorldMapComponent() {
             <button
               onClick={handleZoomOut}
               className="w-8 h-8 bg-white/90 hover:bg-white border border-[#daa520]/30 hover:border-[#daa520] rounded-lg flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md"
-              title="Zoom Out"
+              title={t("worldMap.controls.zoomOut")}
             >
               <svg className="w-4 h-4 text-[#1a1a2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 12H6" />
@@ -327,7 +296,7 @@ export default function WorldMapComponent() {
             <button
               onClick={handleResetView}
               className="w-8 h-8 bg-white/90 hover:bg-white border border-[#daa520]/30 hover:border-[#daa520] rounded-lg flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow-md"
-              title="Reset View"
+              title={t("worldMap.controls.resetView")}
             >
               <svg className="w-4 h-4 text-[#1a1a2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -364,9 +333,9 @@ export default function WorldMapComponent() {
                   const country = data.find(d => d.country.toLowerCase() === countryCode?.toLowerCase());
                   
                   if (country) {
-                    return `🤝 ${country.name} - Partnership Active`;
+                    return `🤝 ${country.name} - ${t("worldMap.tooltips.partnershipActive")}`;
                   } else {
-                    return `💼 Click to explore partnership opportunities`;
+                    return `💼 ${t("worldMap.tooltips.exploreOpportunities")}`;
                   }
                 }}
                 onClickFunction={(context) => handleCountryClick(context.countryCode)}
@@ -467,15 +436,15 @@ export default function WorldMapComponent() {
           <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm border-2 border-[#daa520]/30 rounded-2xl px-5 py-4 shadow-xl z-10">
             <div className="text-center">
               <div className="text-3xl font-bold text-[#daa520] mb-1">{data.length}</div>
-              <div className="text-xs text-[#708090] font-semibold">Active Partnerships</div>
-              <div className="text-xs text-[#1a1a2e] mt-1 font-medium">EMEA Region</div>
+              <div className="text-xs text-[#708090] font-semibold">{t("worldMap.statistics.activePartnerships")}</div>
+              <div className="text-xs text-[#1a1a2e] mt-1 font-medium">{t("worldMap.statistics.emeaRegion")}</div>
             </div>
           </div>
 
           {/* Zoom level indicator */}
           <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm border border-[#daa520]/20 rounded-xl px-3 py-2 shadow-lg z-10">
             <div className="text-xs text-[#708090] font-medium">
-              Zoom: {Math.round(zoomLevel * 100)}%
+              {t("worldMap.statistics.zoom")}: {Math.round(zoomLevel * 100)}%
             </div>
           </div>
         </div>
@@ -500,7 +469,7 @@ export default function WorldMapComponent() {
                     {country.name}
                   </div>
                   <div className="text-xs text-[#708090] mt-1 font-medium">
-                    {country.industries.length} Sectors
+                    {country.industries.length} {t("worldMap.statistics.sectors")}
                   </div>
                 </div>
               </div>
@@ -512,15 +481,15 @@ export default function WorldMapComponent() {
         <div className="flex items-center justify-center gap-8 mt-6 text-sm text-[#708090] relative z-10">
           <div className="flex items-center gap-3">
             <div className="w-4 h-4 bg-[#daa520] rounded-full shadow-md"></div>
-            <span className="font-medium">Active Partnerships</span>
+            <span className="font-medium">{t("worldMap.legend.activePartnerships")}</span>
           </div>
           <div className="flex items-center gap-3">
             <div className="w-4 h-4 bg-[#f1f5f9] border-2 border-[#cbd5e1] rounded-full"></div>
-            <span className="font-medium">Europe & Middle East</span>
+            <span className="font-medium">{t("worldMap.legend.europeMiddleEast")}</span>
           </div>
           <div className="flex items-center gap-3">
             <div className="w-4 h-4 bg-gradient-to-r from-[#daa520] to-[#b8860b] rounded-full shadow-md"></div>
-            <span className="font-medium">Headquarters (Poland)</span>
+            <span className="font-medium">{t("worldMap.legend.headquarters")}</span>
           </div>
         </div>
       </div>
@@ -557,7 +526,7 @@ export default function WorldMapComponent() {
               <button
                 onClick={() => setSelectedCountry(null)}
                 className="absolute top-6 right-6 w-12 h-12 rounded-full bg-gray-100 hover:bg-gray-200 border-2 border-gray-300 hover:border-[#daa520] flex items-center justify-center transition-all duration-200 z-10 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#daa520] focus:ring-offset-2"
-                aria-label="Close modal"
+                aria-label={t("worldMap.modal.closeModal")}
               >
                 <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

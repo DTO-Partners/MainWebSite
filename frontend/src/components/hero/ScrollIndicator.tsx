@@ -1,11 +1,14 @@
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface ScrollIndicatorProps {
-  onScrollToNext: () => void;
+  readonly onScrollToNext: () => void;
 }
 
 export function ScrollIndicator({ onScrollToNext }: ScrollIndicatorProps) {
+  const { t } = useTranslation();
+
   return (
     <motion.div
       className="absolute bottom-8 right-8 z-20"
@@ -19,7 +22,7 @@ export function ScrollIndicator({ onScrollToNext }: ScrollIndicatorProps) {
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
         whileHover={{ scale: 1.1 }}
-        aria-label="Scroll to next section"
+        aria-label={t("hero.cta.scrollIndicator")}
       >
         <ChevronDown size={24} />
       </motion.button>

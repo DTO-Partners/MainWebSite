@@ -1,4 +1,19 @@
 {
+  "hero": {
+    "badge": "Doskonałość w Globalnej Rekrutacji",
+    "title": {
+      "first": "DTO",
+      "second": "Partners"
+    },
+    "subtitle": {
+      "main": "Łączymy wyjątkowe talenty z wizjonerskimi organizacjami na całym świecie.",
+      "tagline": "Gdzie wiedza spotyka się z możliwością."
+    },
+    "cta": {
+      "button": "Poznaj Naszą Historię",
+      "scrollIndicator": "Przewiń do następnej sekcji"
+    }
+  },
   "nav": {
     "aboutus": "O nas",
     "markets": "Rynki i Branże",
@@ -56,6 +71,320 @@
       "privacyPolicy": "polityce prywatności",
       "submit": "WYŚLIJ APLIKACJĘ",
       "sending": "Wysyłanie..."
+    }
+  },
+  "about": {
+    "badge": "Międzynarodowa Firma Rekrutacyjna",
+    "title": "O Nas",
+    "subtitle": "DTO Partners",
+    "description1": "DTO Partners to międzynarodowa firma rekrutacyjna z siedzibą w Polsce. Nasze fundamenty zostały zbudowane przez menedżerów z uznawanym doświadczeniem w zarządzaniu inwestycjami, naukach o żywności i inżynierii, w ramach dużych międzynarodowych organizacji prywatnych i publicznych.",
+    "description2": "Firma DTO Partners została wpisana do Krajowego Rejestru Firm Pośrednictwa Pracy przez Ministerstwo Rodziny, Pracy i Polityki Społecznej Rzeczypospolitej Polskiej, co potwierdza nasze zaangażowanie w świadczenie rzetelnych i wysokiej jakości usług dostosowanych do Państwa potrzeb.",
+    "factChips": [
+      "Zarejestrowana w Polsce",
+      "Międzynarodowy zespół",
+      "Wpisani do Rejestru Krajowego"
+    ],
+    "videoCard": {
+      "title": "Inteligentne Wideo",
+      "description": "Automatycznie przełącza się z wyborem języka"
+    },
+    "expertise": {
+      "badge": "Nasze doświadczenie",
+      "title": "Globalny zasięg i doświadczenie",
+      "industriesTitle": "Branże, w których działamy",
+      "industriesDescription": "Różnorodne sektory, jednolita doskonałość w pozyskiwaniu talentów.",
+      "languagesTitle": "Języki, którymi mówimy",
+      "languagesDescription": "Łamanie barier poprzez wielojęzyczną doskonałość.",
+      "tabIndustries": "Branże",
+      "tabLanguages": "Języki",
+      "tabIndustriesShort": "Praca",
+      "tabLanguagesShort": "Język"
+    },
+    "industries": [
+      {
+        "label": "Finanse",
+        "description": "Zarządzanie inwestycjami i usługi finansowe"
+      },
+      {
+        "label": "Opieka zdrowotna",
+        "description": "Profesjonaliści medyczni i rozwiązania zdrowotne"
+      },
+      {
+        "label": "IT i Cyberbezpieczeństwo",
+        "description": "Eksperci technologiczni i specjaliści ds. bezpieczeństwa"
+      },
+      {
+        "label": "Hotelarstwo",
+        "description": "Zarządzanie turystyką i hotelarstwem"
+      },
+      {
+        "label": "Inżynieria Żywności",
+        "description": "Specjaliści z zakresu nauki i inżynierii żywności"
+      }
+    ],
+    "languages": [
+      {
+        "label": "Angielski"
+      },
+      {
+        "label": "Polski"
+      },
+      {
+        "label": "Włoski"
+      },
+      {
+        "label": "Niemiecki"
+      },
+      {
+        "label": "Rosyjski"
+      }
+    ]
+  },
+  "markets": {
+    "header": {
+      "badge": "Rynki Globalne",
+      "title": "Nasze Partnerstwa",
+      "subtitle": "Na Całym Świecie",
+      "description": "W DTO Partners nasza sieć sięga przez kontynenty, z strategicznym naciskiem na Europę i Bliski Wschód. Dostarczamy dostosowane rozwiązania, aby sprostać unikalnym wyzwaniom branżowym naszych klientów na całym świecie.",
+      "recruitment": "Nasza rekrutacja obejmuje stanowiska od juniora do poszukiwań kadry kierowniczej, w tym profesjonalistów autoryzowanych przez rząd."
+    },
+    "countries": {
+      "badge": "Nasza Obecność",
+      "title": "Kraje W Których Działamy",
+      "list": [
+        { "code": "pl", "name": "Polska", "type": "png" },
+        { "code": "de", "name": "Niemcy", "type": "jpeg" },
+        { "code": "lu", "name": "Luksemburg", "type": "png" },
+        { "code": "ie", "name": "Irlandia", "type": "png" },
+        { "code": "sa", "name": "Arabia Saudyjska", "type": "png" },
+        { "code": "ae", "name": "ZEA", "type": "png" }
+      ]
+    },
+    "industries": {
+      "badge": "Branże",
+      "title": "Branże Według Kraju",
+      "list": [
+        {
+          "title": "Finanse",
+          "countries": ["Luksemburg", "Irlandia", "Arabia Saudyjska"]
+        },
+        {
+          "title": "IT i Cyberbezpieczeństwo",
+          "countries": ["Luksemburg", "Polska", "Irlandia"]
+        },
+        {
+          "title": "Opieka Zdrowotna",
+          "countries": ["Polska", "Niemcy", "Arabia Saudyjska"]
+        },
+        {
+          "title": "Hotelarstwo",
+          "countries": ["Polska", "Niemcy", "Arabia Saudyjska"]
+        }
+      ]
+    },
+    "map": {
+      "badge": "Mapa Interaktywna",
+      "title": "Przegląd Sieci Globalnej",
+      "description": "Kliknij na regiony, aby poznać naszą obecność"
+    },
+    "modal": {
+      "availableIndustries": "Dostępne Branże",
+      "noIndustries": "Obecnie brak branż dla tego kraju.",
+      "close": "Zamknij"
+    },
+    "accordion": {
+      "exploreText": "krajów • Kliknij, aby poznać",
+      "partnershipText": "Poznaj nasze partnerstwa na tych strategicznych rynkach:"
+    }
+  },
+  "industries": {
+    "header": {
+      "badge": "DTO Partners",
+      "title": "Branże",
+      "subtitle": "W Których Działamy",
+      "description": "Dostarczanie wyjątkowych talentów w różnych sektorach z precyzją, fachowością i niezłomnym zaangażowaniem w dążeniu do doskonałości."
+    },
+    "sections": {
+      "finance": {
+        "title": "FINANSE",
+        "subtitle": "Wzmacnianie wzrostu finansowego.",
+        "description": "Zapewniamy ekspertów w rekrutacji dla zarządzania aktywami, bankowości prywatnej oraz bankowości korporacyjnej, gwarantując zgodność z przepisami oraz doskonałość operacyjną.",
+        "keyServices": [
+          "Zarządzanie Aktywami",
+          "Zarządzanie Majątkiem",
+          "Bankowość Korporacyjna"
+        ],
+        "detailedServices": {
+          "title": "Szczegółowe Usługi",
+          "services": [
+            "Zarządzanie Aktywami (Zarządzanie Funduszami)",
+            "Zarządzanie Majątkiem i Bankowość Prywatna (KYC/AML, Prawo, Zgodność, Kredyty, Zarządzanie Relacjami, Strukturyzacja, Operacje, Zarządzanie Projektami)",
+            "Bankowość Korporacyjna (KYC/AML, Prawo, Zgodność, Kredyty, Zarządzanie Relacjami, Strukturyzacja, Operacje, Zarządzanie Projektami)"
+          ]
+        }
+      },
+      "healthcare": {
+        "title": "OPIEKA ZDROWOTNA",
+        "subtitle": "Dbając o społeczności.",
+        "description": "Łączymy najlepsze talenty z szpitalami, klinikami i ośrodkami opieki, wspierając jakość świadczeń zdrowotnych w różnych regionach.",
+        "keyServices": [
+          "Szpitale",
+          "Prywatne Kliniki",
+          "Ośrodki Rehabilitacyjne"
+        ],
+        "detailedServices": {
+          "title": "Szczegółowe Usługi",
+          "services": [
+            "Szpitale",
+            "Prywatne Kliniki",
+            "Ośrodki Rehabilitacyjne",
+            "Domy Opieki"
+          ]
+        }
+      },
+      "itCybersecurity": {
+        "title": "IT I CYBERBEZPIECZEŃSTWO",
+        "subtitle": "Zabezpieczanie cyfrowych przyszłości.",
+        "description": "Nasza sieć dostarcza wykwalifikowanych profesjonalistów w obszarach wsparcia IT, zarządzania projektami oraz cyberbezpieczeństwa, aby wspierać innowacje i bezpieczeństwo.",
+        "keyServices": [
+          "Wsparcie IT",
+          "Cyberbezpieczeństwo",
+          "Rozwój Oprogramowania"
+        ],
+        "detailedServices": {
+          "title": "Szczegółowe Usługi",
+          "services": [
+            "Wsparcie i Usługi IT",
+            "Zarządzanie Projektami",
+            "Zarządzanie Bazami Danych",
+            "Cyberbezpieczeństwo",
+            "Rozwój Oprogramowania"
+          ]
+        }
+      },
+      "hospitality": {
+        "title": "HOTELARSTWO",
+        "subtitle": "Doskonałość w obsłudze.",
+        "description": "Rekrutujemy dla hoteli i ośrodków wypoczynkowych, koncentrując się na doświadczeniu gości oraz efektywności operacyjnej w sektorze hotelarskim.",
+        "keyServices": [
+          "Hotele",
+          "Ośrodki Wypoczynkowe"
+        ],
+        "detailedServices": {
+          "title": "Szczegółowe Usługi",
+          "services": [
+            "Hotele i ośrodki wypoczynkowe"
+          ]
+        }
+      },
+      "foodEngineering": {
+        "title": "INŻYNIERIA ŻYWNOŚCIOWA",
+        "subtitle": "Jakość od pola do stołu.",
+        "description": "Wspieramy przemysł spożywczy, oferując ekspertów w zakresie zarządzania bezpieczeństwem, dokumentacją oraz zgodnością regulacyjną z globalnymi standardami.",
+        "keyServices": [
+          "Bezpieczeństwo Żywności",
+          "Audyty Jakości",
+          "Szkolenia"
+        ],
+        "detailedServices": {
+          "title": "Szczegółowe Usługi",
+          "services": [
+            "Zarządzanie jakością i bezpieczeństwem żywności",
+            "Tworzenie dokumentacji zgodnie z normami oraz współpraca ze standardami ISO 9001, IFS FOODS, BRC, HACCP, GHP/GMP",
+            "Tworzenie projektów technologicznych",
+            "Audyty jakości",
+            "Szkolenia w zakresie bezpieczeństwa żywności zgodnie z krajowym i międzynarodowym prawodawstwem",
+            "Znajomość krajowych i międzynarodowych regulacji dotyczących bezpieczeństwa żywności i żywienia",
+            "Reprezentacja firm przed organami państwowymi w zakresie m.in. kontroli bezpieczeństwa żywności",
+            "Przygotowanie dokumentacji dla przemysłu spożywczego m.in. dla rozszerzenie działalności gospodarczej, otwarcie obiektów gastronomicznych"
+          ]
+        }
+      }
+    },
+    "actions": {
+      "exploreDetails": "Sprawdź Szczegóły",
+      "exploreExpertise": "Poznaj naszą wiedzę",
+      "close": "Zamknij"
+    }
+  },
+  "worldMap": {
+    "header": {
+      "title": "Globalna Sieć Partnerska",
+      "description": "Kliknij na dowolny podświetlony kraj, aby odkryć nasze partnerstwa, koncentrację branżową i harmonogram ekspansji w tym regionie."
+    },
+    "controls": {
+      "focusRegion": "Region Główny:",
+      "regions": {
+        "all": "Wszystkie Regiony",
+        "europe": "Europa",
+        "middleEast": "Bliski Wschód"
+      },
+      "highlightTour": "Wycieczka z Podświetleniem",
+      "zoomIn": "Powiększ",
+      "zoomOut": "Pomniejsz",
+      "resetView": "Resetuj Widok"
+    },
+    "legend": {
+      "activePartnerships": "Aktywne Partnerstwa",
+      "europeMiddleEast": "Europa i Bliski Wschód",
+      "headquarters": "Siedziba Główna (Polska)"
+    },
+    "statistics": {
+      "activePartnerships": "Aktywne Partnerstwa",
+      "emeaRegion": "Region EMEA",
+      "sectors": "Sektory",
+      "zoom": "Powiększenie"
+    },
+    "countries": {
+      "pl": {
+        "name": "Polska",
+        "description": "Nasza siedziba główna i podstawowa baza operacyjna",
+        "industries": ["Finanse", "IT", "Opieka Zdrowotna"],
+        "established": "2025"
+      },
+      "de": {
+        "name": "Niemcy",
+        "description": "Strategiczne partnerstwo dla ekspansji w Europie Środkowej",
+        "industries": ["Inżynieria", "Produkcja", "Finanse"],
+        "established": "2025"
+      },
+      "lu": {
+        "name": "Luksemburg",
+        "description": "Centrum usług finansowych i zarządzania inwestycjami",
+        "industries": ["Finanse", "Inwestycje", "Bankowość"],
+        "established": "2025"
+      },
+      "ie": {
+        "name": "Irlandia",
+        "description": "Partnerstwa w sektorze technologicznym i farmaceutycznym",
+        "industries": ["Technologia", "Farmaceutyki", "Finanse"],
+        "established": "2025"
+      },
+      "sa": {
+        "name": "Arabia Saudyjska",
+        "description": "Sektor energetyczny i rozwój infrastruktury",
+        "industries": ["Energia", "Infrastruktura", "Inżynieria"],
+        "established": "2025"
+      },
+      "ae": {
+        "name": "ZEA",
+        "description": "Rozwój biznesu na Bliskim Wschodzie i hotelarstwo",
+        "industries": ["Hotelarstwo", "Rozwój Biznesu", "Finanse"],
+        "established": "2025"
+      }
+    },
+    "tooltips": {
+      "partnershipActive": "Partnerstwo Aktywne",
+      "exploreOpportunities": "Kliknij, aby poznać możliwości partnerstwa"
+    },
+    "modal": {
+      "partnershipOverview": "Przegląd Partnerstwa",
+      "keyIndustrySectors": "Kluczowe Sektory Branżowe",
+      "partnershipEstablished": "Partnerstwo nawiązane",
+      "exploreOpportunities": "Poznaj Możliwości w",
+      "closeModal": "Zamknij okno",
+      "contactInterest": "Dziękujemy za zainteresowanie {country}!\n\nSkontaktuj się z nami pod adresem partnerships@dtopartners.com, aby uzyskać więcej szczegółów na temat możliwości w {country}.",
+      "partnershipInquiry": "Jesteś zainteresowany partnerstwem z nami w {country}?\n\nBadamy możliwości ekspansji!\nSkontaktuj się z nami pod adresem partnerships@dtopartners.com"
     }
   },
   "values": {
